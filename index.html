@@ -66,6 +66,59 @@
       box-shadow: 0 6px 18px rgba(244,180,0,0.35);
     }
 
+
+
+    .menu-toggle {
+      display: none;
+      background: rgba(255,255,255,0.08);
+      color: white;
+      border: 1px solid rgba(255,255,255,0.18);
+      border-radius: 12px;
+      padding: 10px 12px;
+      cursor: pointer;
+      align-items: center;
+      gap: 8px;
+      font-weight: 700;
+      font-size: 14px;
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+      background: #f4b400;
+      color: #0b1f3a;
+      box-shadow: 0 6px 18px rgba(244,180,0,0.35);
+    }
+
+    .menu-icon {
+      width: 22px;
+      height: 16px;
+      display: inline-flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .menu-icon span {
+      display: block;
+      height: 2px;
+      width: 100%;
+      background: currentColor;
+      border-radius: 3px;
+      transition: transform 0.3s ease, opacity 0.3s ease;
+    }
+
+    .menu-toggle.open .menu-icon span:nth-child(1) {
+      transform: translateY(7px) rotate(45deg);
+    }
+
+    .menu-toggle.open .menu-icon span:nth-child(2) {
+      opacity: 0;
+    }
+
+    .menu-toggle.open .menu-icon span:nth-child(3) {
+      transform: translateY(-7px) rotate(-45deg);
+    }
+
+
     .page {
       display: none;
       min-height: 85vh;
@@ -185,7 +238,26 @@
       font-size: 30px;
       color: #f4b400;
       font-weight: bold;
-      margin: 15px 0;
+      margin: 15px 0 4px;
+    }
+
+    .usd-price {
+      display: block;
+      color: #0b1f3a;
+      font-size: 15px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .payment-note {
+      background: #e9f0ff;
+      border-left: 5px solid #0b1f3a;
+      color: #0b1f3a;
+      padding: 18px 20px;
+      border-radius: 10px;
+      margin: 25px auto 0;
+      max-width: 900px;
+      font-weight: bold;
     }
 
     .badge {
@@ -501,17 +573,57 @@
     }
 
     @media (max-width: 850px) {
+      header {
+        padding: 14px 5%;
+      }
+
+      header h1 {
+        font-size: 20px;
+        max-width: calc(100% - 110px);
+      }
+
+      .menu-toggle {
+        display: inline-flex;
+      }
+
       nav {
-        margin-top: 15px;
+        width: 100%;
+        max-height: 0;
+        overflow: hidden;
+        opacity: 0;
+        margin-top: 0;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
+      }
+
+      nav.open {
+        max-height: 380px;
+        opacity: 1;
+        margin-top: 16px;
       }
 
       nav a {
-        display: inline-block;
-        margin: 8px;
+        display: block;
+        width: 100%;
+        margin: 0;
+        text-align: center;
+        padding: 13px 16px;
+        border-radius: 12px;
+        background: rgba(255,255,255,0.08);
+      }
+
+      .hero {
+        padding: 90px 6%;
       }
 
       .hero h2, .page-banner h2 {
         font-size: 32px;
+      }
+
+      section {
+        padding: 55px 6%;
       }
 
       .order-layout {
@@ -527,6 +639,34 @@
         margin-top: 12px;
       }
     }
+
+    @media (max-width: 420px) {
+      header h1 {
+        font-size: 17px;
+        letter-spacing: 0.4px;
+      }
+
+      .menu-toggle {
+        padding: 9px 10px;
+        font-size: 13px;
+      }
+
+      .hero h2, .page-banner h2 {
+        font-size: 28px;
+      }
+
+      .hero p, .page-banner p {
+        font-size: 15px;
+      }
+
+      .title h2, .split h2 {
+        font-size: 28px;
+      }
+
+      .card, form, .side-image {
+        padding: 22px;
+      }
+    }
   
 
     .privacy-note {
@@ -540,7 +680,11 @@
 <body>
 <header>
 <h1>Assistance Numérique Online</h1>
-<nav>
+<button aria-controls="mainNav" aria-expanded="false" aria-label="Ouvrir le menu" class="menu-toggle" id="menuToggle" type="button">
+<span class="menu-icon" aria-hidden="true"><span></span><span></span><span></span></span>
+<span>Menu</span>
+</button>
+<nav id="mainNav">
 <a onclick="showPage('accueil')">Accueil</a>
 <a onclick="showPage('tarifsCommande')">Mémoire académique</a>
 <a onclick="showPage('cvService')">CV Pro</a>
@@ -650,24 +794,29 @@
 <div class="card">
 <h3>DTS</h3>
 <div class="price">50 000 Ar</div>
+<span class="usd-price">≈ 11 USD</span>
 <p>Document simple, structuré et adapté au niveau DTS.</p>
 </div>
 <div class="card">
 <h3>Licence</h3>
 <div class="price">100 000 Ar</div>
+<span class="usd-price">≈ 22 USD</span>
 <p>Rédaction professionnelle avec cohérence universitaire.</p>
 </div>
 <div class="card">
 <h3>Master 1</h3>
 <div class="price">150 000 Ar</div>
+<span class="usd-price">≈ 33 USD</span>
 <p>Analyse approfondie et développement académique avancé.</p>
 </div>
 <div class="card">
 <h3>Master 2</h3>
 <div class="price">175 000 Ar</div>
+<span class="usd-price">≈ 39 USD</span>
 <p>Travail complet, structuré, argumenté et professionnel.</p>
 </div>
 </div>
+<div class="payment-note">Paiements acceptés : MVola, Orange Money, Airtel Money, espèces et cryptomonnaie. Les montants en USD sont donnés à titre indicatif sur la base approximative de 1 USD ≈ 4 500 Ar.</div>
 </section>
 <section class="process">
 <div class="title">
@@ -681,7 +830,7 @@
 </div>
 <div class="step">
 <h3>Paiement</h3>
-<p>Le paiement du tarif correspondant au niveau demandé est obligatoire avant le démarrage.</p>
+<p>Le paiement du tarif correspondant au niveau demandé est obligatoire avant le démarrage. Paiement possible en mobile money, espèces ou cryptomonnaie.</p>
 </div>
 <div class="step">
 <h3>Validation</h3>
@@ -728,10 +877,10 @@
 <label for="niveau">Niveau d’étude</label>
 <select id="niveau" name="niveau" required="">
 <option value="">Sélectionnez votre niveau</option>
-<option>DTS - 50 000 Ar</option>
-<option>Licence - 100 000 Ar</option>
-<option>Master 1 - 150 000 Ar</option>
-<option>Master 2 - 175 000 Ar</option>
+<option>DTS - 50 000 Ar / environ 11 USD</option>
+<option>Licence - 100 000 Ar / environ 22 USD</option>
+<option>Master 1 - 150 000 Ar / environ 33 USD</option>
+<option>Master 2 - 175 000 Ar / environ 39 USD</option>
 </select>
 </div>
 <div>
@@ -767,6 +916,7 @@
 <option>Orange Money</option>
 <option>Airtel Money</option>
 <option>Espèces</option>
+<option>Cryptomonnaie</option>
 </select>
 </div>
 <div class="full">
@@ -795,7 +945,7 @@
 <li>Création de CV modernes et professionnels.</li>
 <li>Amélioration de CV déjà existants.</li>
 <li>Mise en page claire et adaptée aux candidatures.</li>
-<li>Tarif accessible : 1 000 Ar par CV.</li>
+<li>Tarif accessible : 1 000 Ar par CV, soit environ 0,22 USD.</li>
 </ul>
 </div>
 <img alt="Création de CV professionnel" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1516321310764-8d4a6b6b0e8c?auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
@@ -823,6 +973,7 @@
 <p>Présentation élégante adaptée aux candidatures professionnelles et administratives.</p>
 </div>
 </div>
+<div class="payment-note">Paiements acceptés pour le service CV : MVola, Orange Money, Airtel Money et cryptomonnaie.</div>
 </section>
 <section>
 <div class="title">
@@ -834,7 +985,7 @@
 <img alt="CV sur ordinateur" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
 <h3>Informations importantes</h3>
 <p>Le service CV consiste uniquement à accompagner la présentation professionnelle des informations fournies par le client.</p>
-<div class="notice">Tarif : 1 000 Ar par CV.</div>
+<div class="notice">Tarif : 1 000 Ar par CV, soit environ 0,22 USD.</div>
 </div>
 <form action="https://formsubmit.co/assistance.numerique.online@gmail.com" data-form-service="formsubmit" enctype="multipart/form-data" method="POST">
 <input name="_subject" type="hidden" value="Nouvelle demande CV - Assistance Numérique Online"/>
@@ -883,6 +1034,7 @@
 <option>MVola</option>
 <option>Orange Money</option>
 <option>Airtel Money</option>
+<option>Cryptomonnaie</option>
 </select>
 </div>
 <div class="full">
@@ -904,7 +1056,7 @@
 <h2>Site vitrine simple et professionnel</h2>
 <p>Nous concevons uniquement des sites web vitrines : pages de présentation, services, tarifs, contact, galerie d’images et informations utiles. Ce service ne comprend pas la création d’une boutique en ligne, d’un espace membre ou d’une application complexe.</p>
 <ul class="feature-list">
-<li>Conception du site vitrine : 100 000 Ar.</li>
+<li>Conception du site vitrine : 100 000 Ar, soit environ 22 USD.</li>
 <li>Nom de domaine non inclus dans le tarif.</li>
 <li>Hébergement payant non inclus dans le tarif.</li>
 <li>Possibilité de mise en ligne gratuite sur GitHub Pages si le client fournit le nom de domaine et l’adresse email à utiliser.</li>
@@ -937,6 +1089,7 @@
 <p>Hébergement gratuit possible sur GitHub Pages si le client fournit le nom de domaine et l’email nécessaires.</p>
 </div>
 </div>
+<div class="payment-note">Paiements acceptés pour le site vitrine : MVola, Orange Money, Airtel Money, espèces et cryptomonnaie. Le montant en USD est indicatif et peut varier selon le taux du jour.</div>
 </section>
 <section>
 <div class="title">
@@ -947,7 +1100,7 @@
 <div class="side-image">
 <img alt="Préparation d’un projet web" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
 <h3>Tarif et conditions</h3>
-<p><strong>Tarif :</strong> 100 000 Ar pour la conception du site vitrine.</p>
+<p><strong>Tarif :</strong> 100 000 Ar, soit environ 22 USD, pour la conception du site vitrine.</p>
 <p><strong>Non inclus :</strong> nom de domaine, hébergement payant, email professionnel payant, boutique en ligne et fonctionnalités complexes.</p>
 <div class="notice">Mise en ligne gratuite possible sur GitHub Pages si vous fournissez le nom de domaine et l’adresse email à utiliser.</div>
 </div>
@@ -1016,6 +1169,7 @@
 <option>Orange Money</option>
 <option>Airtel Money</option>
 <option>Espèces</option>
+<option>Cryptomonnaie</option>
 </select>
 </div>
 <div class="full">
@@ -1041,12 +1195,14 @@
 <li>Nous proposons un service d’accompagnement académique et méthodologique destiné aux étudiants du niveau DTS jusqu’au Master 2.</li>
 <li>Le nombre de demandes d’accompagnement est limité à 5 étudiants par jour.</li>
 <li>L’accompagnement commence après paiement du tarif correspondant et validation des informations par notre équipe.</li>
+<li>Les paiements peuvent être effectués en Ariary, en équivalent dollar US indicatif, par mobile money, espèces ou cryptomonnaie selon disponibilité.</li>
+<li>Les montants en dollar US sont affichés à titre indicatif sur la base approximative de 1 USD ≈ 4 500 Ar et peuvent varier selon le taux du jour.</li>
 <li>Le délai d’accompagnement et de préparation des documents est de 5 jours au plus tard à partir de la validation du paiement.</li>
 <li>L’étudiant doit fournir toutes les informations nécessaires : thème, niveau, spécialité, consignes, documents disponibles et coordonnées.</li>
 <li>Les modifications doivent rester conformes aux informations validées au début du travail.</li>
 <li>Le service CV consiste uniquement à mettre en valeur et organiser les informations fournies par le client, sans falsification de diplômes, expériences ou documents.</li>
 <li>Le service de création de site web concerne uniquement les sites vitrines simples de présentation.</li>
-<li>Le tarif de conception du site vitrine est de 100 000 Ar, sans nom de domaine et sans hébergement payant inclus.</li>
+<li>Le tarif de conception du site vitrine est de 100 000 Ar, soit environ 22 USD, sans nom de domaine et sans hébergement payant inclus.</li>
 <li>La mise en ligne gratuite sur GitHub Pages peut être proposée si le client fournit le nom de domaine et l’adresse email nécessaires.</li>
 <li>Les fichiers envoyés par le client, notamment les images, logos et textes, doivent être libres d’utilisation ou lui appartenir.</li>
 </ul>
@@ -1076,10 +1232,32 @@
       });
     });
 
+    const menuToggle = document.getElementById('menuToggle');
+    const mainNav = document.getElementById('mainNav');
+
+    if (menuToggle && mainNav) {
+      menuToggle.addEventListener('click', () => {
+        const isOpen = mainNav.classList.toggle('open');
+        menuToggle.classList.toggle('open', isOpen);
+        menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        menuToggle.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+      });
+    }
+
+    function closeMobileMenu() {
+      if (menuToggle && mainNav) {
+        mainNav.classList.remove('open');
+        menuToggle.classList.remove('open');
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-label', 'Ouvrir le menu');
+      }
+    }
+
     function showPage(pageId) {
       const pages = document.querySelectorAll('.page');
       pages.forEach(page => page.classList.remove('active'));
       document.getElementById(pageId).classList.add('active');
+      closeMobileMenu();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
