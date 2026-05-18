@@ -1,0 +1,1097 @@
+<!DOCTYPE html>
+
+<html lang="fr">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Mémoire Pro Madagascar</title>
+<style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body {
+      color: #222;
+      background: #f7f9fc;
+      line-height: 1.6;
+    }
+
+    header {
+      background: linear-gradient(135deg, #020914, #0b1f3a, #132f57);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 20px 8%;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      position: sticky;
+      top: 0;
+      z-index: 1000;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 8px 30px rgba(0,0,0,0.25);
+    }
+
+    header h1 {
+      font-size: 28px;
+      letter-spacing: 1px;
+      font-weight: 800;
+      text-transform: uppercase;
+      background: linear-gradient(90deg, #ffffff, #f4b400);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    nav a {
+      color: white;
+      text-decoration: none;
+      margin-left: 14px;
+      font-weight: 600;
+      font-size: 14px;
+      cursor: pointer;
+      padding: 10px 16px;
+      border-radius: 30px;
+      transition: all 0.3s ease;
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(255,255,255,0.05);
+    }
+
+    nav a:hover {
+      color: #0b1f3a;
+      background: #f4b400;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 18px rgba(244,180,0,0.35);
+    }
+
+    .page {
+      display: none;
+      min-height: 85vh;
+    }
+
+    .page.active {
+      display: block;
+    }
+
+    .hero {
+      background: linear-gradient(rgba(11,31,58,0.78), rgba(11,31,58,0.78)), url('https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      padding: 120px 8%;
+    }
+
+    .hero-content {
+      max-width: 850px;
+    }
+
+    .hero h2 {
+      font-size: 48px;
+      margin-bottom: 20px;
+      line-height: 1.15;
+    }
+
+    .hero p {
+      font-size: 18px;
+      margin-bottom: 30px;
+      color: #f0f4ff;
+    }
+
+    .btn {
+      background: #f4b400;
+      color: #0b1f3a;
+      padding: 14px 28px;
+      text-decoration: none;
+      border-radius: 6px;
+      font-weight: bold;
+      display: inline-block;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn.secondary {
+      background: white;
+      margin-left: 12px;
+    }
+
+    .btn:hover {
+      opacity: 0.9;
+    }
+
+    section {
+      padding: 70px 8%;
+    }
+
+    .title {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .title h2 {
+      font-size: 34px;
+      color: #0b1f3a;
+      margin-bottom: 10px;
+    }
+
+    .title p {
+      max-width: 760px;
+      margin: auto;
+      color: #555;
+    }
+
+    .notice {
+      background: #fff3cd;
+      border-left: 5px solid #f4b400;
+      padding: 20px;
+      border-radius: 8px;
+      margin-top: 25px;
+      max-width: 760px;
+      color: #4a3900;
+      font-weight: bold;
+    }
+
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 25px;
+    }
+
+    .card {
+      background: white;
+      padding: 30px;
+      border-radius: 16px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .card img {
+      width: 100%;
+      height: 170px;
+      object-fit: cover;
+      border-radius: 12px;
+      margin-bottom: 18px;
+    }
+
+    .card h3 {
+      color: #0b1f3a;
+      margin-bottom: 12px;
+      font-size: 22px;
+    }
+
+    .price {
+      font-size: 30px;
+      color: #f4b400;
+      font-weight: bold;
+      margin: 15px 0;
+    }
+
+    .badge {
+      display: inline-block;
+      background: #e9f0ff;
+      color: #0b1f3a;
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 13px;
+      font-weight: bold;
+      margin-bottom: 12px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+      gap: 45px;
+      align-items: center;
+    }
+
+    .split img {
+      width: 100%;
+      border-radius: 18px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+    }
+
+    .split h2 {
+      color: #0b1f3a;
+      font-size: 34px;
+      margin-bottom: 18px;
+    }
+
+    .feature-list {
+      margin-top: 20px;
+      list-style: none;
+    }
+
+    .feature-list li {
+      background: white;
+      margin-bottom: 12px;
+      padding: 14px 18px;
+      border-left: 4px solid #f4b400;
+      border-radius: 8px;
+      box-shadow: 0 3px 12px rgba(0,0,0,0.05);
+    }
+
+    .page-banner {
+      background: linear-gradient(rgba(11,31,58,0.82), rgba(11,31,58,0.82)), url('https://images.unsplash.com/photo-1516321318423-f06f85e504b3?auto=format&fit=crop&w=1600&q=80');
+      background-size: cover;
+      background-position: center;
+      color: white;
+      text-align: center;
+      padding: 95px 8%;
+    }
+
+    .page-banner.commande {
+      background-image: linear-gradient(rgba(11,31,58,0.82), rgba(11,31,58,0.82)), url('https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&w=1600&q=80');
+    }
+
+    .page-banner h2 {
+      font-size: 42px;
+      margin-bottom: 12px;
+    }
+
+    .process {
+      background: white;
+    }
+
+    .steps {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 25px;
+      counter-reset: step;
+    }
+
+    .step {
+      background: #f7f9fc;
+      padding: 25px;
+      border-radius: 14px;
+      position: relative;
+      border: 1px solid #e4e8ef;
+    }
+
+    .step::before {
+      counter-increment: step;
+      content: counter(step);
+      width: 38px;
+      height: 38px;
+      background: #0b1f3a;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      font-weight: bold;
+      margin-bottom: 15px;
+    }
+
+    .step h3 {
+      color: #0b1f3a;
+      margin-bottom: 10px;
+    }
+
+    .order-layout {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 35px;
+      align-items: start;
+    }
+
+    .side-image {
+      background: white;
+      padding: 22px;
+      border-radius: 16px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    }
+
+    .side-image img {
+      width: 100%;
+      border-radius: 14px;
+      margin-bottom: 18px;
+    }
+
+    .side-image h3 {
+      color: #0b1f3a;
+      margin-bottom: 12px;
+    }
+
+    form {
+      background: white;
+      padding: 35px;
+      border-radius: 16px;
+      box-shadow: 0 6px 24px rgba(0,0,0,0.08);
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 20px;
+    }
+
+    label {
+      font-weight: bold;
+      color: #0b1f3a;
+      display: block;
+      margin-bottom: 8px;
+    }
+
+    input, select, textarea {
+      width: 100%;
+      padding: 13px;
+      border: 1px solid #ccd4df;
+      border-radius: 8px;
+      font-size: 15px;
+      background: white;
+    }
+
+    textarea {
+      min-height: 120px;
+      resize: vertical;
+    }
+
+    .full {
+      grid-column: 1 / -1;
+    }
+
+    .terms {
+      background: #0b1f3a;
+      color: white;
+    }
+
+    .terms-box {
+      max-width: 900px;
+      margin: auto;
+      background: rgba(255,255,255,0.08);
+      padding: 30px;
+      border-radius: 14px;
+    }
+
+    .terms-box ul {
+      padding-left: 22px;
+    }
+
+    .terms-box li {
+      margin-bottom: 12px;
+    }
+
+    footer {
+      background: linear-gradient(135deg, #020914, #0b1f3a, #132f57);
+      color: white;
+      text-align: center;
+      padding: 35px 20px;
+      font-size: 16px;
+      font-weight: 600;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-top: 1px solid rgba(255,255,255,0.08);
+      box-shadow: 0 -6px 25px rgba(0,0,0,0.25);
+      position: relative;
+      overflow: hidden;
+    }
+
+    footer::before {
+      content: '';
+      position: absolute;
+      width: 220px;
+      height: 220px;
+      background: rgba(244,180,0,0.08);
+      border-radius: 50%;
+      top: -110px;
+      left: -60px;
+    }
+
+    footer::after {
+      content: '';
+      position: absolute;
+      width: 180px;
+      height: 180px;
+      background: rgba(255,255,255,0.04);
+      border-radius: 50%;
+      bottom: -90px;
+      right: -40px;
+    }
+
+    footer p {
+      position: relative;
+      z-index: 2;
+      background: linear-gradient(90deg, #ffffff, #f4b400);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+
+
+    .upload-box {
+      border: 2px dashed #ccd4df;
+      background: #f7f9fc;
+      padding: 18px;
+      border-radius: 12px;
+    }
+
+    .upload-box input[type="file"] {
+      background: white;
+      border: none;
+      padding: 10px 0 0 0;
+    }
+
+    .small-note {
+      display: block;
+      margin-top: 8px;
+      color: #666;
+      font-size: 13px;
+      font-weight: normal;
+    }
+
+    .highlight-card {
+      border: 2px solid rgba(244,180,0,0.45);
+      position: relative;
+    }
+
+    .highlight-card::after {
+      content: 'Nouveau service';
+      position: absolute;
+      top: 16px;
+      right: 16px;
+      background: #f4b400;
+      color: #0b1f3a;
+      padding: 6px 10px;
+      border-radius: 20px;
+      font-size: 12px;
+      font-weight: bold;
+    }
+
+
+
+    /* Correction affichage images */
+    img {
+      display: block;
+      max-width: 100%;
+    }
+
+    .hero,
+    .page-banner {
+      background-repeat: no-repeat;
+      background-size: cover;
+      background-position: center;
+    }
+
+    .card img,
+    .contact-card img,
+    .side-image img,
+    .split img {
+      background: #e9eef6;
+    }
+
+    .image-cover,
+    .card img {
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .split img {
+      min-height: 320px;
+      max-height: 460px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    .side-image img {
+      min-height: 250px;
+      object-fit: cover;
+      object-position: center;
+    }
+
+    @media (max-width: 850px) {
+      nav {
+        margin-top: 15px;
+      }
+
+      nav a {
+        display: inline-block;
+        margin: 8px;
+      }
+
+      .hero h2, .page-banner h2 {
+        font-size: 32px;
+      }
+
+      .order-layout {
+        grid-template-columns: 1fr;
+      }
+
+      form {
+        padding: 25px;
+      }
+
+      .btn.secondary {
+        margin-left: 0;
+        margin-top: 12px;
+      }
+    }
+  
+
+    .privacy-note {
+      margin-top: 12px;
+      color: #555;
+      font-size: 13px;
+      line-height: 1.5;
+    }
+</style>
+<meta content="strict-origin-when-cross-origin" name="referrer"/></head>
+<body>
+<header>
+<h1>Assistance Numérique Online</h1>
+<nav>
+<a onclick="showPage('accueil')">Accueil</a>
+<a onclick="showPage('tarifsCommande')">Mémoire académique</a>
+<a onclick="showPage('cvService')">CV Pro</a>
+<a onclick="showPage('siteVitrine')">Site vitrine</a>
+<a onclick="showPage('conditions')">Conditions</a>
+</nav>
+</header>
+<main class="page active" id="accueil">
+<section class="hero">
+<div class="hero-content">
+<h2>Assistance académique, CV professionnel et site vitrine</h2>
+<p>Un service spécialisé pour accompagner les étudiants, chercheurs d’emploi et petites activités dans la structuration de documents, la création de CV et la conception de sites web vitrines simples.</p>
+<a class="btn" onclick="showPage('tarifsCommande')">Service mémoire</a>
+<a class="btn secondary" onclick="showPage('siteVitrine')">Créer un site vitrine</a>
+<div class="notice">Seulement 5 demandes d’accompagnement acceptées par jour afin de garantir un suivi sérieux, organisé et de qualité.</div>
+</div>
+</section>
+<section>
+<div class="split">
+<div>
+<h2>Un accompagnement clair du début à la livraison</h2>
+<p>Nous aidons les étudiants à obtenir un document bien présenté, cohérent et adapté aux exigences de leur niveau universitaire. Chaque commande est étudiée selon le thème, la spécialité, les consignes de l’établissement et les documents disponibles.</p>
+<ul class="feature-list">
+<li>Service disponible pour DTS, Licence, Master 1 et Master 2.</li>
+<li>Travail lancé après paiement et validation par notre équipe.</li>
+<li>Délai de conception : 5 jours au plus tard après validation.</li>
+<li>Communication simple par téléphone, WhatsApp ou email.</li>
+</ul>
+</div>
+<img alt="Étudiants travaillant sur un projet universitaire" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
+</div>
+</section>
+<section>
+<div class="title">
+<h2>Nos services principaux</h2>
+<p>Trois grandes offres simples et utiles : accompagnement mémoire, CV professionnel et création de site web vitrine.</p>
+</div>
+<div class="cards" style="margin-bottom:40px;">
+<div class="card">
+<img alt="Livre de mémoire académique" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<span class="badge">Mémoire</span>
+<h3>Livre de mémoire</h3>
+<p>Accompagnement académique et méthodologique pour la préparation, la structuration, la correction et la mise en forme du mémoire.</p>
+<br/>
+<a class="btn" onclick="showPage('tarifsCommande')">Voir le service</a>
+</div>
+<div class="card">
+<img alt="CV professionnel" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<span class="badge">CV</span>
+<h3>CV professionnel</h3>
+<p>Création et amélioration de CV modernes, clairs et adaptés aux candidatures professionnelles, stages ou formations.</p>
+<br/>
+<a class="btn" onclick="showPage('cvService')">Voir le service</a>
+</div>
+<div class="card highlight-card">
+<img alt="Création de site web vitrine" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<span class="badge">Web</span>
+<h3>Site web vitrine</h3>
+<p>Conception d’un site simple pour présenter une activité, un service, une entreprise, un portfolio ou une offre professionnelle.</p>
+<br/>
+<a class="btn" onclick="showPage('siteVitrine')">Voir le service</a>
+</div>
+</div>
+<div class="title">
+<h2>Niveaux accompagnés</h2>
+<p>Nous proposons un service d’accompagnement académique et méthodologique adapté à chaque niveau universitaire.</p>
+</div>
+<div class="cards">
+<div class="card">
+<img alt="Rédaction universitaire" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1517842645767-c639042777db?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<span class="badge">DTS</span>
+<h3>Accompagnement DTS</h3>
+<p>Accompagnement méthodologique structuré pour les étudiants de niveau DTS.</p>
+</div>
+<div class="card">
+<img alt="Livres universitaires" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1497633762265-9d179a990aa6?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<span class="badge">Licence</span>
+<h3>Accompagnement Licence</h3>
+<p>Assistance universitaire avec structuration, problématique, analyse et recommandations adaptées.</p>
+</div>
+<div class="card">
+<img alt="Travail académique en équipe" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<span class="badge">Master 1</span>
+<h3>Accompagnement Master 1</h3>
+<p>Accompagnement approfondi avec méthodologie, analyse et développement académique.</p>
+</div>
+<div class="card">
+<img alt="Analyse professionnelle" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<span class="badge">Master 2</span>
+<h3>Accompagnement Master 2</h3>
+<p>Accompagnement avancé avec structuration scientifique, discussion et recommandations.</p>
+</div>
+</div>
+</section>
+</main>
+<main class="page" id="tarifsCommande">
+<section class="page-banner commande">
+<h2>Service Mémoire</h2>
+<p>Choisissez votre niveau, vérifiez le tarif correspondant et envoyez votre demande d’accompagnement mémoire.</p>
+</section>
+<section>
+<div class="title">
+<h2>Tarifs d’accompagnement</h2>
+<p>Chaque tarif correspond à un accompagnement académique adapté au niveau demandé.</p>
+</div>
+<div class="cards">
+<div class="card">
+<h3>DTS</h3>
+<div class="price">50 000 Ar</div>
+<p>Document simple, structuré et adapté au niveau DTS.</p>
+</div>
+<div class="card">
+<h3>Licence</h3>
+<div class="price">100 000 Ar</div>
+<p>Rédaction professionnelle avec cohérence universitaire.</p>
+</div>
+<div class="card">
+<h3>Master 1</h3>
+<div class="price">150 000 Ar</div>
+<p>Analyse approfondie et développement académique avancé.</p>
+</div>
+<div class="card">
+<h3>Master 2</h3>
+<div class="price">175 000 Ar</div>
+<p>Travail complet, structuré, argumenté et professionnel.</p>
+</div>
+</div>
+</section>
+<section class="process">
+<div class="title">
+<h2>Procédure de travail</h2>
+<p>L’accompagnement débute uniquement après paiement du tarif correspondant et validation des informations par notre équipe.</p>
+</div>
+<div class="steps">
+<div class="step">
+<h3>Envoi des informations</h3>
+<p>L’étudiant remplit le formulaire avec son niveau, son thème, sa spécialité et les consignes disponibles.</p>
+</div>
+<div class="step">
+<h3>Paiement</h3>
+<p>Le paiement du tarif correspondant au niveau demandé est obligatoire avant le démarrage.</p>
+</div>
+<div class="step">
+<h3>Validation</h3>
+<p>Nous vérifions les informations reçues et validons officiellement le début du travail.</p>
+</div>
+<div class="step">
+<h3>Conception</h3>
+<p>Le délai d’accompagnement et de préparation des documents est de 5 jours au plus tard à partir de la validation du paiement.</p>
+</div>
+</div>
+</section>
+<section>
+<div class="title">
+<h2>Formulaire de demande d’accompagnement</h2>
+<p>Remplissez les informations nécessaires pour préparer votre accompagnement académique.</p>
+</div>
+<div class="order-layout">
+<div class="side-image">
+<img alt="Documents professionnels sur un bureau" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<h3>Informations importantes</h3>
+<p>Veuillez fournir un thème clair, votre niveau exact, votre spécialité, les consignes de votre établissement et tous les documents déjà disponibles.</p>
+<div class="notice">Limite quotidienne : 5 accompagnements seulement.</div>
+</div>
+<form action="https://formsubmit.co/assistance.numerique.online@gmail.com" data-form-service="formsubmit" enctype="multipart/form-data" method="POST">
+<input name="_subject" type="hidden" value="Nouvelle demande mémoire - Assistance Numérique Online"/>
+<input name="_template" type="hidden" value="table"/>
+<input name="_captcha" type="hidden" value="false"/>
+<input autocomplete="off" class="hidden" name="_honey" style="display:none;" tabindex="-1" type="text"/>
+
+<div class="form-grid">
+<div>
+<label for="nom">Nom complet</label>
+<input id="nom" name="nom" placeholder="Votre nom complet" required="" type="text"/>
+</div>
+<div>
+<label for="telephone">Téléphone / WhatsApp</label>
+<input id="telephone" name="telephone" placeholder="Ex : +261 34 00 000 00" required="" type="tel"/>
+</div>
+<div>
+<label for="email">Email</label>
+<input id="email" name="email" placeholder="Votre adresse email" type="email"/>
+</div>
+<div>
+<label for="niveau">Niveau d’étude</label>
+<select id="niveau" name="niveau" required="">
+<option value="">Sélectionnez votre niveau</option>
+<option>DTS - 50 000 Ar</option>
+<option>Licence - 100 000 Ar</option>
+<option>Master 1 - 150 000 Ar</option>
+<option>Master 2 - 175 000 Ar</option>
+</select>
+</div>
+<div>
+<label for="specialite">Spécialité / Mention</label>
+<input id="specialite" name="specialite" placeholder="Ex : RH, Gestion, Marketing" required="" type="text"/>
+</div>
+<div>
+<label for="universite">Université / Institut</label>
+<input id="universite" name="universite" placeholder="Nom de votre établissement" type="text"/>
+</div>
+<div class="full">
+<label for="theme">Thème du mémoire</label>
+<input id="theme" name="theme" placeholder="Écrivez votre thème exact ou provisoire" required="" type="text"/>
+</div>
+<div class="full">
+<label for="consignes">Consignes de l’établissement</label>
+<textarea id="consignes" name="consignes" placeholder="Nombre de pages, plan imposé, norme de rédaction, consignes du professeur, méthodologie demandée..."></textarea>
+</div>
+<div class="full">
+<label for="documents">Documents déjà disponibles</label>
+<textarea id="documents" name="documents" placeholder="Ex : plan, questionnaire, résultats d’enquête, cours, ancienne rédaction, document de l’entreprise..."></textarea>
+</div>
+<div class="full upload-box">
+<label for="pieces-jointes">Pièces jointes / images utiles</label>
+<input accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt" id="pieces-jointes" multiple="" name="pieces_jointes[]" title="Taille conseillée : fichiers légers uniquement. Les fichiers lourds peuvent être envoyés après contact." type="file"/>
+<span class="small-note">Vous pouvez sélectionner plusieurs fichiers : images, PDF, Word, Excel, PowerPoint ou textes.</span>
+</div>
+<div class="full">
+<label for="paiement">Mode de paiement souhaité</label>
+<select id="paiement" name="paiement" required="">
+<option value="">Choisissez un mode de paiement</option>
+<option>MVola</option>
+<option>Orange Money</option>
+<option>Airtel Money</option>
+<option>Espèces</option>
+</select>
+</div>
+<div class="full">
+<label for="message">Message complémentaire</label>
+<textarea id="message" name="message" placeholder="Ajoutez toute information utile pour faciliter votre accompagnement académique."></textarea>
+</div>
+<div class="full">
+<button class="btn" type="submit">Envoyer la commande</button><p class="privacy-note small-note">Vos informations sont utilisées uniquement pour traiter votre demande. Pour les fichiers lourds, envoyez-les après premier contact par WhatsApp ou email.</p>
+</div>
+</div>
+</form>
+</div>
+</section>
+</main>
+<main class="page" id="cvService">
+<section class="page-banner commande">
+<h2>Service CV Professionnel</h2>
+<p>Création et amélioration de CV professionnels avec mise en page moderne, claire et adaptée au marché du travail.</p>
+</section>
+<section>
+<div class="split">
+<div>
+<h2>Un CV clair et professionnel</h2>
+<p>Nous accompagnons les étudiants, jeunes diplômés et professionnels dans la création ou l’amélioration de leur CV afin de présenter leurs compétences de manière plus professionnelle et organisée.</p>
+<ul class="feature-list">
+<li>Création de CV modernes et professionnels.</li>
+<li>Amélioration de CV déjà existants.</li>
+<li>Mise en page claire et adaptée aux candidatures.</li>
+<li>Tarif accessible : 1 000 Ar par CV.</li>
+</ul>
+</div>
+<img alt="Création de CV professionnel" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1516321310764-8d4a6b6b0e8c?auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
+</div>
+</section>
+<section>
+<div class="title">
+<h2>Modèles de CV proposés</h2>
+<p>Des canevas professionnels simples, modernes et adaptés aux différents profils.</p>
+</div>
+<div class="cards">
+<div class="card">
+<img alt="CV étudiant" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1520607162513-77705c0f0d4a?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<h3>CV Étudiant</h3>
+<p>Modèle simple et clair pour stages, formations et premières candidatures.</p>
+</div>
+<div class="card">
+<img alt="CV moderne" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1450101499163-c8848c66ca85?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<h3>CV Moderne</h3>
+<p>Design professionnel avec présentation moderne et structurée.</p>
+</div>
+<div class="card">
+<img alt="CV professionnel" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<h3>CV Professionnel</h3>
+<p>Présentation élégante adaptée aux candidatures professionnelles et administratives.</p>
+</div>
+</div>
+</section>
+<section>
+<div class="title">
+<h2>Formulaire de demande CV</h2>
+<p>Envoyez vos informations pour créer ou améliorer votre CV professionnel.</p>
+</div>
+<div class="order-layout">
+<div class="side-image">
+<img alt="CV sur ordinateur" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1486312338219-ce68d2c6f44d?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<h3>Informations importantes</h3>
+<p>Le service CV consiste uniquement à accompagner la présentation professionnelle des informations fournies par le client.</p>
+<div class="notice">Tarif : 1 000 Ar par CV.</div>
+</div>
+<form action="https://formsubmit.co/assistance.numerique.online@gmail.com" data-form-service="formsubmit" enctype="multipart/form-data" method="POST">
+<input name="_subject" type="hidden" value="Nouvelle demande CV - Assistance Numérique Online"/>
+<input name="_template" type="hidden" value="table"/>
+<input name="_captcha" type="hidden" value="false"/>
+<input autocomplete="off" class="hidden" name="_honey" style="display:none;" tabindex="-1" type="text"/>
+
+<div class="form-grid">
+<div>
+<label>Nom complet</label>
+<input name="nom_complet" placeholder="Votre nom complet" required="" type="text"/>
+</div>
+<div>
+<label>Téléphone / WhatsApp</label>
+<input name="telephone_whatsapp" placeholder="Votre numéro" required="" type="tel"/>
+</div>
+<div>
+<label>Email</label>
+<input name="email" placeholder="Votre email" type="email"/>
+</div>
+<div>
+<label>Type de service</label>
+<select name="type_de_service" required="">
+<option value="">Choisir</option>
+<option>Création de CV</option>
+<option>Amélioration de CV</option>
+</select>
+</div>
+<div class="full">
+<label>Études / Diplômes</label>
+<textarea name="etudes_diplomes" placeholder="Indiquez vos études, diplômes ou formations..."></textarea>
+</div>
+<div class="full">
+<label>Expériences / Compétences</label>
+<textarea name="experiences_competences" placeholder="Décrivez vos expériences, compétences et informations importantes..."></textarea>
+</div>
+<div class="full upload-box">
+<label>CV existant, photo ou documents à joindre</label>
+<input accept="image/*,.pdf,.doc,.docx" multiple="" name="cv_existant_photo_ou_documents_a_joindre[]" title="Taille conseillée : fichiers légers uniquement. Les fichiers lourds peuvent être envoyés après contact." type="file"/>
+<span class="small-note">Vous pouvez joindre votre ancien CV, une photo professionnelle ou tout document utile.</span>
+</div>
+<div class="full">
+<label>Mode de paiement</label>
+<select name="mode_de_paiement" required="">
+<option value="">Choisissez un mode de paiement</option>
+<option>MVola</option>
+<option>Orange Money</option>
+<option>Airtel Money</option>
+</select>
+</div>
+<div class="full">
+<button class="btn" type="submit">Envoyer la demande</button><p class="privacy-note small-note">Vos informations sont utilisées uniquement pour traiter votre demande. Pour les fichiers lourds, envoyez-les après premier contact par WhatsApp ou email.</p>
+</div>
+</div>
+</form>
+</div>
+</section>
+</main>
+<main class="page" id="siteVitrine">
+<section class="page-banner commande">
+<h2>Création de site web vitrine</h2>
+<p>Un site vitrine simple pour présenter une activité, un service, une boutique, un portfolio ou une petite entreprise.</p>
+</section>
+<section>
+<div class="split">
+<div>
+<h2>Site vitrine simple et professionnel</h2>
+<p>Nous concevons uniquement des sites web vitrines : pages de présentation, services, tarifs, contact, galerie d’images et informations utiles. Ce service ne comprend pas la création d’une boutique en ligne, d’un espace membre ou d’une application complexe.</p>
+<ul class="feature-list">
+<li>Conception du site vitrine : 100 000 Ar.</li>
+<li>Nom de domaine non inclus dans le tarif.</li>
+<li>Hébergement payant non inclus dans le tarif.</li>
+<li>Possibilité de mise en ligne gratuite sur GitHub Pages si le client fournit le nom de domaine et l’adresse email à utiliser.</li>
+<li>Le client fournit les textes, logos, images, couleurs souhaitées et coordonnées de contact.</li>
+</ul>
+</div>
+<img alt="Création de site vitrine sur ordinateur" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&amp;fit=crop&amp;w=1000&amp;q=80"/>
+</div>
+</section>
+<section>
+<div class="title">
+<h2>Ce qui est inclus</h2>
+<p>Une solution simple pour être visible en ligne sans engager immédiatement des frais d’hébergement payant.</p>
+</div>
+<div class="cards">
+<div class="card">
+<h3>Pages de présentation</h3>
+<p>Accueil, services, à propos, tarifs, galerie et contact selon les besoins du client.</p>
+</div>
+<div class="card">
+<h3>Design responsive</h3>
+<p>Site lisible sur téléphone, tablette et ordinateur avec une présentation moderne et claire.</p>
+</div>
+<div class="card">
+<h3>Galerie images</h3>
+<p>Intégration des images fournies par le client : produits, locaux, réalisations, logo ou équipe.</p>
+</div>
+<div class="card highlight-card">
+<h3>Mise en ligne GitHub</h3>
+<p>Hébergement gratuit possible sur GitHub Pages si le client fournit le nom de domaine et l’email nécessaires.</p>
+</div>
+</div>
+</section>
+<section>
+<div class="title">
+<h2>Formulaire de demande site vitrine</h2>
+<p>Remplissez les informations nécessaires pour préparer la conception de votre site web vitrine.</p>
+</div>
+<div class="order-layout">
+<div class="side-image">
+<img alt="Préparation d’un projet web" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
+<h3>Tarif et conditions</h3>
+<p><strong>Tarif :</strong> 100 000 Ar pour la conception du site vitrine.</p>
+<p><strong>Non inclus :</strong> nom de domaine, hébergement payant, email professionnel payant, boutique en ligne et fonctionnalités complexes.</p>
+<div class="notice">Mise en ligne gratuite possible sur GitHub Pages si vous fournissez le nom de domaine et l’adresse email à utiliser.</div>
+</div>
+<form action="https://formsubmit.co/assistance.numerique.online@gmail.com" data-form-service="formsubmit" enctype="multipart/form-data" method="POST">
+<input name="_subject" type="hidden" value="Nouvelle demande site vitrine - Assistance Numérique Online"/>
+<input name="_template" type="hidden" value="table"/>
+<input name="_captcha" type="hidden" value="false"/>
+<input autocomplete="off" class="hidden" name="_honey" style="display:none;" tabindex="-1" type="text"/>
+
+<div class="form-grid">
+<div>
+<label for="site-nom">Nom complet</label>
+<input id="site-nom" name="site_nom" placeholder="Votre nom complet" required="" type="text"/>
+</div>
+<div>
+<label for="site-phone">Téléphone / WhatsApp</label>
+<input id="site-phone" name="site_phone" placeholder="Ex : +261 34 00 000 00" required="" type="tel"/>
+</div>
+<div>
+<label for="site-email">Email</label>
+<input id="site-email" name="site_email" placeholder="Votre adresse email" type="email"/>
+</div>
+<div>
+<label for="site-activite">Type d’activité</label>
+<input id="site-activite" name="site_activite" placeholder="Ex : restaurant, boutique, service, portfolio" required="" type="text"/>
+</div>
+<div class="full">
+<label for="site-nom-entreprise">Nom de l’entreprise / marque / service</label>
+<input id="site-nom-entreprise" name="site_nom_entreprise" placeholder="Nom à afficher sur le site" required="" type="text"/>
+</div>
+<div class="full">
+<label for="site-pages">Pages souhaitées</label>
+<textarea id="site-pages" name="site_pages" placeholder="Ex : Accueil, Services, Tarifs, Galerie, À propos, Contact..."></textarea>
+</div>
+<div class="full">
+<label for="site-description">Description de l’activité</label>
+<textarea id="site-description" name="site_description" placeholder="Présentez votre activité, vos services, vos avantages, votre localisation et votre cible."></textarea>
+</div>
+<div>
+<label for="site-domaine">Nom de domaine disponible ?</label>
+<select id="site-domaine" name="site_domaine">
+<option value="">Choisir</option>
+<option>Oui, j’ai déjà un nom de domaine</option>
+<option>Non, je n’ai pas encore de nom de domaine</option>
+<option>Je veux seulement une version gratuite GitHub Pages</option>
+</select>
+</div>
+<div>
+<label for="github-email">Email pour GitHub / mise en ligne</label>
+<input id="github-email" name="github_email" placeholder="Email à utiliser si mise en ligne GitHub" type="email"/>
+</div>
+<div class="full upload-box">
+<label for="site-images">Images, logos et fichiers à fournir</label>
+<input accept="image/*,.svg,.webp,.jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.txt" id="site-images" multiple="" name="site_images[]" title="Taille conseillée : fichiers légers uniquement. Les fichiers lourds peuvent être envoyés après contact." type="file"/>
+<span class="small-note">Vous pouvez joindre plusieurs images de tout type courant : JPG, PNG, GIF, WebP, SVG, ainsi que logo, textes ou documents utiles.</span>
+</div>
+<div class="full">
+<label for="site-couleurs">Couleurs ou style souhaité</label>
+<textarea id="site-couleurs" name="site_couleurs" placeholder="Ex : bleu et blanc, style premium, style simple, moderne, corporate..."></textarea>
+</div>
+<div class="full">
+<label for="site-paiement">Mode de paiement</label>
+<select id="site-paiement" name="site_paiement" required="">
+<option value="">Choisissez un mode de paiement</option>
+<option>MVola</option>
+<option>Orange Money</option>
+<option>Airtel Money</option>
+<option>Espèces</option>
+</select>
+</div>
+<div class="full">
+<label for="site-message">Message complémentaire</label>
+<textarea id="site-message" name="site_message" placeholder="Ajoutez toute information utile pour faciliter la conception du site vitrine."></textarea>
+</div>
+<div class="full">
+<button class="btn" type="submit">Envoyer la demande de site vitrine</button><p class="privacy-note small-note">Vos informations sont utilisées uniquement pour traiter votre demande. Pour les fichiers lourds, envoyez-les après premier contact par WhatsApp ou email.</p>
+</div>
+</div>
+</form>
+</div>
+</section>
+</main>
+<main class="page" id="conditions">
+<section class="page-banner">
+<h2>Conditions d’accompagnement</h2>
+<p>Des règles simples pour assurer une collaboration claire, sérieuse et organisée.</p>
+</section>
+<section class="terms">
+<div class="terms-box">
+<ul>
+<li>Nous proposons un service d’accompagnement académique et méthodologique destiné aux étudiants du niveau DTS jusqu’au Master 2.</li>
+<li>Le nombre de demandes d’accompagnement est limité à 5 étudiants par jour.</li>
+<li>L’accompagnement commence après paiement du tarif correspondant et validation des informations par notre équipe.</li>
+<li>Le délai d’accompagnement et de préparation des documents est de 5 jours au plus tard à partir de la validation du paiement.</li>
+<li>L’étudiant doit fournir toutes les informations nécessaires : thème, niveau, spécialité, consignes, documents disponibles et coordonnées.</li>
+<li>Les modifications doivent rester conformes aux informations validées au début du travail.</li>
+<li>Le service CV consiste uniquement à mettre en valeur et organiser les informations fournies par le client, sans falsification de diplômes, expériences ou documents.</li>
+<li>Le service de création de site web concerne uniquement les sites vitrines simples de présentation.</li>
+<li>Le tarif de conception du site vitrine est de 100 000 Ar, sans nom de domaine et sans hébergement payant inclus.</li>
+<li>La mise en ligne gratuite sur GitHub Pages peut être proposée si le client fournit le nom de domaine et l’adresse email nécessaires.</li>
+<li>Les fichiers envoyés par le client, notamment les images, logos et textes, doivent être libres d’utilisation ou lui appartenir.</li>
+</ul>
+</div>
+</section>
+</main>
+<footer>
+<p>Assistance numérique online</p>
+<div style="position:relative; z-index:2; margin-top:10px; font-size:13px; letter-spacing:1px; color:rgba(255,255,255,0.75); text-transform:none;">
+      © 2026 Tous droits réservés • Assistance Numérique Online
+    </div>
+</footer>
+<script>
+
+    document.querySelectorAll('img').forEach((img, index) => {
+      img.addEventListener('error', () => {
+        if (img.dataset.fallbackApplied) return;
+        img.dataset.fallbackApplied = 'true';
+        const labels = [
+          'Livre de mémoire', 'CV professionnel', 'Site web vitrine', 'Accompagnement académique',
+          'DTS', 'Licence', 'Master 1', 'Master 2', 'Documents professionnels',
+          'Création de CV', 'Canevas CV', 'Canevas CV', 'CV professionnel',
+          'Site vitrine', 'Web design'
+        ];
+        const text = encodeURIComponent(labels[index] || img.alt || 'Assistance Numérique Online');
+        img.src = `data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='550' viewBox='0 0 900 550'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop stop-color='%230b1f3a'/%3E%3Cstop offset='1' stop-color='%23f4b400'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='900' height='550' fill='url(%23g)'/%3E%3Ccircle cx='760' cy='90' r='120' fill='rgba(255,255,255,0.13)'/%3E%3Ccircle cx='120' cy='460' r='160' fill='rgba(255,255,255,0.10)'/%3E%3Crect x='110' y='155' width='680' height='240' rx='30' fill='rgba(255,255,255,0.16)'/%3E%3Ctext x='450' y='285' text-anchor='middle' font-family='Arial' font-size='38' font-weight='700' fill='white'%3E${text}%3C/text%3E%3Ctext x='450' y='335' text-anchor='middle' font-family='Arial' font-size='20' fill='white'%3EAssistance Numérique Online%3C/text%3E%3C/svg%3E`;
+      });
+    });
+
+    function showPage(pageId) {
+      const pages = document.querySelectorAll('.page');
+      pages.forEach(page => page.classList.remove('active'));
+      document.getElementById(pageId).classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', function() {
+        const submitButton = form.querySelector('button[type="submit"]');
+        if (submitButton) {
+          submitButton.disabled = true;
+          submitButton.textContent = 'Envoi en cours...';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
