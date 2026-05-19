@@ -688,6 +688,37 @@
       font-size: 13px;
       line-height: 1.5;
     }
+
+    .form-status {
+      display: none;
+      margin-top: 14px;
+      padding: 13px 15px;
+      border-radius: 10px;
+      font-size: 14px;
+      line-height: 1.5;
+      font-weight: 600;
+    }
+
+    .form-status.success {
+      display: block;
+      background: #e8f7ee;
+      color: #126b35;
+      border-left: 5px solid #23a455;
+    }
+
+    .form-status.error {
+      display: block;
+      background: #fff1f1;
+      color: #8a1f1f;
+      border-left: 5px solid #d93025;
+    }
+
+    .form-status a {
+      color: inherit;
+      text-decoration: underline;
+      font-weight: 800;
+    }
+
 </style>
 <meta content="strict-origin-when-cross-origin" name="referrer"/></head>
 <body>
@@ -881,10 +912,10 @@
 <p>Veuillez fournir un thème clair, votre niveau exact, votre spécialité, les consignes de votre établissement et tous les documents déjà disponibles.</p>
 <div class="notice">Limite quotidienne : 5 accompagnements seulement.</div>
 </div>
-<form action="https://formsubmit.co/assistance.numerique.online@gmail.com" data-form-service="formsubmit" enctype="multipart/form-data" method="POST">
-<input name="_subject" type="hidden" value="Nouvelle demande mémoire - Assistance Numérique Online"/>
-<input name="_template" type="hidden" value="table"/>
-<input name="_captcha" type="hidden" value="false"/>
+<form action="https://api.web3forms.com/submit" data-form-service="web3forms" enctype="multipart/form-data" method="POST">
+<input name="access_key" type="hidden" value="REMPLACEZ_PAR_VOTRE_CLE_WEB3FORMS"/>
+<input name="subject" type="hidden" value="Nouvelle demande mémoire - Assistance Numérique Online"/>
+<input name="from_name" type="hidden" value="Assistance Numérique Online"/>
 <input autocomplete="off" class="hidden" name="_honey" style="display:none;" tabindex="-1" type="text"/>
 
 <div class="form-grid">
@@ -932,8 +963,8 @@
 </div>
 <div class="full upload-box">
 <label for="pieces-jointes">Pièces jointes / images utiles</label>
-<input accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt" id="pieces-jointes" multiple="" name="pieces_jointes[]" title="Taille conseillée : fichiers légers uniquement. Les fichiers lourds peuvent être envoyés après contact." type="file"/>
-<span class="small-note">Vous pouvez sélectionner plusieurs fichiers : images, PDF, Word, Excel, PowerPoint ou textes.</span>
+<input accept="image/*,.pdf,.doc,.docx,.xls,.xlsx,.ppt,.pptx,.txt" id="pieces-jointes" name="attachment" title="Taille maximale conseillée : 5 Mo. Pour plusieurs fichiers, envoyez-les après premier contact." type="file"/>
+<span class="small-note">Vous pouvez joindre 1 fichier léger jusqu’à 5 Mo. Pour plusieurs fichiers ou fichiers lourds, envoyez-les après premier contact par WhatsApp ou email.</span>
 </div>
 <div class="full">
 <label for="paiement">Mode de paiement souhaité</label>
@@ -951,7 +982,7 @@
 <textarea id="message" name="message" placeholder="Ajoutez toute information utile pour faciliter votre accompagnement académique."></textarea>
 </div>
 <div class="full">
-<button class="btn" type="submit">Envoyer la commande</button><p class="privacy-note small-note">Vos informations sont utilisées uniquement pour traiter votre demande. Pour les fichiers lourds, envoyez-les après premier contact par WhatsApp ou email.</p>
+<button class="btn" type="submit">Envoyer la commande</button><p class="privacy-note small-note">Vos informations sont utilisées uniquement pour traiter votre demande. Pour les fichiers lourds, envoyez-les après premier contact par WhatsApp ou email.</p><div class="form-status" aria-live="polite"></div>
 </div>
 </div>
 </form>
@@ -1014,10 +1045,10 @@
 <p>Le service CV consiste uniquement à accompagner la présentation professionnelle des informations fournies par le client.</p>
 <div class="notice">Tarif : 1 000 Ar par CV, soit environ 0,22 USD.</div>
 </div>
-<form action="https://formsubmit.co/assistance.numerique.online@gmail.com" data-form-service="formsubmit" enctype="multipart/form-data" method="POST">
-<input name="_subject" type="hidden" value="Nouvelle demande CV - Assistance Numérique Online"/>
-<input name="_template" type="hidden" value="table"/>
-<input name="_captcha" type="hidden" value="false"/>
+<form action="https://api.web3forms.com/submit" data-form-service="web3forms" enctype="multipart/form-data" method="POST">
+<input name="access_key" type="hidden" value="REMPLACEZ_PAR_VOTRE_CLE_WEB3FORMS"/>
+<input name="subject" type="hidden" value="Nouvelle demande CV - Assistance Numérique Online"/>
+<input name="from_name" type="hidden" value="Assistance Numérique Online"/>
 <input autocomplete="off" class="hidden" name="_honey" style="display:none;" tabindex="-1" type="text"/>
 
 <div class="form-grid">
@@ -1051,8 +1082,8 @@
 </div>
 <div class="full upload-box">
 <label>CV existant, photo ou documents à joindre</label>
-<input accept="image/*,.pdf,.doc,.docx" multiple="" name="cv_existant_photo_ou_documents_a_joindre[]" title="Taille conseillée : fichiers légers uniquement. Les fichiers lourds peuvent être envoyés après contact." type="file"/>
-<span class="small-note">Vous pouvez joindre votre ancien CV, une photo professionnelle ou tout document utile.</span>
+<input accept="image/*,.pdf,.doc,.docx" name="attachment" title="Taille maximale conseillée : 5 Mo. Pour plusieurs fichiers, envoyez-les après premier contact." type="file"/>
+<span class="small-note">Vous pouvez joindre 1 fichier léger jusqu’à 5 Mo : ancien CV, photo professionnelle ou document utile.</span>
 </div>
 <div class="full">
 <label>Mode de paiement</label>
@@ -1065,7 +1096,7 @@
 </select>
 </div>
 <div class="full">
-<button class="btn" type="submit">Envoyer la demande</button><p class="privacy-note small-note">Vos informations sont utilisées uniquement pour traiter votre demande. Pour les fichiers lourds, envoyez-les après premier contact par WhatsApp ou email.</p>
+<button class="btn" type="submit">Envoyer la demande</button><p class="privacy-note small-note">Vos informations sont utilisées uniquement pour traiter votre demande. Pour les fichiers lourds, envoyez-les après premier contact par WhatsApp ou email.</p><div class="form-status" aria-live="polite"></div>
 </div>
 </div>
 </form>
@@ -1131,10 +1162,10 @@
 <p><strong>Non inclus :</strong> nom de domaine, hébergement payant, email professionnel payant, boutique en ligne et fonctionnalités complexes.</p>
 <div class="notice">Mise en ligne gratuite possible sur GitHub Pages si vous fournissez le nom de domaine et l’adresse email à utiliser.</div>
 </div>
-<form action="https://formsubmit.co/assistance.numerique.online@gmail.com" data-form-service="formsubmit" enctype="multipart/form-data" method="POST">
-<input name="_subject" type="hidden" value="Nouvelle demande site vitrine - Assistance Numérique Online"/>
-<input name="_template" type="hidden" value="table"/>
-<input name="_captcha" type="hidden" value="false"/>
+<form action="https://api.web3forms.com/submit" data-form-service="web3forms" enctype="multipart/form-data" method="POST">
+<input name="access_key" type="hidden" value="REMPLACEZ_PAR_VOTRE_CLE_WEB3FORMS"/>
+<input name="subject" type="hidden" value="Nouvelle demande site vitrine - Assistance Numérique Online"/>
+<input name="from_name" type="hidden" value="Assistance Numérique Online"/>
 <input autocomplete="off" class="hidden" name="_honey" style="display:none;" tabindex="-1" type="text"/>
 
 <div class="form-grid">
@@ -1181,8 +1212,8 @@
 </div>
 <div class="full upload-box">
 <label for="site-images">Images, logos et fichiers à fournir</label>
-<input accept="image/*,.svg,.webp,.jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.txt" id="site-images" multiple="" name="site_images[]" title="Taille conseillée : fichiers légers uniquement. Les fichiers lourds peuvent être envoyés après contact." type="file"/>
-<span class="small-note">Vous pouvez joindre plusieurs images de tout type courant : JPG, PNG, GIF, WebP, SVG, ainsi que logo, textes ou documents utiles.</span>
+<input accept="image/*,.svg,.webp,.jpg,.jpeg,.png,.gif,.pdf,.doc,.docx,.txt" id="site-images" name="attachment" title="Taille maximale conseillée : 5 Mo. Pour plusieurs fichiers, envoyez-les après premier contact." type="file"/>
+<span class="small-note">Vous pouvez joindre 1 fichier léger jusqu’à 5 Mo : image, logo, PDF, texte ou document utile.</span>
 </div>
 <div class="full">
 <label for="site-couleurs">Couleurs ou style souhaité</label>
@@ -1204,7 +1235,7 @@
 <textarea id="site-message" name="site_message" placeholder="Ajoutez toute information utile pour faciliter la conception du site vitrine."></textarea>
 </div>
 <div class="full">
-<button class="btn" type="submit">Envoyer la demande de site vitrine</button><p class="privacy-note small-note">Vos informations sont utilisées uniquement pour traiter votre demande. Pour les fichiers lourds, envoyez-les après premier contact par WhatsApp ou email.</p>
+<button class="btn" type="submit">Envoyer la demande de site vitrine</button><p class="privacy-note small-note">Vos informations sont utilisées uniquement pour traiter votre demande. Pour les fichiers lourds, envoyez-les après premier contact par WhatsApp ou email.</p><div class="form-status" aria-live="polite"></div>
 </div>
 </div>
 </form>
@@ -1295,12 +1326,102 @@
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
-    document.querySelectorAll('form').forEach(form => {
-      form.addEventListener('submit', function() {
-        const submitButton = form.querySelector('button[type="submit"]');
-        if (submitButton) {
-          submitButton.disabled = true;
-          submitButton.textContent = 'Envoi en cours...';
+    function buildEmailBody(form) {
+      const lines = [];
+      const data = new FormData(form);
+      for (const [key, value] of data.entries()) {
+        if (key.startsWith('_')) continue;
+        if (value instanceof File) continue;
+        const label = key.replaceAll('_', ' ');
+        lines.push(`${label} : ${value || '-'}`);
+      }
+      const files = Array.from(form.querySelectorAll('input[type="file"]'))
+        .flatMap(input => Array.from(input.files || []).map(file => file.name));
+      if (files.length) {
+        lines.push(`Fichiers sélectionnés : ${files.join(', ')}`);
+        lines.push('NB : les fichiers lourds doivent être envoyés séparément par email ou WhatsApp après premier contact.');
+      }
+      return lines.join('\n');
+    }
+
+    function buildPlainMessage(form) {
+      const data = new FormData(form);
+      const ignored = new Set(['access_key', 'from_name', 'subject', '_honey', 'attachment']);
+      const lines = [];
+      for (const [key, value] of data.entries()) {
+        if (ignored.has(key)) continue;
+        if (value instanceof File) continue;
+        const cleanKey = key.replaceAll('_', ' ');
+        lines.push(`${cleanKey}: ${value || '-'}`);
+      }
+      const fileInput = form.querySelector('input[type="file"]');
+      if (fileInput && fileInput.files && fileInput.files[0]) {
+        const file = fileInput.files[0];
+        lines.push(`piece jointe selectionnee: ${file.name} (${Math.round(file.size / 1024)} Ko)`);
+      }
+      return lines.join('\n');
+    }
+
+    function getFallbackEmailLink(form) {
+      const subject = encodeURIComponent(form.querySelector('input[name="subject"]')?.value || 'Nouvelle demande - Assistance Numérique Online');
+      const body = encodeURIComponent(buildPlainMessage(form));
+      return `mailto:assistance.numerique.online@gmail.com?subject=${subject}&body=${body}`;
+    }
+
+    document.querySelectorAll('form[data-form-service="web3forms"]').forEach(form => {
+      const submitButton = form.querySelector('button[type="submit"]');
+      const statusBox = document.createElement('div');
+      statusBox.className = 'small-note';
+      statusBox.style.marginTop = '12px';
+      statusBox.style.fontWeight = 'bold';
+      statusBox.setAttribute('aria-live', 'polite');
+      submitButton.insertAdjacentElement('afterend', statusBox);
+
+      form.addEventListener('submit', async function(event) {
+        event.preventDefault();
+
+        const accessKey = form.querySelector('input[name="access_key"]')?.value || '';
+        if (!accessKey || accessKey === 'REMPLACEZ_PAR_VOTRE_CLE_WEB3FORMS') {
+          statusBox.innerHTML = 'Formulaire presque prêt : remplacez <strong>REMPLACEZ_PAR_VOTRE_CLE_WEB3FORMS</strong> par votre vraie clé Web3Forms. <a href="https://web3forms.com/" target="_blank" rel="noopener">Créer une clé gratuite</a>.';
+          return;
+        }
+
+        const fileInput = form.querySelector('input[type="file"]');
+        if (fileInput && fileInput.files && fileInput.files[0]) {
+          const maxSize = 5 * 1024 * 1024;
+          if (fileInput.files[0].size > maxSize) {
+            statusBox.innerHTML = 'Le fichier dépasse 5 Mo. Envoyez d’abord le formulaire sans fichier, puis transmettez le fichier par email ou WhatsApp après le premier contact.';
+            return;
+          }
+        }
+
+        const originalText = submitButton.textContent;
+        submitButton.disabled = true;
+        submitButton.textContent = 'Envoi en cours...';
+        statusBox.textContent = '';
+
+        try {
+          const formData = new FormData(form);
+          const response = await fetch(form.action, {
+            method: 'POST',
+            body: formData
+          });
+
+          const result = await response.json();
+          if (!response.ok || !result.success) {
+            throw new Error(result.message || 'Erreur lors de l’envoi');
+          }
+
+          statusBox.style.color = '#0b6b2b';
+          statusBox.textContent = 'Votre demande a bien été envoyée. Nous vous répondrons dès que possible.';
+          form.reset();
+        } catch (error) {
+          const mailto = getFallbackEmailLink(form);
+          statusBox.style.color = '#8a1f11';
+          statusBox.innerHTML = `L’envoi automatique n’a pas réussi. <a href="${mailto}">Cliquez ici pour envoyer la demande par email</a>.`;
+        } finally {
+          submitButton.disabled = false;
+          submitButton.textContent = originalText;
         }
       });
     });
