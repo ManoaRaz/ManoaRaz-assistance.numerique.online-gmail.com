@@ -1381,8 +1381,8 @@
         event.preventDefault();
 
         const accessKey = form.querySelector('input[name="access_key"]')?.value || '';
-        if (!accessKey || accessKey === 'e1776d20-3317-4520-8cb3-a34d10015c57') {
-          statusBox.innerHTML = 'Formulaire presque prêt : remplacez <strong>e1776d20-3317-4520-8cb3-a34d10015c57</strong> par votre vraie clé Web3Forms. <a href="https://web3forms.com/" target="_blank" rel="noopener">Créer une clé gratuite</a>.';
+        if (!accessKey || accessKey === 'REMPLACEZ_PAR_VOTRE_CLE_WEB3FORMS') {
+          statusBox.innerHTML = 'Formulaire presque prêt : la clé Web3Forms n’est pas encore configurée. <a href="https://web3forms.com/" target="_blank" rel="noopener">Créer une clé gratuite</a>.';
           return;
         }
 
