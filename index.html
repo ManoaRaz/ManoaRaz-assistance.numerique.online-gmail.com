@@ -16,7 +16,20 @@
 
 <meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>Mémoire Pro Madagascar</title>
+<title>Assistance Numérique Online | Mémoire, CV Pro et Site Vitrine à Madagascar</title>
+<meta name="description" content="Assistance Numérique Online accompagne les étudiants, candidats et petites activités à Madagascar : mémoire académique, CV professionnel et création de site vitrine responsive."/>
+<meta name="keywords" content="mémoire Madagascar, aide mémoire académique, CV professionnel Madagascar, création site vitrine Madagascar, assistance numérique online"/>
+<meta name="author" content="Assistance Numérique Online"/>
+<meta name="robots" content="index, follow, max-image-preview:large"/>
+<meta name="theme-color" content="#0b1f3a"/>
+<link rel="canonical" href="https://assistance-numerique.online/"/>
+<meta property="og:type" content="website"/>
+<meta property="og:locale" content="fr_FR"/>
+<meta property="og:site_name" content="Assistance Numérique Online"/>
+<meta property="og:title" content="Assistance Numérique Online | Mémoire, CV Pro et Site Vitrine"/>
+<meta property="og:description" content="Service d’accompagnement académique, création de CV professionnel et conception de site vitrine simple à Madagascar."/>
+<meta property="og:image" content="https://images.unsplash.com/photo-1524995997946-a1c2e315a42f?auto=format&fit=crop&w=1200&q=80"/>
+<meta name="twitter:card" content="summary_large_image"/>
 <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 64 64%22%3E%0A  %3Crect width=%2264%22 height=%2264%22 rx=%2214%22 fill=%22#0b1f3a%22/%3E%0A  %3Cpath d=%22M15 15c0-2 1.6-3.5 3.6-3.5H48c1.1 0 2 .9 2 2v39c0 1.1-.9 2-2 2H18.5c-2 0-3.5-1.6-3.5-3.5V15z%22 fill=%22#f4b400%22/%3E%0A  %3Cpath d=%22M20 12h27v34H20c-2.8 0-5 2.2-5 5V17c0-2.8 2.2-5 5-5z%22 fill=%22#ffffff%22/%3E%0A  %3Cpath d=%22M24 21h18M24 29h18M24 37h13%22 stroke=%22#0b1f3a%22 stroke-width=%223%22 stroke-linecap=%22round%22/%3E%0A  %3Cpath d=%22M20 46h28v6H20c-1.7 0-3-1.3-3-3s1.3-3 3-3z%22 fill=%22#e7ecf5%22/%3E%0A%3C/svg%3E"/>
 <style>
     * {
@@ -58,6 +71,12 @@
       -webkit-text-fill-color: transparent;
     }
 
+    nav {
+      display: flex;
+      align-items: center;
+      gap: 0;
+    }
+
     nav a {
       color: white;
       text-decoration: none;
@@ -72,7 +91,8 @@
       border: 1px solid rgba(255,255,255,0.05);
     }
 
-    nav a:hover {
+    nav a:hover,
+    nav a:focus-visible {
       color: #0b1f3a;
       background: #f4b400;
       transform: translateY(-2px);
@@ -96,7 +116,8 @@
       transition: all 0.3s ease;
     }
 
-    .menu-toggle:hover {
+    .menu-toggle:hover,
+    .menu-toggle:focus-visible {
       background: #f4b400;
       color: #0b1f3a;
       box-shadow: 0 6px 18px rgba(244,180,0,0.35);
@@ -611,10 +632,13 @@
         transition: max-height 0.35s ease, opacity 0.25s ease, margin-top 0.25s ease;
       }
 
-      nav.open {
-        max-height: 380px;
+      nav.open,
+      nav.is-open {
+        max-height: calc(100vh - 78px);
         opacity: 1;
         margin-top: 16px;
+        overflow-y: auto;
+        padding-bottom: 6px;
       }
 
       nav a {
@@ -720,7 +744,24 @@
     }
 
 </style>
-<meta content="strict-origin-when-cross-origin" name="referrer"/></head>
+<meta content="strict-origin-when-cross-origin" name="referrer"/>
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ProfessionalService",
+  "name": "Assistance Numérique Online",
+  "description": "Accompagnement mémoire académique, création de CV professionnel et conception de site vitrine simple à Madagascar.",
+  "areaServed": "Madagascar",
+  "availableLanguage": ["fr"],
+  "offers": [
+    {"@type": "Offer", "name": "Accompagnement mémoire DTS", "price": "50000", "priceCurrency": "MGA"},
+    {"@type": "Offer", "name": "Accompagnement mémoire Licence", "price": "100000", "priceCurrency": "MGA"},
+    {"@type": "Offer", "name": "CV professionnel", "price": "1000", "priceCurrency": "MGA"},
+    {"@type": "Offer", "name": "Site web vitrine", "price": "100000", "priceCurrency": "MGA"}
+  ]
+}
+</script>
+</head>
 <body>
 <header>
 <h1>Assistance Numérique Online</h1>
@@ -729,11 +770,11 @@
 <span>Menu</span>
 </button>
 <nav id="mainNav">
-<a onclick="showPage('accueil')">Accueil</a>
-<a onclick="showPage('tarifsCommande')">Mémoire académique</a>
-<a onclick="showPage('cvService')">CV Pro</a>
-<a onclick="showPage('siteVitrine')">Site vitrine</a>
-<a onclick="showPage('conditions')">Conditions</a>
+<a href="#accueil" data-page="accueil">Accueil</a>
+<a href="#tarifsCommande" data-page="tarifsCommande">Mémoire académique</a>
+<a href="#cvService" data-page="cvService">CV Pro</a>
+<a href="#siteVitrine" data-page="siteVitrine">Site vitrine</a>
+<a href="#conditions" data-page="conditions">Conditions</a>
 </nav>
 </header>
 <main class="page active" id="accueil">
@@ -741,16 +782,18 @@
 <div class="hero-content">
 <h2>Assistance académique, CV professionnel et site vitrine</h2>
 <p>Un service spécialisé pour accompagner les étudiants, chercheurs d’emploi et petites activités dans la structuration de documents, la création de CV et la conception de sites web vitrines simples.</p>
-<a class="btn" onclick="showPage('tarifsCommande')">Service mémoire</a>
-<a class="btn secondary" onclick="showPage('siteVitrine')">Créer un site vitrine</a>
+<a class="btn" href="#tarifsCommande" data-page="tarifsCommande">Service mémoire</a>
+<a class="btn secondary" href="#siteVitrine" data-page="siteVitrine">Créer un site vitrine</a>
 <div class="notice">Seulement 5 demandes d’accompagnement acceptées par jour afin de garantir un suivi sérieux, organisé et de qualité.</div>
 </div>
 </section>
 <div id="ezoic-pub-ad-placeholder-101"></div>
 <script>
-  ezstandalone.cmd.push(function () {
-    ezstandalone.showAds(101);
-  });
+  if (window.ezstandalone && ezstandalone.cmd) {
+    ezstandalone.cmd.push(function () {
+      if (typeof ezstandalone.showAds === 'function') ezstandalone.showAds(101);
+    });
+  }
 </script>
 
 <section>
@@ -780,7 +823,7 @@
 <h3>Livre de mémoire</h3>
 <p>Accompagnement académique et méthodologique pour la préparation, la structuration, la correction et la mise en forme du mémoire.</p>
 <br/>
-<a class="btn" onclick="showPage('tarifsCommande')">Voir le service</a>
+<a class="btn" href="#tarifsCommande" data-page="tarifsCommande">Voir le service</a>
 </div>
 <div class="card">
 <img alt="CV professionnel" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1586281380349-632531db7ed4?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
@@ -788,7 +831,7 @@
 <h3>CV professionnel</h3>
 <p>Création et amélioration de CV modernes, clairs et adaptés aux candidatures professionnelles, stages ou formations.</p>
 <br/>
-<a class="btn" onclick="showPage('cvService')">Voir le service</a>
+<a class="btn" href="#cvService" data-page="cvService">Voir le service</a>
 </div>
 <div class="card highlight-card">
 <img alt="Création de site web vitrine" decoding="async" loading="lazy" referrerpolicy="no-referrer" src="https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&amp;fit=crop&amp;w=900&amp;q=80"/>
@@ -796,14 +839,16 @@
 <h3>Site web vitrine</h3>
 <p>Conception d’un site simple pour présenter une activité, un service, une entreprise, un portfolio ou une offre professionnelle.</p>
 <br/>
-<a class="btn" onclick="showPage('siteVitrine')">Voir le service</a>
+<a class="btn" href="#siteVitrine" data-page="siteVitrine">Voir le service</a>
 </div>
 </div>
 <div id="ezoic-pub-ad-placeholder-102"></div>
 <script>
-  ezstandalone.cmd.push(function () {
-    ezstandalone.showAds(102);
-  });
+  if (window.ezstandalone && ezstandalone.cmd) {
+    ezstandalone.cmd.push(function () {
+      if (typeof ezstandalone.showAds === 'function') ezstandalone.showAds(102);
+    });
+  }
 </script>
 
 <div class="title">
@@ -1269,9 +1314,11 @@
 </main>
 <div id="ezoic-pub-ad-placeholder-103"></div>
 <script>
-  ezstandalone.cmd.push(function () {
-    ezstandalone.showAds(103);
-  });
+  if (window.ezstandalone && ezstandalone.cmd) {
+    ezstandalone.cmd.push(function () {
+      if (typeof ezstandalone.showAds === 'function') ezstandalone.showAds(103);
+    });
+  }
 </script>
 
 <footer>
@@ -1281,150 +1328,185 @@
     </div>
 </footer>
 <script>
+    (function () {
+      'use strict';
 
-    document.querySelectorAll('img').forEach((img, index) => {
-      img.addEventListener('error', () => {
-        if (img.dataset.fallbackApplied) return;
-        img.dataset.fallbackApplied = 'true';
-        const labels = [
-          'Livre de mémoire', 'CV professionnel', 'Site web vitrine', 'Accompagnement académique',
-          'DTS', 'Licence', 'Master 1', 'Master 2', 'Documents professionnels',
-          'Création de CV', 'Canevas CV', 'Canevas CV', 'CV professionnel',
-          'Site vitrine', 'Web design'
-        ];
-        const text = encodeURIComponent(labels[index] || img.alt || 'Assistance Numérique Online');
-        img.src = `data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='550' viewBox='0 0 900 550'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop stop-color='%230b1f3a'/%3E%3Cstop offset='1' stop-color='%23f4b400'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='900' height='550' fill='url(%23g)'/%3E%3Ccircle cx='760' cy='90' r='120' fill='rgba(255,255,255,0.13)'/%3E%3Ccircle cx='120' cy='460' r='160' fill='rgba(255,255,255,0.10)'/%3E%3Crect x='110' y='155' width='680' height='240' rx='30' fill='rgba(255,255,255,0.16)'/%3E%3Ctext x='450' y='285' text-anchor='middle' font-family='Arial' font-size='38' font-weight='700' fill='white'%3E${text}%3C/text%3E%3Ctext x='450' y='335' text-anchor='middle' font-family='Arial' font-size='20' fill='white'%3EAssistance Numérique Online%3C/text%3E%3C/svg%3E`;
-      });
-    });
+      function initImageFallbacks() {
+        document.querySelectorAll('img').forEach((img, index) => {
+          img.addEventListener('error', () => {
+            if (img.dataset.fallbackApplied) return;
+            img.dataset.fallbackApplied = 'true';
+            const labels = [
+              'Livre de mémoire', 'CV professionnel', 'Site web vitrine', 'Accompagnement académique',
+              'DTS', 'Licence', 'Master 1', 'Master 2', 'Documents professionnels',
+              'Création de CV', 'Canevas CV', 'Canevas CV', 'CV professionnel',
+              'Site vitrine', 'Web design'
+            ];
+            const text = encodeURIComponent(labels[index] || img.alt || 'Assistance Numérique Online');
+            img.src = `data:image/svg+xml;charset=UTF-8,%3Csvg xmlns='http://www.w3.org/2000/svg' width='900' height='550' viewBox='0 0 900 550'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1' y1='0' y2='1'%3E%3Cstop stop-color='%230b1f3a'/%3E%3Cstop offset='1' stop-color='%23f4b400'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='900' height='550' fill='url(%23g)'/%3E%3Ccircle cx='760' cy='90' r='120' fill='rgba(255,255,255,0.13)'/%3E%3Ccircle cx='120' cy='460' r='160' fill='rgba(255,255,255,0.10)'/%3E%3Crect x='110' y='155' width='680' height='240' rx='30' fill='rgba(255,255,255,0.16)'/%3E%3Ctext x='450' y='285' text-anchor='middle' font-family='Arial' font-size='38' font-weight='700' fill='white'%3E${text}%3C/text%3E%3Ctext x='450' y='335' text-anchor='middle' font-family='Arial' font-size='20' fill='white'%3EAssistance Numérique Online%3C/text%3E%3C/svg%3E`;
+          }, { once: true });
+        });
+      }
 
-    const menuToggle = document.getElementById('menuToggle');
-    const mainNav = document.getElementById('mainNav');
+      const menuToggle = document.getElementById('menuToggle');
+      const mainNav = document.getElementById('mainNav');
 
-    if (menuToggle && mainNav) {
-      menuToggle.addEventListener('click', () => {
-        const isOpen = mainNav.classList.toggle('open');
-        menuToggle.classList.toggle('open', isOpen);
-        menuToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
-        menuToggle.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
-      });
-    }
-
-    function closeMobileMenu() {
-      if (menuToggle && mainNav) {
-        mainNav.classList.remove('open');
+      function closeMobileMenu() {
+        if (!menuToggle || !mainNav) return;
+        mainNav.classList.remove('open', 'is-open');
         menuToggle.classList.remove('open');
         menuToggle.setAttribute('aria-expanded', 'false');
         menuToggle.setAttribute('aria-label', 'Ouvrir le menu');
       }
-    }
 
-    function showPage(pageId) {
-      const pages = document.querySelectorAll('.page');
-      pages.forEach(page => page.classList.remove('active'));
-      document.getElementById(pageId).classList.add('active');
-      closeMobileMenu();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
-
-    function buildEmailBody(form) {
-      const lines = [];
-      const data = new FormData(form);
-      for (const [key, value] of data.entries()) {
-        if (key.startsWith('_')) continue;
-        if (value instanceof File) continue;
-        const label = key.replaceAll('_', ' ');
-        lines.push(`${label} : ${value || '-'}`);
+      function openMobileMenu() {
+        if (!menuToggle || !mainNav) return;
+        mainNav.classList.add('open', 'is-open');
+        menuToggle.classList.add('open');
+        menuToggle.setAttribute('aria-expanded', 'true');
+        menuToggle.setAttribute('aria-label', 'Fermer le menu');
       }
-      const files = Array.from(form.querySelectorAll('input[type="file"]'))
-        .flatMap(input => Array.from(input.files || []).map(file => file.name));
-      if (files.length) {
-        lines.push(`Fichiers sélectionnés : ${files.join(', ')}`);
-        lines.push('NB : les fichiers lourds doivent être envoyés séparément par email ou WhatsApp après premier contact.');
+
+      function toggleMobileMenu() {
+        if (!menuToggle || !mainNav) return;
+        const isOpen = mainNav.classList.contains('open') || mainNav.classList.contains('is-open');
+        isOpen ? closeMobileMenu() : openMobileMenu();
       }
-      return lines.join('\n');
-    }
 
-    function buildPlainMessage(form) {
-      const data = new FormData(form);
-      const ignored = new Set(['access_key', 'from_name', 'subject', '_honey', 'attachment']);
-      const lines = [];
-      for (const [key, value] of data.entries()) {
-        if (ignored.has(key)) continue;
-        if (value instanceof File) continue;
-        const cleanKey = key.replaceAll('_', ' ');
-        lines.push(`${cleanKey}: ${value || '-'}`);
-      }
-      const fileInput = form.querySelector('input[type="file"]');
-      if (fileInput && fileInput.files && fileInput.files[0]) {
-        const file = fileInput.files[0];
-        lines.push(`piece jointe selectionnee: ${file.name} (${Math.round(file.size / 1024)} Ko)`);
-      }
-      return lines.join('\n');
-    }
+      window.showPage = function showPage(pageId, options = {}) {
+        const target = document.getElementById(pageId);
+        if (!target) return;
+        document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+        target.classList.add('active');
+        document.querySelectorAll('[data-page]').forEach(link => {
+          const active = link.getAttribute('data-page') === pageId;
+          link.setAttribute('aria-current', active ? 'page' : 'false');
+        });
+        closeMobileMenu();
+        if (!options.skipHash) history.replaceState(null, '', `#${pageId}`);
+        if (!options.keepScroll) window.scrollTo({ top: 0, behavior: 'smooth' });
+      };
 
-    function getFallbackEmailLink(form) {
-      const subject = encodeURIComponent(form.querySelector('input[name="subject"]')?.value || 'Nouvelle demande - Assistance Numérique Online');
-      const body = encodeURIComponent(buildPlainMessage(form));
-      return `mailto:assistance.numerique.online@gmail.com?subject=${subject}&body=${body}`;
-    }
-
-    document.querySelectorAll('form[data-form-service="web3forms"]').forEach(form => {
-      const submitButton = form.querySelector('button[type="submit"]');
-      const statusBox = document.createElement('div');
-      statusBox.className = 'small-note';
-      statusBox.style.marginTop = '12px';
-      statusBox.style.fontWeight = 'bold';
-      statusBox.setAttribute('aria-live', 'polite');
-      submitButton.insertAdjacentElement('afterend', statusBox);
-
-      form.addEventListener('submit', async function(event) {
-        event.preventDefault();
-
-        const accessKey = form.querySelector('input[name="access_key"]')?.value || '';
-        if (!accessKey || accessKey === 'REMPLACEZ_PAR_VOTRE_CLE_WEB3FORMS') {
-          statusBox.innerHTML = 'Formulaire presque prêt : la clé Web3Forms n’est pas encore configurée. <a href="https://web3forms.com/" target="_blank" rel="noopener">Créer une clé gratuite</a>.';
-          return;
+      function initNavigation() {
+        if (menuToggle) {
+          menuToggle.addEventListener('click', toggleMobileMenu);
         }
 
+        document.addEventListener('click', (event) => {
+          const link = event.target.closest('[data-page]');
+          if (!link) return;
+          const pageId = link.getAttribute('data-page');
+          if (!pageId) return;
+          event.preventDefault();
+          window.showPage(pageId);
+        });
+
+        document.addEventListener('keydown', (event) => {
+          if (event.key === 'Escape') closeMobileMenu();
+        });
+
+        const initialPage = window.location.hash ? window.location.hash.slice(1) : 'accueil';
+        if (document.getElementById(initialPage)) {
+          window.showPage(initialPage, { skipHash: true, keepScroll: true });
+        } else {
+          window.showPage('accueil', { skipHash: true, keepScroll: true });
+        }
+      }
+
+      function buildPlainMessage(form) {
+        const data = new FormData(form);
+        const ignored = new Set(['access_key', 'from_name', 'subject', '_honey', 'attachment']);
+        const lines = [];
+        for (const [key, value] of data.entries()) {
+          if (ignored.has(key) || value instanceof File) continue;
+          const cleanKey = key.replaceAll('_', ' ');
+          lines.push(`${cleanKey}: ${value || '-'}`);
+        }
         const fileInput = form.querySelector('input[type="file"]');
         if (fileInput && fileInput.files && fileInput.files[0]) {
-          const maxSize = 5 * 1024 * 1024;
-          if (fileInput.files[0].size > maxSize) {
-            statusBox.innerHTML = 'Le fichier dépasse 5 Mo. Envoyez d’abord le formulaire sans fichier, puis transmettez le fichier par email ou WhatsApp après le premier contact.';
-            return;
-          }
+          const file = fileInput.files[0];
+          lines.push(`piece jointe selectionnee: ${file.name} (${Math.round(file.size / 1024)} Ko)`);
         }
+        return lines.join('\n');
+      }
 
-        const originalText = submitButton.textContent;
-        submitButton.disabled = true;
-        submitButton.textContent = 'Envoi en cours...';
-        statusBox.textContent = '';
+      function getFallbackEmailLink(form) {
+        const subject = encodeURIComponent(form.querySelector('input[name="subject"]')?.value || 'Nouvelle demande - Assistance Numérique Online');
+        const body = encodeURIComponent(buildPlainMessage(form));
+        return `mailto:assistance.numerique.online@gmail.com?subject=${subject}&body=${body}`;
+      }
 
-        try {
-          const formData = new FormData(form);
-          const response = await fetch(form.action, {
-            method: 'POST',
-            body: formData
+      function setStatus(statusBox, type, message) {
+        if (!statusBox) return;
+        statusBox.className = `form-status ${type}`;
+        statusBox.innerHTML = message;
+      }
+
+      function initForms() {
+        document.querySelectorAll('form[data-form-service="web3forms"]').forEach(form => {
+          const submitButton = form.querySelector('button[type="submit"]');
+          const statusBox = form.querySelector('.form-status') || document.createElement('div');
+          if (!statusBox.parentElement) {
+            statusBox.className = 'form-status';
+            statusBox.setAttribute('aria-live', 'polite');
+            submitButton.insertAdjacentElement('afterend', statusBox);
+          }
+
+          form.addEventListener('submit', async function(event) {
+            event.preventDefault();
+
+            const accessKey = form.querySelector('input[name="access_key"]')?.value || '';
+            if (!accessKey || accessKey === 'REMPLACEZ_PAR_VOTRE_CLE_WEB3FORMS') {
+              setStatus(statusBox, 'error', 'Formulaire presque prêt : la clé Web3Forms n’est pas encore configurée. <a href="https://web3forms.com/" target="_blank" rel="noopener">Créer une clé gratuite</a>.');
+              return;
+            }
+
+            const fileInput = form.querySelector('input[type="file"]');
+            if (fileInput && fileInput.files && fileInput.files[0]) {
+              const maxSize = 5 * 1024 * 1024;
+              if (fileInput.files[0].size > maxSize) {
+                setStatus(statusBox, 'error', 'Le fichier dépasse 5 Mo. Envoyez d’abord le formulaire sans fichier, puis transmettez le fichier par email ou WhatsApp après le premier contact.');
+                return;
+              }
+            }
+
+            const originalText = submitButton.textContent;
+            submitButton.disabled = true;
+            submitButton.textContent = 'Envoi en cours...';
+            statusBox.className = 'form-status';
+            statusBox.textContent = '';
+
+            try {
+              const formData = new FormData(form);
+              const response = await fetch(form.action, {
+                method: 'POST',
+                body: formData
+              });
+
+              const result = await response.json();
+              if (!response.ok || !result.success) {
+                throw new Error(result.message || 'Erreur lors de l’envoi');
+              }
+
+              setStatus(statusBox, 'success', 'Votre demande a bien été envoyée. Nous vous répondrons dès que possible.');
+              form.reset();
+            } catch (error) {
+              const mailto = getFallbackEmailLink(form);
+              setStatus(statusBox, 'error', `L’envoi automatique n’a pas réussi. <a href="${mailto}">Cliquez ici pour envoyer la demande par email</a>.`);
+            } finally {
+              submitButton.disabled = false;
+              submitButton.textContent = originalText;
+            }
           });
+        });
+      }
 
-          const result = await response.json();
-          if (!response.ok || !result.success) {
-            throw new Error(result.message || 'Erreur lors de l’envoi');
-          }
-
-          statusBox.style.color = '#0b6b2b';
-          statusBox.textContent = 'Votre demande a bien été envoyée. Nous vous répondrons dès que possible.';
-          form.reset();
-        } catch (error) {
-          const mailto = getFallbackEmailLink(form);
-          statusBox.style.color = '#8a1f11';
-          statusBox.innerHTML = `L’envoi automatique n’a pas réussi. <a href="${mailto}">Cliquez ici pour envoyer la demande par email</a>.`;
-        } finally {
-          submitButton.disabled = false;
-          submitButton.textContent = originalText;
-        }
+      document.addEventListener('DOMContentLoaded', () => {
+        initImageFallbacks();
+        initNavigation();
+        initForms();
       });
-    });
+    })();
   </script>
 </body>
 </html>
