@@ -1,0 +1,78 @@
+ASSISTANCE NUMERIQUE ONLINE — A LIRE AVANT MISE EN LIGNE PUBLIQUE
+Dernière mise à jour : 15/09/2026
+
+Cette version du site contient désormais :
+- Mentions légales
+- Politique de confidentialité
+- Conditions d'utilisation
+- Consentements obligatoires dans les 3 formulaires
+- Règles anti-faux documents / fausses expériences
+- Règles d'intégrité académique pour les mémoires
+- Avertissements contre l'envoi de données sensibles inutiles
+- Publicités Monetag conservées et chargées directement sur les pages
+- Liens permanents vers les informations juridiques
+- Mention "service indépendant en développement continu"
+
+IMPORTANT — A COMPLETER / VERIFIER AVANT UNE DIFFUSION IMPORTANTE
+1) Renseigner dans mentions-legales.html :
+   - identité civile de l'exploitant OU raison sociale réelle
+   - coordonnées légales requises selon votre statut
+   - NIF / STAT ou autres identifiants s'ils existent et sont applicables
+   - hébergeur réellement utilisé
+
+2) CMIL / DONNEES PERSONNELLES
+   La loi n°2014-038 prévoit des formalités préalables pour les traitements de données.
+   Vérifier auprès de la CMIL le régime réellement applicable :
+   déclaration, autorisation, registre, dispense éventuelle, délégué, etc.
+   Ne pas afficher "certifié CMIL" sans preuve.
+
+3) DUREES DE CONSERVATION
+   La politique publique prévoit :
+   - fichiers joints : suppression visée sous 30 jours après clôture/livraison
+   - données de formulaire / suivi : 6 mois maximum visé
+   Ces suppressions doivent être REELLEMENT effectuées dans l'hébergement, le backend
+   et les conversations/outils utilisés. Le site HTML ne peut pas les faire seul.
+
+4) BACKEND /api/submit-request.js
+   Ce fichier serveur n'était pas présent dans le lot de départ.
+   Vérifier qu'il :
+   - envoie uniquement vers le numéro administrateur prévu
+   - ne journalise pas inutilement les fichiers ou données personnelles
+   - limite taille/type des fichiers
+   - protège le jeton WhatsApp en variable d'environnement
+   - supprime les fichiers temporaires après transmission
+   - renvoie des erreurs sans exposer de secrets
+
+5) PRESTATAIRES ET TRANSFERTS
+   Vérifier les conditions et garanties des services réellement utilisés :
+   - hébergeur (prévu : Vercel si c'est bien le déploiement retenu)
+   - WhatsApp / Meta
+   - Monetag
+   - Google Fonts / Unsplash
+   Mettre à jour la politique si un prestataire change.
+
+6) STATUT DE L'ACTIVITE
+   La mention "service indépendant en développement continu" est volontairement utilisée.
+   Elle est plus prudente que "page personnelle". Un service public recevant des formulaires
+   et proposant des prestations ne doit pas être présenté comme "activité exclusivement
+   personnelle" dans le but d'échapper aux obligations légales.
+
+7) PRIX / PAIEMENTS
+   - CV : gratuit si la page continue de l'annoncer comme gratuit.
+   - Conversion PDF : gratuite si la page continue de l'annoncer comme gratuite.
+   - Mémoire : communiquer et faire accepter prix, contenu et conditions AVANT paiement.
+
+8) NE PAS PROMETTRE
+   - emploi garanti
+   - réussite à un concours
+   - note ou soutenance garantie
+   - résultat technique parfait quel que soit le fichier
+
+9) AUCUN TEXTE DU SITE NE REMPLACE :
+   - les formalités administratives réellement applicables
+   - la sécurité technique du backend
+   - l'avis d'un professionnel du droit ou d'un conseiller compétent lorsque nécessaire
+
+Références principales :
+- Loi malagasy n°2014-038 sur la protection des données à caractère personnel
+- Loi n°2015-014 sur les garanties et la protection des consommateurs

@@ -63,3 +63,13 @@ FICHIERS PRINCIPAUX
 SECURITE
 Ne mettez jamais WHATSAPP_ACCESS_TOKEN dans index.html, app.js ou un autre fichier public.
 Le jeton doit être configuré uniquement comme variable d'environnement côté serveur.
+
+
+MISE A JOUR JURIDIQUE / CONFIANCE UTILISATEUR
+- mentions-legales.html
+- confidentialite.html
+- conditions-utilisation.html
+- CONFORMITE-A-LIRE-AVANT-MISE-EN-LIGNE.txt
+
+Avant publication importante, lire impérativement le fichier de conformité et compléter
+l'identité légale de l'exploitant, l'hébergeur réel et les formalités CMIL applicables.
