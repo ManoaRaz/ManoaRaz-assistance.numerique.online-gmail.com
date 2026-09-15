@@ -33,10 +33,10 @@ IMPORTANT : l'activation réelle nécessite les identifiants Meta WhatsApp Busin
 Variables d'environnement à configurer sur le serveur :
 - WHATSAPP_PHONE_NUMBER_ID = identifiant du numéro WhatsApp Business API qui envoie les notifications
 - WHATSAPP_ACCESS_TOKEN = jeton d'accès Meta / WhatsApp Cloud API
-- WHATSAPP_ADMIN_NUMBER = 261325098288 (numéro qui reçoit les demandes)
+- WHATSAPP_ADMIN_NUMBER = 261389518788 (correspond à 0389518788 ; numéro qui reçoit les demandes)
 - WHATSAPP_GRAPH_VERSION = v23.0 (optionnel)
 
-Le numéro qui ENVOIE via l'API et le numéro ADMIN qui REÇOIT doivent être compatibles avec la configuration WhatsApp Business. Si +261325098288 est lui-même utilisé comme numéro expéditeur Cloud API, utilisez un autre numéro WhatsApp comme destinataire administrateur.
+Le numéro qui ENVOIE via l'API et le numéro ADMIN qui REÇOIT doivent être compatibles avec la configuration WhatsApp Business. Si +261 38 95 187 88 est lui-même utilisé comme numéro expéditeur Cloud API, utilisez un autre numéro WhatsApp comme destinataire administrateur.
 
 HÉBERGEMENT
 Cette version n'est plus un simple site statique : elle a besoin d'un backend pour protéger le jeton WhatsApp et transmettre les fichiers.

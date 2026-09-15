@@ -1,0 +1,11 @@
+CONFIGURATION WHATSAPP — NUMÉRO DE RÉCEPTION
+
+Numéro local demandé : 0389518788
+Format international / WhatsApp : +261 38 95 187 88
+Valeur à utiliser dans Vercel :
+WHATSAPP_ADMIN_NUMBER=261389518788
+
+IMPORTANT
+Le routage réel des formulaires est effectué côté serveur par /api/submit-request.js et la variable d’environnement WHATSAPP_ADMIN_NUMBER.
+Après mise en ligne de ces fichiers, ouvrez les variables d’environnement du projet Vercel et remplacez l’ancienne valeur par 261389518788, puis redéployez le site.
+Ne placez jamais WHATSAPP_ACCESS_TOKEN dans les fichiers publics HTML ou JavaScript.

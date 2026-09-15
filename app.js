@@ -33,7 +33,7 @@ async function submitRequest(event) {
     button.disabled = true;
     button.textContent = 'Transmission en cours…';
   }
-  setStatus(form, 'success', 'Transmission sécurisée de votre formulaire et de votre fichier…');
+  setStatus(form, 'success', 'Envoi du formulaire et du fichier en cours…');
 
   try {
     const data = new FormData(form);
@@ -52,7 +52,7 @@ async function submitRequest(event) {
       throw new Error(result.message || 'La transmission automatique a échoué.');
     }
 
-    setStatus(form, 'success', 'Votre demande a bien été transmise. Le formulaire et le fichier joint sont pris en charge automatiquement : vous n’avez rien à renvoyer dans WhatsApp.');
+    setStatus(form, 'success', 'Votre demande a bien été envoyée. Si un fichier a été joint, il a été transmis avec le formulaire. Le suivi se fera sur WhatsApp.');
     form.reset();
   } catch (error) {
     setStatus(form, 'error', error.message || 'Impossible de transmettre la demande pour le moment. Merci de réessayer dans quelques instants.');
