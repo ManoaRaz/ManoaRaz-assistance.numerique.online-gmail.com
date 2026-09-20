@@ -54,8 +54,8 @@ function buildSummary(id,service,fields,file){
 module.exports=async function handler(req,res){
   if(req.method!=='POST')return res.status(405).json({success:false,message:'Méthode non autorisée'});
   res.setHeader('Cache-Control','no-store');
-  const form=formidable({maxFileSize:4*1024*1024,maxFiles:1,keepExtensions:true,allowEmptyFiles:false});
-  let file;
+  const form=formidable({maxFileSize:4*1024*1024,maxTotalFileSize:16*1024*1024,maxFiles:4,keepExtensions:true,allowEmptyFiles:false});
+  let uploadedFiles=[];
   try{
     const [fields,files]=await form.parse(req);
     if(scalar(fields.website))return res.status(200).json({success:true});
@@ -63,17 +63,18 @@ module.exports=async function handler(req,res){
     const requestId=makeId('REQ');
     const clean=normalizeFields(fields);
     delete clean.service;
-    file=Array.isArray(files.attachment)?files.attachment[0]:files.attachment;
-    let whatsapp=false,documentSent=false;
+    const raw=files.attachment;
+    uploadedFiles=raw?(Array.isArray(raw)?raw:[raw]):[];
+    let whatsapp=false,documentsSent=0;
     try{
-      whatsapp=await sendTextWhatsApp(buildSummary(requestId,service,clean,file));
-      if(file&&whatsapp)documentSent=await sendDocumentWhatsApp(file);
+      whatsapp=await sendTextWhatsApp(buildSummary(requestId,service,clean,uploadedFiles.length===1?uploadedFiles[0]:(uploadedFiles.length?{originalFilename:`${uploadedFiles.length} fichiers joints`,size:uploadedFiles.reduce((a,f)=>a+(f.size||0),0)}:null)));
+      if(whatsapp){for(const f of uploadedFiles){if(await sendDocumentWhatsApp(f))documentsSent++;}}
     }catch(_){ }
     if(!whatsapp)return res.status(503).json({success:false,message:'La réception WhatsApp du site n’est pas encore configurée. Merci de contacter directement CVMemoire sur WhatsApp.'});
-    return res.status(200).json({success:true,requestId,whatsappSent:true,documentSent});
+    return res.status(200).json({success:true,requestId,whatsappSent:true,documentsSent});
   }catch(err){
     return res.status(400).json({success:false,message:err?.code==='LIMIT_FILE_SIZE'?'Fichier trop volumineux (4 Mo maximum).':'Impossible de traiter cette demande pour le moment.'});
   }finally{
-    try{if(file?.filepath)await fs.unlink(file.filepath)}catch(_){ }
+    for(const f of uploadedFiles){try{if(f?.filepath)await fs.unlink(f.filepath)}catch(_){ }}
   }
 };

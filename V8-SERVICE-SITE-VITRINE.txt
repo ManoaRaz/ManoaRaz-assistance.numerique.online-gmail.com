@@ -1,0 +1,22 @@
+CVMEMOIRE.CLICK — V8
+
+Nouveau service : création de site vitrine simple pour petites entreprises.
+Forfait affiché : 50 000 Ar.
+Page : /site-vitrine.html
+
+Formulaire volontairement simple :
+- nom
+- WhatsApp/téléphone
+- nom de l’activité
+- nom de domaine existant ou souhaité
+- petit extrait de texte
+- jusqu’à 4 images facultatives
+
+Le site précise que :
+- CVMemoire améliore/rédige le contenu à partir du texte fourni ;
+- SEO de base inclus ;
+- mise en ligne sur GitHub Pages incluse ;
+- achat/renouvellement d’un domaine personnalisé non inclus ;
+- les projets avec paiement, espace client, base de données ou boutique complexe nécessitent un autre devis.
+
+Le formulaire utilise le même système WhatsApp que les autres pages et ne crée aucun registre en ligne CVMemoire.
