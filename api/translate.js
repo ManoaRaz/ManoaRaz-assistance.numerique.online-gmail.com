@@ -1,4 +1,3 @@
-
 const LANGUAGE_NAMES={fr:'French',mg:'Malagasy',en:'English',ar:'Arabic',es:'Spanish',de:'German',it:'Italian',pt:'Portuguese',sw:'Swahili',hi:'Hindi',ur:'Urdu',zh:'Chinese',ja:'Japanese',ko:'Korean',ru:'Russian',tr:'Turkish',nl:'Dutch',id:'Indonesian',vi:'Vietnamese',th:'Thai',pl:'Polish',ro:'Romanian',el:'Greek',he:'Hebrew'};
 const MODES={natural:'natural, fluent and idiomatic',formal:'formal and professional',academic:'academic and precise',cv:'professional and suitable for a CV or job application',simple:'clear and easy to understand'};
 function extractOutputText(data){if(typeof data.output_text==='string')return data.output_text.trim();for(const item of(data.output||[])){for(const c of(item.content||[])){if(c.type==='output_text'&&c.text)return c.text.trim()}}return''}

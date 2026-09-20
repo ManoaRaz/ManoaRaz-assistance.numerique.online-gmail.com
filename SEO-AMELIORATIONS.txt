@@ -1,5 +1,5 @@
 SEO technique ajouté :
-- URL canoniques cvmemoire.clic
+- URL canoniques cvmemoire.click
 - titres et descriptions uniques
 - Open Graph sur pages principales
 - données structurées

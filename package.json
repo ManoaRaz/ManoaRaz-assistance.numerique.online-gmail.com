@@ -1,8 +1,8 @@
 {
   "name": "cvmemoire-clic",
   "private": true,
-  "version": "3.0.0",
-  "description": "CVMemoire.clic — CV, mémoire, traduction instantanée, conversion PDF et eBooks de prompts IA.",
+  "version": "7.0.0",
+  "description": "CVMemoire.click v7 — formulaires transmis vers WhatsApp sans registre en ligne des demandes.",
   "dependencies": {
     "formidable": "^3.5.2"
   },

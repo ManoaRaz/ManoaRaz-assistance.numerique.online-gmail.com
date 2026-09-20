@@ -76,3 +76,15 @@ IMPORTANT — A COMPLETER / VERIFIER AVANT UNE DIFFUSION IMPORTANTE
 Références principales :
 - Loi malagasy n°2014-038 sur la protection des données à caractère personnel
 - Loi n°2015-014 sur les garanties et la protection des consommateurs
+
+10) MEMOIRE NUMERIQUE DES DEMANDES — VERSION 5
+   La V5 ajoute une mémoire serveur optionnelle des demandes avec accès administrateur privé. Avant activation :
+   - activer la double authentification sur Vercel et GitHub ;
+   - vérifier la durée de conservation réellement paramétrée ;
+   - informer les utilisateurs via la politique de confidentialité ;
+   - ne jamais enregistrer de mots de passe, données bancaires ou secrets inutiles.
+   La lecture, l’export et la suppression sont refusés sans session administrateur valide. Le cookie de session est HttpOnly, SameSite=Strict et Secure en production.
+   Les textes des traductions ne sont pas stockés dans cette mémoire ; seuls des événements techniques minimaux sont enregistrés.
+
+V7 — REGISTRE EN LIGNE RETIRÉ
+Le site ne maintient plus de mémoire centralisée des demandes. Les formulaires sont transmis vers le canal WhatsApp configuré sans copie structurée supplémentaire créée par CVMemoire.

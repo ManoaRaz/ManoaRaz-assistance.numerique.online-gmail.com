@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://cvmemoire.clic/sitemap.xml
+Sitemap: https://cvmemoire.click/sitemap.xml

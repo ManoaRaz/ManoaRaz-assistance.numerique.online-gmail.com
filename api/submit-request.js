@@ -1,155 +1,79 @@
-const fs = require('fs');
-const { formidable } = require('formidable');
+const {formidable}=require('formidable');
+const fs=require('fs/promises');
+const crypto=require('crypto');
 
-const GRAPH_VERSION = process.env.WHATSAPP_GRAPH_VERSION || 'v23.0';
-const PHONE_NUMBER_ID = process.env.WHATSAPP_PHONE_NUMBER_ID;
-const ACCESS_TOKEN = process.env.WHATSAPP_ACCESS_TOKEN;
-const ADMIN_NUMBER = process.env.WHATSAPP_ADMIN_NUMBER || '261325098288';
-
-function first(value) {
-  return Array.isArray(value) ? value[0] : value;
+function scalar(v){return Array.isArray(v)?v[0]:v}
+function safe(value,max=1200){return String(value??'').replace(/[\u0000-\u001F\u007F]/g,' ').trim().slice(0,max)}
+function makeId(prefix='REQ'){
+  const stamp=new Date().toISOString().replace(/[-:TZ.]/g,'').slice(0,14);
+  return `${prefix}-${stamp}-${crypto.randomBytes(3).toString('hex').toUpperCase()}`;
 }
-
-function cleanLabel(key) {
-  return String(key)
-    .replace(/_/g, ' ')
-    .replace(/\b\w/g, c => c.toUpperCase());
-}
-
-function buildSummary(fields) {
-  const ignored = new Set(['service', 'website']);
-  const lines = [];
-  for (const [key, raw] of Object.entries(fields)) {
-    if (ignored.has(key)) continue;
-    const value = first(raw);
-    if (value == null || String(value).trim() === '') continue;
-    lines.push(`• ${cleanLabel(key)} : ${String(value).trim()}`);
+function normalizeFields(fields){
+  const out={};
+  for(const [k,v] of Object.entries(fields||{})){
+    if(k==='website')continue;
+    out[safe(k,80)]=safe(scalar(v),1800);
   }
+  return out;
+}
+async function sendTextWhatsApp(text){
+  const token=process.env.WHATSAPP_ACCESS_TOKEN;
+  const phoneId=process.env.WHATSAPP_PHONE_NUMBER_ID;
+  const to=process.env.WHATSAPP_ADMIN_NUMBER;
+  if(!token||!phoneId||!to)return false;
+  const version=process.env.WHATSAPP_GRAPH_VERSION||'v23.0';
+  const r=await fetch(`https://graph.facebook.com/${version}/${phoneId}/messages`,{method:'POST',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({messaging_product:'whatsapp',to,type:'text',text:{body:text.slice(0,3900)}})});
+  return r.ok;
+}
+async function sendDocumentWhatsApp(file){
+  const token=process.env.WHATSAPP_ACCESS_TOKEN;
+  const phoneId=process.env.WHATSAPP_PHONE_NUMBER_ID;
+  const to=process.env.WHATSAPP_ADMIN_NUMBER;
+  if(!token||!phoneId||!to||!file?.filepath)return false;
+  const version=process.env.WHATSAPP_GRAPH_VERSION||'v23.0';
+  const bytes=await fs.readFile(file.filepath);
+  const fd=new FormData();
+  fd.append('messaging_product','whatsapp');
+  fd.append('file',new Blob([bytes],{type:file.mimetype||'application/octet-stream'}),file.originalFilename||'document');
+  const up=await fetch(`https://graph.facebook.com/${version}/${phoneId}/media`,{method:'POST',headers:{Authorization:`Bearer ${token}`},body:fd});
+  if(!up.ok)return false;
+  const media=await up.json();
+  if(!media.id)return false;
+  const r=await fetch(`https://graph.facebook.com/${version}/${phoneId}/messages`,{method:'POST',headers:{Authorization:`Bearer ${token}`,'Content-Type':'application/json'},body:JSON.stringify({messaging_product:'whatsapp',to,type:'document',document:{id:media.id,filename:file.originalFilename||'document'}})});
+  return r.ok;
+}
+function buildSummary(id,service,fields,file){
+  const lines=[`Nouvelle demande CVMemoire`,`Référence : ${id}`,`Service : ${service}`];
+  for(const [k,v] of Object.entries(fields)){
+    if(!v||k.startsWith('accept_')||k.includes('autorisation')||k.includes('integrite')||k.includes('certification'))continue;
+    lines.push(`${k.replace(/_/g,' ')} : ${v}`);
+  }
+  if(file)lines.push(`Fichier : ${file.originalFilename||'joint'} (${Math.round((file.size||0)/1024)} Ko)`);
   return lines.join('\n');
 }
-
-async function graph(path, options = {}) {
-  const response = await fetch(`https://graph.facebook.com/${GRAPH_VERSION}/${path}`, options);
-  const payload = await response.json().catch(() => ({}));
-  if (!response.ok) {
-    const message = payload?.error?.message || `Erreur WhatsApp API (${response.status})`;
-    const err = new Error(message);
-    err.meta = payload;
-    throw err;
-  }
-  return payload;
-}
-
-async function sendText(body) {
-  return graph(`${PHONE_NUMBER_ID}/messages`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${ACCESS_TOKEN}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      messaging_product: 'whatsapp',
-      recipient_type: 'individual',
-      to: ADMIN_NUMBER,
-      type: 'text',
-      text: { preview_url: false, body }
-    })
-  });
-}
-
-async function uploadMedia(file) {
-  const bytes = await fs.promises.readFile(file.filepath);
-  const body = new FormData();
-  body.append('messaging_product', 'whatsapp');
-  body.append('file', new Blob([bytes], { type: file.mimetype || 'application/octet-stream' }), file.originalFilename || 'document');
-  return graph(`${PHONE_NUMBER_ID}/media`, {
-    method: 'POST',
-    headers: { 'Authorization': `Bearer ${ACCESS_TOKEN}` },
-    body
-  });
-}
-
-async function sendMedia(file, mediaId, service) {
-  const filename = file.originalFilename || 'document';
-  const isImage = String(file.mimetype || '').startsWith('image/');
-  const payload = isImage
-    ? {
-        messaging_product: 'whatsapp',
-        to: ADMIN_NUMBER,
-        type: 'image',
-        image: { id: mediaId, caption: `Pièce jointe — ${service}` }
-      }
-    : {
-        messaging_product: 'whatsapp',
-        to: ADMIN_NUMBER,
-        type: 'document',
-        document: { id: mediaId, filename, caption: `Pièce jointe — ${service}` }
-      };
-
-  return graph(`${PHONE_NUMBER_ID}/messages`, {
-    method: 'POST',
-    headers: {
-      'Authorization': `Bearer ${ACCESS_TOKEN}`,
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify(payload)
-  });
-}
-
-module.exports = async function handler(req, res) {
-  if (req.method !== 'POST') {
-    res.setHeader('Allow', 'POST');
-    return res.status(405).json({ success: false, message: 'Méthode non autorisée.' });
-  }
-
-  if (!PHONE_NUMBER_ID || !ACCESS_TOKEN) {
-    return res.status(503).json({
-      success: false,
-      message: 'La réception WhatsApp automatique n’est pas encore activée sur le serveur.'
-    });
-  }
-
-  const form = formidable({
-    multiples: true,
-    maxFiles: 3,
-    maxFileSize: 4 * 1024 * 1024,
-    allowEmptyFiles: false
-  });
-
-  try {
-    const [fields, files] = await form.parse(req);
-
-    if (first(fields.website)) {
-      return res.status(200).json({ success: true });
-    }
-
-    const service = first(fields.service) || 'Nouvelle demande depuis le site';
-    const summary = buildSummary(fields);
-    const text = `📩 Nouvelle demande — ${service}\n\n${summary || 'Aucune information textuelle supplémentaire.'}`;
-
-    await sendText(text);
-
-    const uploadedFiles = [];
-    for (const value of Object.values(files || {})) {
-      const list = Array.isArray(value) ? value : [value];
-      for (const file of list) {
-        if (!file || !file.filepath) continue;
-        const media = await uploadMedia(file);
-        await sendMedia(file, media.id, service);
-        uploadedFiles.push(file.originalFilename || 'document');
-      }
-    }
-
-    return res.status(200).json({
-      success: true,
-      message: 'Demande transmise sur WhatsApp.',
-      files: uploadedFiles
-    });
-  } catch (error) {
-    console.error('submit-request:', error);
-    return res.status(500).json({
-      success: false,
-      message: 'La transmission WhatsApp automatique a échoué. Vérifiez la configuration WhatsApp Business Cloud API du serveur.'
-    });
+module.exports=async function handler(req,res){
+  if(req.method!=='POST')return res.status(405).json({success:false,message:'Méthode non autorisée'});
+  res.setHeader('Cache-Control','no-store');
+  const form=formidable({maxFileSize:4*1024*1024,maxFiles:1,keepExtensions:true,allowEmptyFiles:false});
+  let file;
+  try{
+    const [fields,files]=await form.parse(req);
+    if(scalar(fields.website))return res.status(200).json({success:true});
+    const service=safe(scalar(fields.service)||'Demande depuis le site',160);
+    const requestId=makeId('REQ');
+    const clean=normalizeFields(fields);
+    delete clean.service;
+    file=Array.isArray(files.attachment)?files.attachment[0]:files.attachment;
+    let whatsapp=false,documentSent=false;
+    try{
+      whatsapp=await sendTextWhatsApp(buildSummary(requestId,service,clean,file));
+      if(file&&whatsapp)documentSent=await sendDocumentWhatsApp(file);
+    }catch(_){ }
+    if(!whatsapp)return res.status(503).json({success:false,message:'La réception WhatsApp du site n’est pas encore configurée. Merci de contacter directement CVMemoire sur WhatsApp.'});
+    return res.status(200).json({success:true,requestId,whatsappSent:true,documentSent});
+  }catch(err){
+    return res.status(400).json({success:false,message:err?.code==='LIMIT_FILE_SIZE'?'Fichier trop volumineux (4 Mo maximum).':'Impossible de traiter cette demande pour le moment.'});
+  }finally{
+    try{if(file?.filepath)await fs.unlink(file.filepath)}catch(_){ }
   }
 };

@@ -27,7 +27,8 @@ async function submitRequest(event){
   try{const data=new FormData(form);data.set('service',form.dataset.service||'Demande depuis le site');
     const response=await fetch(FORM_API_ENDPOINT,{method:'POST',body:data,headers:{Accept:'application/json'}});let result={};try{result=await response.json()}catch(_){ }
     if(!response.ok||!result.success)throw new Error(result.message||'La transmission automatique a échoué.');
-    setStatus(form,'success','Votre demande a bien été envoyée. Le suivi se fera sur WhatsApp.');form.reset();
+    const requestId=result.requestId||result.request_id||'';
+    setStatus(form,'success',requestId?`Votre demande a bien été envoyée. Référence : ${requestId}. Le suivi se fera sur WhatsApp.`:'Votre demande a bien été envoyée. Le suivi se fera sur WhatsApp.');form.reset();
   }catch(error){setStatus(form,'error',error.message||'Impossible de transmettre la demande pour le moment. Merci de réessayer.');}
   finally{if(button){button.disabled=false;button.textContent=original}}
 }

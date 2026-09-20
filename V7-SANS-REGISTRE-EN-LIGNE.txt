@@ -1,0 +1,38 @@
+CVMEMOIRE.CLICK — V7 SANS REGISTRE EN LIGNE
+
+Cette version ne contient plus de mémoire/registre en ligne des demandes.
+
+Supprimé :
+- stockage GitHub des requêtes ;
+- base/mémoire centralisée des formulaires ;
+- page administrateur memoire-demandes.html ;
+- API de lecture/export/suppression ;
+- authentification administrateur liée à ce registre ;
+- suivi des téléchargements d'eBooks ;
+- suivi serveur des traductions.
+
+Les formulaires CV / mémoire / conversion :
+- sont transmis directement au WhatsApp administrateur configuré ;
+- ne créent pas de copie structurée supplémentaire dans GitHub ou une base CVMemoire.
+
+À supprimer de Vercel si elles existent encore :
+- GITHUB_STORAGE_TOKEN
+- GITHUB_STORAGE_OWNER
+- GITHUB_STORAGE_REPO
+- GITHUB_STORAGE_BRANCH
+- GITHUB_STORAGE_SOURCE_BRANCH
+- CVMEMOIRE_STORAGE_SECRET
+- CVMEMOIRE_ADMIN_USER
+- CVMEMOIRE_ADMIN_PASSWORD
+- CVMEMOIRE_ADMIN_SESSION_SECRET
+- CVMEMOIRE_ADMIN_ALLOWED_IPS
+- TRACK_PUBLIC_EVENTS_IN_GITHUB
+- TRACK_TRANSLATIONS_IN_GITHUB
+
+À conserver pour les formulaires :
+- WHATSAPP_ACCESS_TOKEN
+- WHATSAPP_PHONE_NUMBER_ID
+- WHATSAPP_ADMIN_NUMBER
+
+La page de traduction peut garder un historique local dans le navigateur de l'utilisateur,
+mais cet historique n'est pas envoyé dans un registre CVMemoire.

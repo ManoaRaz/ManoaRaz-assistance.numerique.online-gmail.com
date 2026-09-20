@@ -1,35 +1,46 @@
-CVMEMOIRE.CLIC — VERSION AVEC TRADUCTION + EBOOKS + SEO
+CVMEMOIRE.CLICK — VERSION 7
 
-NOUVELLES PAGES
-- traduction.html : traduction automatique sans compte et sans bouton de validation.
-- ebooks-prompts.html : bibliothèque d’eBooks gratuits téléchargeables en un clic.
+CHANGEMENT PRINCIPAL
+- Le registre / mémoire en ligne des demandes a été complètement retiré.
+- Aucun fichier de demandes n’est créé dans GitHub.
+- Aucun tableau administrateur de demandes n’est inclus.
+- Aucun suivi des téléchargements d’eBooks ou des traductions n’est enregistré dans une mémoire CVMemoire.
+- Les formulaires sont transmis directement au WhatsApp administrateur configuré.
+
+FORMULAIRES
+Endpoint : /api/submit-request
+Variables Vercel nécessaires :
+WHATSAPP_ACCESS_TOKEN=...
+WHATSAPP_PHONE_NUMBER_ID=...
+WHATSAPP_ADMIN_NUMBER=...
+WHATSAPP_GRAPH_VERSION=v23.0   (facultatif)
+
+Important : le site ne crée pas de copie structurée supplémentaire de la demande. Les messages transmis à WhatsApp peuvent toutefois être conservés par WhatsApp/Meta selon la configuration du compte et leurs politiques.
 
 TRADUCTION
-La page appelle /api/translate.
-- Si OPENAI_API_KEY est configurée sur Vercel, le moteur IA est utilisé (modèle par défaut : gpt-5-mini).
-- Sinon, l’API bascule automatiquement vers MyMemory comme fournisseur de secours.
-
-Variables Vercel optionnelles :
+Endpoint : /api/translate
+Variables Vercel facultatives :
 OPENAI_API_KEY=...
 OPENAI_TRANSLATE_MODEL=gpt-5-mini
-
-Important : ne placez jamais la clé API dans translate.js ou dans une page HTML.
+Sans clé OpenAI, le service de secours MyMemory est utilisé.
+Aucun journal CVMemoire des traductions n’est enregistré côté serveur.
+L’historique visible sur la page de traduction reste local au navigateur de l’utilisateur.
 
 EBOOKS
-Les PDF sont dans : assets/ebooks/
-Les couvertures sont dans : assets/images/
-Pour ajouter un livre, copiez son PDF et ajoutez une carte dans ebooks-prompts.html.
+Les PDF sont dans assets/ebooks/.
+Aucun téléchargement d’eBook n’est inscrit dans un registre CVMemoire.
 
-SEO APPLIQUÉ
-- Domaine canonique : https://cvmemoire.clic/
-- Titres et meta descriptions uniques
-- Open Graph / Twitter sur les nouvelles pages
-- Données structurées WebSite, Organization, SoftwareApplication, CollectionPage/Book
-- sitemap.xml et robots.txt mis à jour
-- Liens internes vers Traduction et eBooks ajoutés dans la navigation et le pied de page
-- Contenu descriptif crawlable autour des outils
-- Images non critiques en lazy-loading
+FICHIERS SUPPRIMÉS EN V7
+- memoire-demandes.html
+- memory-admin.js
+- api/request-memory.js
+- api/admin-login.js
+- api/admin-status.js
+- api/admin-logout.js
+- lib/request-memory.js
+- lib/admin-auth.js
+- documentation de stockage GitHub / mémoire privée
 
 DÉPLOIEMENT
-Déployez le contenu de ce dossier à la racine du projet Vercel associé à cvmemoire.clic.
-Après mise en ligne, soumettez https://cvmemoire.clic/sitemap.xml dans Google Search Console.
+Déployez le contenu de ce dossier à la racine du projet Vercel associé à cvmemoire.click.
+Si des variables GITHUB_STORAGE_*, CVMEMOIRE_STORAGE_SECRET ou CVMEMOIRE_ADMIN_* existent encore dans Vercel, elles ne sont plus utilisées et peuvent être supprimées.
