@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://assistance-numerique.online/sitemap.xml
+Sitemap: https://cvmemoire.clic/sitemap.xml

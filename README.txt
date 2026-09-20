@@ -1,75 +1,35 @@
-ASSISTANCE NUMERIQUE ONLINE — VERSION WHATSAPP AUTOMATIQUE
+CVMEMOIRE.CLIC — VERSION AVEC TRADUCTION + EBOOKS + SEO
 
-OBJECTIF
-Le demandeur remplit uniquement le formulaire du site et joint son fichier directement dans le formulaire.
-Il n'a plus besoin d'ouvrir WhatsApp, de recopier le message ou de joindre le fichier une seconde fois.
-Les boutons d'envoi par email et les choix de livraison par email ont été retirés.
+NOUVELLES PAGES
+- traduction.html : traduction automatique sans compte et sans bouton de validation.
+- ebooks-prompts.html : bibliothèque d’eBooks gratuits téléchargeables en un clic.
 
-FONCTIONNEMENT DU SITE
-1) CV gratuit
-- formulaire en ligne unique
-- ancien CV / photo / document facultatif joint directement dans le formulaire
-- CV final prévu uniquement au format PDF
-- numéro WhatsApp obligatoire pour le suivi et la livraison
+TRADUCTION
+La page appelle /api/translate.
+- Si OPENAI_API_KEY est configurée sur Vercel, le moteur IA est utilisé (modèle par défaut : gpt-5-mini).
+- Sinon, l’API bascule automatiquement vers MyMemory comme fournisseur de secours.
 
-2) Conversion PDF gratuite
-- formulaire en ligne unique
-- PDF joint directement dans le formulaire
-- choix de sortie : Word (.docx), Excel (.xlsx) ou PowerPoint (.pptx)
-- numéro WhatsApp obligatoire pour le suivi et la livraison
+Variables Vercel optionnelles :
+OPENAI_API_KEY=...
+OPENAI_TRANSLATE_MODEL=gpt-5-mini
 
-3) Assistance mémoire
-- formulaire en ligne unique
-- document académique facultatif joint directement dans le formulaire
-- numéro WhatsApp obligatoire pour le suivi
+Important : ne placez jamais la clé API dans translate.js ou dans une page HTML.
 
-RECEPTION AUTOMATIQUE SUR WHATSAPP
-Le site contient maintenant une fonction serveur :
-- api/submit-request.js
+EBOOKS
+Les PDF sont dans : assets/ebooks/
+Les couvertures sont dans : assets/images/
+Pour ajouter un livre, copiez son PDF et ajoutez une carte dans ebooks-prompts.html.
 
-Cette fonction reçoit le formulaire et le fichier, puis les transmet automatiquement via l'API officielle WhatsApp Business Cloud API.
+SEO APPLIQUÉ
+- Domaine canonique : https://cvmemoire.clic/
+- Titres et meta descriptions uniques
+- Open Graph / Twitter sur les nouvelles pages
+- Données structurées WebSite, Organization, SoftwareApplication, CollectionPage/Book
+- sitemap.xml et robots.txt mis à jour
+- Liens internes vers Traduction et eBooks ajoutés dans la navigation et le pied de page
+- Contenu descriptif crawlable autour des outils
+- Images non critiques en lazy-loading
 
-IMPORTANT : l'activation réelle nécessite les identifiants Meta WhatsApp Business Cloud API.
-Variables d'environnement à configurer sur le serveur :
-- WHATSAPP_PHONE_NUMBER_ID = identifiant du numéro WhatsApp Business API qui envoie les notifications
-- WHATSAPP_ACCESS_TOKEN = jeton d'accès Meta / WhatsApp Cloud API
-- WHATSAPP_ADMIN_NUMBER = 261389518788 (correspond à 0389518788 ; numéro qui reçoit les demandes)
-- WHATSAPP_GRAPH_VERSION = v23.0 (optionnel)
-
-Le numéro qui ENVOIE via l'API et le numéro ADMIN qui REÇOIT doivent être compatibles avec la configuration WhatsApp Business. Si +261 38 95 187 88 est lui-même utilisé comme numéro expéditeur Cloud API, utilisez un autre numéro WhatsApp comme destinataire administrateur.
-
-HÉBERGEMENT
-Cette version n'est plus un simple site statique : elle a besoin d'un backend pour protéger le jeton WhatsApp et transmettre les fichiers.
-Le dossier contient package.json, vercel.json et /api/submit-request.js pour un déploiement sur Vercel.
-GitHub Pages seul ne peut pas exécuter cette fonction serveur ni garder un jeton WhatsApp secret.
-
-TAILLE DES FICHIERS
-La version Vercel fournie limite chaque fichier à environ 4 Mo afin de rester compatible avec les limites de requête du serveur.
-
-FICHIERS PRINCIPAUX
-- index.html
-- cv-gratuit.html
-- conversion-pdf.html
-- assistance-memoire.html
-- styles.css
-- app.js
-- logo-3emi.png
-- api/submit-request.js
-- package.json
-- vercel.json
-- robots.txt
-- sitemap.xml
-
-SECURITE
-Ne mettez jamais WHATSAPP_ACCESS_TOKEN dans index.html, app.js ou un autre fichier public.
-Le jeton doit être configuré uniquement comme variable d'environnement côté serveur.
-
-
-MISE A JOUR JURIDIQUE / CONFIANCE UTILISATEUR
-- mentions-legales.html
-- confidentialite.html
-- conditions-utilisation.html
-- CONFORMITE-A-LIRE-AVANT-MISE-EN-LIGNE.txt
-
-Avant publication importante, lire impérativement le fichier de conformité et compléter
-l'identité légale de l'exploitant, l'hébergeur réel et les formalités CMIL applicables.
+DÉPLOIEMENT
+Déployez le contenu de ce dossier à la racine du projet Vercel associé à cvmemoire.clic.
+Après mise en ligne, soumettez https://cvmemoire.clic/sitemap.xml dans Google Search Console.

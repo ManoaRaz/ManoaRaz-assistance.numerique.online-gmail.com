@@ -1,0 +1,16 @@
+SEO technique ajouté :
+- URL canoniques cvmemoire.clic
+- titres et descriptions uniques
+- Open Graph sur pages principales
+- données structurées
+- sitemap + robots
+- navigation interne crawlable
+- contenu sémantique H1/H2
+- lazy loading des images non critiques
+
+À faire après déploiement :
+1. Connecter Google Search Console.
+2. Soumettre /sitemap.xml.
+3. Vérifier Core Web Vitals/PageSpeed.
+4. Ajouter une image Open Graph 1200x630 dédiée si souhaité.
+5. Publier régulièrement des guides utiles et originaux autour du CV, mémoire, traduction et prompting.

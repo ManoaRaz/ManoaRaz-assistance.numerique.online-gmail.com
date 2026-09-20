@@ -3,6 +3,9 @@
   "functions": {
     "api/submit-request.js": {
       "maxDuration": 30
+    },
+    "api/translate.js": {
+      "maxDuration": 30
     }
   }
 }
