@@ -94,3 +94,18 @@ img{max-width:100%;display:block}a{color:inherit}button,input,select,textarea{fo
   .service-grid>.service-card:nth-last-child(2):nth-child(3n+1){grid-column:2 / span 2}
   .service-grid>.service-card:last-child:nth-child(3n+2){grid-column:4 / span 2}
 }
+
+/* Fenêtre de confirmation après envoi d'une demande */
+body.modal-open{overflow:hidden}
+.request-modal{position:fixed;inset:0;z-index:1000;display:flex;align-items:center;justify-content:center;padding:20px;opacity:0;visibility:hidden;pointer-events:none;transition:opacity .2s ease,visibility .2s ease}
+.request-modal.show{opacity:1;visibility:visible;pointer-events:auto}
+.request-modal__backdrop{position:absolute;inset:0;background:rgba(9,24,50,.58);backdrop-filter:blur(5px)}
+.request-modal__dialog{position:relative;z-index:1;width:min(92vw,540px);background:#fff;border:1px solid rgba(203,215,231,.9);border-radius:26px;padding:32px 30px 26px;text-align:center;box-shadow:0 28px 80px rgba(9,24,50,.28);transform:translateY(14px) scale(.98);transition:transform .22s ease}
+.request-modal.show .request-modal__dialog{transform:translateY(0) scale(1)}
+.request-modal__icon{width:68px;height:68px;margin:0 auto 18px;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#eaf8f2;color:#16865f;font-size:2rem;font-weight:900;box-shadow:inset 0 0 0 1px #ccebdd}
+.request-modal__dialog h2{font-family:Poppins,Nunito,sans-serif;font-size:clamp(1.45rem,4vw,1.9rem);line-height:1.2;margin:0 0 13px;color:var(--ink)}
+.request-modal__dialog p{margin:0 auto;color:var(--muted);line-height:1.65;max-width:46ch}
+.request-modal__reference{margin-top:14px!important;padding:10px 12px;border-radius:11px;background:#f3f7ff;color:#385377!important;font-size:.9rem;font-weight:900}
+.request-modal__ok{display:flex;margin:24px auto 0;min-width:150px}
+@media(max-width:640px){.request-modal{padding:14px}.request-modal__dialog{padding:27px 20px 22px;border-radius:21px}.request-modal__icon{width:60px;height:60px;font-size:1.8rem}.request-modal__ok{width:100%;max-width:220px}}
+@media(prefers-reduced-motion:reduce){.request-modal,.request-modal__dialog{transition:none}}
