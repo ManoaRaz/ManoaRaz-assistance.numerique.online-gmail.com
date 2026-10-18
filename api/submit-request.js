@@ -46,7 +46,7 @@ function buildSummary(id,service,fields,file){
   const lines=[`Nouvelle demande CVMemoire`,`Référence : ${id}`,`Service : ${service}`];
   for(const [k,v] of Object.entries(fields)){
     if(!v||k.startsWith('accept_')||k.includes('autorisation')||k.includes('integrite')||k.includes('certification'))continue;
-    lines.push(`${k.replace(/_/g,' ')} : ${v}`);
+    lines.push(`${k==='souhaite_accompagnement_emploi' ? 'Souhaite être contacté pour une opportunité d’emploi (aucun envoi automatique)' : k.replace(/_/g,' ')} : ${v}`);
   }
   if(file)lines.push(`Fichier : ${file.originalFilename||'joint'} (${Math.round((file.size||0)/1024)} Ko)`);
   return lines.join('\n');
@@ -63,6 +63,14 @@ module.exports=async function handler(req,res){
     const requestId=makeId('REQ');
     const clean=normalizeFields(fields);
     delete clean.service;
+    // Le service de CV exige les 2 cases de base, mais jamais l’option emploi.
+    const isCv = /(?:\bCV\b|curriculum vitae)/i.test(service);
+    if (isCv && (clean.accept_confidentialite_conditions !== 'oui' || clean.certification_exactitude_cv !== 'oui')) {
+      return res.status(400).json({success:false,message:'Veuillez accepter les conditions et confirmer l’exactitude de vos informations pour utiliser le CV gratuit.'});
+    }
+    // Uniquement une demande de contact : ne déclenche aucun envoi à un recruteur.
+    if (isCv) clean.souhaite_accompagnement_emploi = clean.souhaite_accompagnement_emploi === 'oui' ? 'oui' : 'non';
+
     const raw=files.attachment;
     uploadedFiles=raw?(Array.isArray(raw)?raw:[raw]):[];
     let whatsapp=false,documentsSent=0;

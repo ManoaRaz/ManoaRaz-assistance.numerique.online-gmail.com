@@ -1,0 +1,35 @@
+/* CVMemoire V10.5 — menu principal épuré, unique sur toutes les pages */
+.cm-unified .cvm-site-header, .cm-unified .cvm-site-header * {box-sizing:border-box}
+.cm-unified .cvm-site-header {position:sticky;top:0;z-index:1500;background:rgba(255,255,255,.98);border-bottom:1px solid #e2e9f5;box-shadow:0 5px 22px rgba(17,39,79,.055);isolation:isolate;color:#172747;font-family:Manrope,Nunito,system-ui,-apple-system,"Segoe UI",sans-serif}
+.cm-unified .cvm-site-header .cvm-shell-container {width:min(94%,1260px);margin-inline:auto}
+.cm-unified .cvm-header-inner {min-height:76px;display:flex;justify-content:space-between;align-items:center;gap:24px;position:relative;padding:10px 0}
+.cm-unified .cvm-site-header a {text-decoration:none}
+.cm-unified .cvm-brand-logo {display:inline-flex;flex:none;align-items:center;gap:10px;color:#172747;min-width:0}
+.cm-unified .cvm-brand-logo img {width:36px;height:36px;border-radius:10px;display:block;object-fit:cover;flex:none}
+.cm-unified .cvm-brand-logo span {display:flex;flex-direction:column;gap:3px;min-width:0}
+.cm-unified .cvm-brand-logo strong {font-size:1.04rem;font-weight:850;line-height:1.07;letter-spacing:-.02em;white-space:nowrap}
+.cm-unified .cvm-brand-logo small {font-size:.7rem;font-weight:650;line-height:1.2;color:#718099;white-space:nowrap}
+.cm-unified .cvm-primary-menu {position:static;display:flex;flex:0 1 auto;flex-direction:row;align-items:center;justify-content:flex-end;gap:3px;min-width:0;width:auto;margin:0;padding:0;background:transparent;border:0;border-radius:0;box-shadow:none;overflow:visible;transform:none;visibility:visible;opacity:1;max-height:none}
+.cm-unified .cvm-primary-menu a {display:inline-flex;align-items:center;justify-content:center;flex:none;min-height:39px;padding:9px 12px;font-size:.84rem;line-height:1.2;font-weight:750;color:#4c5d79;border-radius:10px;white-space:nowrap;text-align:center;background:transparent;border:0}
+.cm-unified .cvm-primary-menu a:hover,.cm-unified .cvm-primary-menu a:focus-visible {background:#edf3ff;color:#2457d6}
+.cm-unified .cvm-primary-menu a[aria-current="page"] {color:#1b4ecc;background:#edf3ff;font-weight:850}
+.cm-unified .cvm-menu-toggle {display:none;gap:8px;align-items:center;justify-content:center;flex:none;min-height:41px;border:1px solid #dce6f3;border-radius:11px;padding:9px 12px;font-weight:750;font-size:.87rem;color:#243f70;background:#fff;cursor:pointer;box-shadow:none}
+.cm-unified .cvm-menu-toggle:hover {background:#eef4ff}
+.cm-unified .cvm-site-header a:focus-visible,.cm-unified .cvm-site-header button:focus-visible {outline:3px solid #9cb8f4;outline-offset:3px}
+@media(max-width:1050px) {
+ .cm-unified .cvm-header-inner {min-height:68px;gap:12px}
+ .cm-unified .cvm-menu-toggle {display:inline-flex}
+ .cm-unified .cvm-primary-menu {display:none;position:absolute;top:calc(100% + 1px);left:0;right:0;width:100%;max-height:min(75vh,550px);overflow-y:auto;z-index:2;padding:12px;background:#fff;border:1px solid #e1e9f5;border-radius:0 0 16px 16px;box-shadow:0 24px 45px rgba(17,39,79,.14);grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;justify-content:stretch}
+ .cm-unified .cvm-site-header.menu-open .cvm-primary-menu {display:grid}
+ .cm-unified .cvm-primary-menu a {width:100%;min-height:44px;white-space:normal;justify-content:flex-start;padding:11px 12px;background:#f8faff;border:1px solid #eef2fa;text-align:left}
+ .cm-unified .cvm-primary-menu a[aria-current="page"] {border-color:#cbdafa;background:#edf3ff}
+}
+@media(max-width:550px) {
+ .cm-unified .cvm-header-inner {min-height:64px}
+ .cm-unified .cvm-brand-logo strong {font-size:.96rem}
+ .cm-unified .cvm-brand-logo small {font-size:.59rem}
+ .cm-unified .cvm-menu-toggle {font-size:.84rem}
+ .cm-unified .cvm-primary-menu {grid-template-columns:minmax(0,1fr)}
+}
+@media(max-width:350px){.cm-unified .cvm-brand-logo small {font-size:.52rem}}
+@media(prefers-reduced-motion:reduce){.cm-unified .cvm-site-header *{scroll-behavior:auto}}

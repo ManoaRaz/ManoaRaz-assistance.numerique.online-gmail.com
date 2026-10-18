@@ -1,0 +1,758 @@
+[
+  {
+    "file": "assistance-memoire.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "assistance-memoire.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "assistance-memoire.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "conditions-utilisation.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "conditions-utilisation.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "conditions-utilisation.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "confidentialite.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "confidentialite.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "confidentialite.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "conversion-pdf.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "conversion-pdf.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "conversion-pdf.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "cv-accompagnement.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "cv-accompagnement.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "cv-accompagnement.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "cv-gratuit.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "cv-gratuit.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "cv-gratuit.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "ebooks-prompts.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "ebooks-prompts.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "ebooks-prompts.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "index.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "index.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "index.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "mentions-legales.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "mentions-legales.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "mentions-legales.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "politiques.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "politiques.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "politiques.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "professionnels.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "professionnels.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "professionnels.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "services.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "services.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "services.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "site-vitrine.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "site-vitrine.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "site-vitrine.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "traduction.html",
+    "width": 1440,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": true,
+    "visible_after": true,
+    "expanded": "false",
+    "overflow": false
+  },
+  {
+    "file": "traduction.html",
+    "width": 1024,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  },
+  {
+    "file": "traduction.html",
+    "width": 390,
+    "nav": [
+      "Accueil",
+      "Créer un CV",
+      "Mémoire",
+      "Traduction",
+      "PDF",
+      "eBooks IA",
+      "Sites web"
+    ],
+    "footer_privacy": true,
+    "visible_before": false,
+    "visible_after": true,
+    "expanded": "true",
+    "overflow": false
+  }
+]
