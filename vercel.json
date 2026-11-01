@@ -2,7 +2,7 @@
   "cleanUrls": false,
   "functions": {
     "api/submit-request.js": {
-      "maxDuration": 30
+      "maxDuration": 60
     },
     "api/translate.js": {
       "maxDuration": 30

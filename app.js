@@ -39,10 +39,9 @@ function showSuccessModal(requestId=''){
       <div class="request-modal__backdrop" data-close-success-modal></div>
       <div class="request-modal__dialog" role="dialog" aria-modal="true" aria-labelledby="request-success-title" aria-describedby="request-success-message">
         <div class="request-modal__icon" aria-hidden="true">✓</div>
-        <h2 id="request-success-title">Demande envoyée avec succès</h2>
+        <h2 id="request-success-title">Demande acceptée pour envoi</h2>
         <p id="request-success-message">
-          Votre demande a bien été envoyée. Notre équipe la traite actuellement et reviendra vers vous aussi rapidement que possible.
-          Merci de noter que plusieurs personnes utilisent le service en même temps ; nous vous remercions donc de bien vouloir patienter.
+          Les informations et toutes les pièces jointes ont été acceptées par Meta WhatsApp. La livraison sur notre téléphone reste à confirmer. Conservez votre référence pour tout suivi.
         </p>
         <p class="request-modal__reference" hidden></p>
         <button class="btn btn-primary request-modal__ok" type="button">OK</button>
@@ -63,20 +62,69 @@ function showSuccessModal(requestId=''){
   requestAnimationFrame(()=>modal.querySelector('.request-modal__ok')?.focus());
 }
 
+const CVM_MAX_REQUEST_BYTES = 4 * 1024 * 1024;
+async function optimizeAttachment(file) {
+  const ext=(file.name.split('.').pop()||'').toLowerCase();
+  const supportedFiles=['pdf','doc','docx','xls','xlsx','ppt','pptx','txt'];
+  if(!file.type.startsWith('image/') && !['jpg','jpeg','png','gif','webp','bmp','heic','heif'].includes(ext)) {
+    if (!supportedFiles.includes(ext)) throw new Error('Format non accepté : utilisez une image, un PDF ou un document bureautique.');
+    return file;
+  }
+  if(['jpg','jpeg','png'].includes(ext) && file.size <= 1400 * 1024) return file;
+  let image;
+  const url=URL.createObjectURL(file);
+  try {
+    image=new Image();image.src=url;await image.decode();
+    const scale=Math.min(1,1600/Math.max(image.naturalWidth,image.naturalHeight));
+    const canvas=document.createElement('canvas');
+    canvas.width=Math.max(1,Math.round(image.naturalWidth*scale));
+    canvas.height=Math.max(1,Math.round(image.naturalHeight*scale));
+    const ctx=canvas.getContext('2d');
+    if(!ctx) throw new Error('Conversion de photo impossible dans ce navigateur.');
+    ctx.fillStyle='#fff';ctx.fillRect(0,0,canvas.width,canvas.height);
+    ctx.drawImage(image,0,0,canvas.width,canvas.height);
+    const blob=await new Promise(resolve=>canvas.toBlob(resolve,'image/jpeg',.79));
+    if(!blob) throw new Error('La photo ne peut pas être convertie. Choisissez un JPG ou PNG.');
+    const base=file.name.replace(/\.[^.]+$/,'').slice(0,90).replace(/[^a-z0-9-_]/gi,'_') || 'photo';
+    return new File([blob],base+'.jpg',{type:'image/jpeg',lastModified:Date.now()});
+  } catch(e) {throw new Error('Impossible de préparer « '+file.name+' ». Essayez une image JPG ou PNG.');}
+  finally {URL.revokeObjectURL(url);}
+}
+async function buildRequestData(form) {
+  const data=new FormData(form);data.set('service',form.dataset.service||'Demande depuis le site');
+  const inputs=form.querySelectorAll('input[type="file"][name="attachment"]');
+  const selected=[];
+  inputs.forEach(el=>{for(const file of el.files||[])if(file.size>0)selected.push(file);});
+  if(selected.length>4) throw new Error('Quatre fichiers maximum par demande.');
+  data.delete('attachment');
+  let total=0;
+  for(const file of selected){
+    const prepared=await optimizeAttachment(file);
+    total+=prepared.size;
+    if(total>CVM_MAX_REQUEST_BYTES)throw new Error('Les pièces jointes réunies dépassent 4 Mo. Réduisez les fichiers ou envoyez moins de documents.');
+    data.append('attachment',prepared,prepared.name);
+  }
+  return data;
+}
 async function submitRequest(event){
   event.preventDefault();const form=event.currentTarget;if(!form.reportValidity())return;
   const button=form.querySelector('button[type="submit"]');const original=button?.textContent||'Envoyer ma demande';
   if(button){button.disabled=true;button.textContent='Transmission en cours…'}
-  setStatus(form,'success','Envoi du formulaire et du fichier en cours…');
-  try{const data=new FormData(form);data.set('service',form.dataset.service||'Demande depuis le site');
-    const response=await fetch(FORM_API_ENDPOINT,{method:'POST',body:data,headers:{Accept:'application/json'}});let result={};try{result=await response.json()}catch(_){ }
-    if(!response.ok||!result.success)throw new Error(result.message||'La transmission automatique a échoué.');
-    const requestId=result.requestId||result.request_id||'';
-    setStatus(form,'success',requestId?`Votre demande a bien été envoyée. Référence : ${requestId}.`:'Votre demande a bien été envoyée.');
-    form.reset();
-    showSuccessModal(requestId);
-  }catch(error){setStatus(form,'error',error.message||'Impossible de transmettre la demande pour le moment. Merci de réessayer.');}
-  finally{if(button){button.disabled=false;button.textContent=original}}
+  setStatus(form,'info','Vérification et transmission des informations et pièces jointes…');
+  try{
+    const data=await buildRequestData(form);
+    const response=await fetch(FORM_API_ENDPOINT,{method:'POST',body:data,headers:{Accept:'application/json'}});
+    let result={};try{result=await response.json()}catch(_){}
+    if(!response.ok || !result.success){
+      const suffix=result.requestId?` Référence : ${result.requestId}.`:'';
+      throw new Error((result.message||('La transmission a échoué (HTTP '+response.status+').'))+suffix);
+    }
+    if(result.filtered){throw new Error('Votre demande n’a pas pu être enregistrée.');}
+    const requestId=result.requestId||'';
+    const note=`Meta WhatsApp a accepté la demande${requestId?' (référence '+requestId+')':''} et ${result.documentsSent||0} pièce(s) jointe(s). La livraison reste à confirmer.`;
+    setStatus(form,'success',note);form.reset();showSuccessModal(requestId);
+  }catch(e){setStatus(form,'error',e.message||'Transmission impossible. Merci de réessayer.');}
+  finally{if(button){button.disabled=false;button.textContent=original;}}
 }
 
 

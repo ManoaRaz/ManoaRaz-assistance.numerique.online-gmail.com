@@ -1,12 +1,15 @@
 {
   "name": "cvmemoire-clic",
   "private": true,
-  "version": "7.0.0",
-  "description": "CVMemoire.click v7 — formulaires transmis vers WhatsApp sans registre en ligne des demandes.",
+  "version": "11.3.0",
+  "description": "CVMemoire – formulaires sécurisés vers Meta WhatsApp Cloud API avec contrôle de toutes les pièces jointes.",
   "dependencies": {
     "formidable": "^3.5.2"
   },
   "engines": {
     "node": ">=20"
+  },
+  "scripts": {
+    "test": "node --test tests/whatsapp-api.test.js"
   }
 }

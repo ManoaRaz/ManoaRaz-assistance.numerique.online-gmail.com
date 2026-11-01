@@ -1,0 +1,17 @@
+CVMemoire - Ajustement de l'offre Site vitrine - 31 octobre 2026
+
+Prix : 50 000 Ar
+Inclus dans l'offre telle que presentee sur le site :
+- creation d'un site vitrine simple ;
+- amelioration des textes et SEO de base ;
+- contact WhatsApp par Click-to-Chat (et non API WhatsApp Business Cloud) ;
+- publication sur GitHub Pages si le site est eligible, sinon solution a convenir ;
+- un domaine .click standard la premiere annee, sous reserve de disponibilite ;
+- les renouvellements ulterieurs et les noms premium sont exclus.
+
+Fichiers adaptes : site-vitrine.html, index.html, services.html,
+conditions-utilisation.html, styles.css.
+Les formulaires, scripts, autres pages et les autres actifs sont conserves.
+
+IMPORTANT : Les textes changent l'offre commerciale publiee, mais
+n'achetent pas eux-memes un domaine et ne mettent pas le site en ligne.

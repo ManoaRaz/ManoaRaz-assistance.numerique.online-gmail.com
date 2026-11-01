@@ -1,0 +1,11 @@
+CVMemoire V11.1 — Réparation des images de la page CV
+
+1. Les 2 aperçus CV Étudiant et CV Professionnel ont été remplacés par des visuels distincts et lisibles.
+2. Les images utilisent WebP avec repli PNG et versionnage anti-cache.
+3. L’en-tête de la page CV présente désormais deux vrais aperçus, au lieu du faux modèle constitué de rectangles.
+4. Le formulaire permet d’ajouter une photo facultative, affichée localement dans l’aperçu CV et incluse dans l’impression PDF si l’option photo n’est pas « Non ».
+5. La photo envoyée avec la demande est jointe au fichier d’ancien CV, si fourni, via le champ attachment (2 fichiers possibles).
+6. Image de secours PNG pour l’illustration CV sur les autres pages.
+
+IMPORTANT : publication nécessaire. Mettre TOUS les fichiers du ZIP dans la racine du projet Vercel lié à cvmemoire.click, en conservant l’arborescence. En cas d’ancienne image en cache, faire Ctrl+F5.
+Aucune publication en ligne effectuée dans cette session.
