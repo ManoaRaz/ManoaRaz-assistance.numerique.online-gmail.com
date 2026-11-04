@@ -1,0 +1,12 @@
+CVMemoire V11.6 – Galerie MadaFormatour Project
+
+Seule la page partenariats.html et les deux modules de galerie associés ont été adaptés.
+Une seule photographie est affichée à la fois dans un cadre compact centré.
+Les boutons précédent et suivant sont placés aux extrémités gauche et droite du cadre.
+Le défilement automatique a lieu toutes les 10 secondes : 1 → 2 → 3 → 4 → 1.
+Sur téléphone, on peut également balayer horizontalement pour passer à une autre photo.
+L’agrandissement en grand format, les flèches dans la visionneuse et le téléchargement des images sont conservés.
+Le défilement se met en pause pendant les interactions, lorsque la visionneuse est ouverte et lorsque l’onglet est masqué.
+Le réglage d’accessibilité « réduire les animations » désactive le défilement automatique.
+
+Aucun autre fichier préexistant n’a été modifié.

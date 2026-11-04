@@ -1,0 +1,14 @@
+CVMemoire — mise à jour ciblée de la page Partenariats
+
+Ajout d’une galerie photo dans partenariats.html, immédiatement avant la section Contact.
+4 photos retravaillées avec la signature CABINET MADAFORMATOUR PROJECT.
+Fonctionnalités : carrousel défilant automatiquement, flèches de navigation, pause au survol/focus, agrandissement au clic dans une fenêtre, navigation entre photos, téléchargement JPEG.
+Compatible mobile et clavier, animation désactivée si l’utilisateur préfère réduire les mouvements.
+
+Fichiers de la mise à jour :
+- partenariats.html (page cible uniquement)
+- assets/madaformatour-galerie.css (nouveau)
+- assets/madaformatour-galerie.js (nouveau)
+- assets/images/madaformatour/ (8 nouvelles images : 4 grandes et 4 aperçus)
+
+Les autres pages du site, styles existants, fonctionnalités et paramètres sont inchangés.

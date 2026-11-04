@@ -16,6 +16,7 @@
   <link rel="stylesheet" href="assets/navigation-uniforme.css">
   <link rel="stylesheet" href="assets/navigation-v105.css">
   <link rel="stylesheet" href="assets/partenariat-madaformatour.css">
+  <link rel="stylesheet" href="assets/madaformatour-galerie.css">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="CVMemoire">
@@ -162,6 +163,68 @@
     </div>
   </section>
 
+  <!-- Galerie du partenaire : ajout isolé à la page partenariats. -->
+  <section class="mp-section mpg-gallery-section" id="madaformatour-galerie" aria-labelledby="mpg-title">
+    <div class="mp-container">
+      <div class="mpg-heading-row">
+        <div class="mpg-heading">
+          <span class="mp-kicker">MADAFORMATOUR PROJECT · EN IMAGES</span>
+          <h2 id="mpg-title">La formation, au plus près du terrain.</h2>
+        </div>
+      </div>
+      <div class="mpg-carousel-stage" role="group" aria-label="Galerie de photographies">
+        <button class="mpg-arrow mpg-arrow-prev" id="mpg-prev" type="button" aria-label="Voir les photos précédentes"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m14 5-7 7 7 7"/></svg></button>
+        <div class="mpg-viewport">
+        <div class="mpg-track" id="mpg-track" role="region" aria-roledescription="carrousel" aria-label="Photographies des activités MadaFormatour Project" tabindex="0">
+        <article class="mpg-card">
+          <a class="mpg-photo-link" href="assets/images/madaformatour/formation-professionnelle.jpg" data-mpg-index="0" aria-label="Agrandir la photo : Séance de formation et échanges professionnels">
+            <img src="assets/images/madaformatour/formation-professionnelle-apercu.webp" alt="Participants réunis autour d'une table lors d'une séance de formation" width="800" height="600" loading="lazy" decoding="async">
+            <span class="mpg-zoom-label" aria-hidden="true">&#10530;</span>
+          </a>
+          <div class="mpg-card-footer"><strong>Séance de formation</strong><a href="assets/images/madaformatour/formation-professionnelle.jpg" download="Madaformatour-formation-professionnelle.jpg" aria-label="Télécharger la photo : Séance de formation">&#8595; Télécharger</a></div>
+        </article>
+        <article class="mpg-card">
+          <a class="mpg-photo-link" href="assets/images/madaformatour/visite-de-terrain.jpg" data-mpg-index="1" aria-label="Agrandir la photo : Activité collective sur le terrain">
+            <img src="assets/images/madaformatour/visite-de-terrain-apercu.webp" alt="Groupe de participants réunis en extérieur au cours d'une activité collective" width="800" height="600" loading="lazy" decoding="async">
+            <span class="mpg-zoom-label" aria-hidden="true">&#10530;</span>
+          </a>
+          <div class="mpg-card-footer"><strong>Activité sur le terrain</strong><a href="assets/images/madaformatour/visite-de-terrain.jpg" download="Madaformatour-visite-de-terrain.jpg" aria-label="Télécharger la photo : Activité sur le terrain">&#8595; Télécharger</a></div>
+        </article>
+        <article class="mpg-card">
+          <a class="mpg-photo-link" href="assets/images/madaformatour/echange-participatif.jpg" data-mpg-index="2" aria-label="Agrandir la photo : Intervention d'un participant">
+            <img src="assets/images/madaformatour/echange-participatif-apercu.webp" alt="Un participant prend la parole au cours d'une réunion de formation" width="600" height="800" loading="lazy" decoding="async">
+            <span class="mpg-zoom-label" aria-hidden="true">&#10530;</span>
+          </a>
+          <div class="mpg-card-footer"><strong>Échanges participatifs</strong><a href="assets/images/madaformatour/echange-participatif.jpg" download="Madaformatour-echange-participatif.jpg" aria-label="Télécharger la photo : Échanges participatifs">&#8595; Télécharger</a></div>
+        </article>
+        <article class="mpg-card">
+          <a class="mpg-photo-link" href="assets/images/madaformatour/animation-pedagogique.jpg" data-mpg-index="3" aria-label="Agrandir la photo : Présentation devant un tableau pédagogique">
+            <img src="assets/images/madaformatour/animation-pedagogique-apercu.webp" alt="Animatrice présentant un schéma de formation sur un tableau à feuilles mobiles" width="600" height="800" loading="lazy" decoding="async">
+            <span class="mpg-zoom-label" aria-hidden="true">&#10530;</span>
+          </a>
+          <div class="mpg-card-footer"><strong>Animation pédagogique</strong><a href="assets/images/madaformatour/animation-pedagogique.jpg" download="Madaformatour-animation-pedagogique.jpg" aria-label="Télécharger la photo : Animation pédagogique">&#8595; Télécharger</a></div>
+        </article>
+        </div>
+        </div>
+        <button class="mpg-arrow mpg-arrow-next" id="mpg-next" type="button" aria-label="Voir les photos suivantes"><svg aria-hidden="true" viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round"><path d="m10 5 7 7-7 7"/></svg></button>
+      </div>
+      <div class="mpg-gallery-navigation">
+        <span class="mpg-counter" aria-label="Photo affichée"><span id="mpg-current">01</span> / 04</span>
+      </div>
+    </div>
+  </section>
+
+  <dialog class="mpg-lightbox" id="mpg-lightbox" aria-label="Photo agrandie de MadaFormatour Project">
+    <div class="mpg-lightbox-inner">
+      <div class="mpg-lightbox-top"><span class="mpg-lightbox-brand">CABINET MADAFORMATOUR PROJECT</span><button type="button" id="mpg-close" class="mpg-lightbox-close" aria-label="Fermer la photo agrandie">&#10005;</button></div>
+      <div class="mpg-lightbox-visual"><img id="mpg-large-image" src="assets/images/madaformatour/formation-professionnelle.jpg" alt="" width="1448" height="1086"></div>
+      <div class="mpg-lightbox-bottom">
+        <div class="mpg-lightbox-title"><strong id="mpg-large-title">Séance de formation</strong><span id="mpg-large-number" aria-live="polite">Photo 1 sur 4</span></div>
+        <div class="mpg-lightbox-actions"><button type="button" id="mpg-light-prev" aria-label="Afficher la photo précédente">&#8592;</button><button type="button" id="mpg-light-next" aria-label="Afficher la photo suivante">&#8594;</button><a id="mpg-download" href="assets/images/madaformatour/formation-professionnelle.jpg" download="Madaformatour-formation-professionnelle.jpg">&#8595; Télécharger la photo</a></div>
+      </div>
+    </div>
+  </dialog>
+
   <section class="mp-section" id="contact" aria-labelledby="mp-contact-title">
     <div class="mp-container">
       <div class="mp-contact-panel">
@@ -192,5 +255,6 @@
 </footer>
 <script defer src="app.js"></script>
 <script defer src="assets/navigation-v105.js"></script>
+<script defer src="assets/madaformatour-galerie.js"></script>
 </body>
 </html>
