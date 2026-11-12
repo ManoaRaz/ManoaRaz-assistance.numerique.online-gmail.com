@@ -3,9 +3,13 @@
   "functions": {
     "api/submit-request.js": {
       "maxDuration": 60
-    },
-    "api/translate.js": {
-      "maxDuration": 30
     }
-  }
+  },
+  "redirects": [
+    {
+      "source": "/traduction.html",
+      "destination": "/services.html",
+      "permanent": true
+    }
+  ]
 }

@@ -12,7 +12,11 @@ document.addEventListener('DOMContentLoaded', () => {
       nav.classList.remove('open'); menuBtn.setAttribute('aria-expanded','false');
     }));
   }
-  document.querySelectorAll('form[data-auto-submit]').forEach(form => form.addEventListener('submit', submitRequest));
+  document.querySelectorAll('form[data-auto-submit]').forEach(form => {
+    setupWhatsAppDirect(form);
+    form.addEventListener('submit', submitRequest);
+  });
+  setupWhatsAppFloatingContact();
   document.querySelectorAll('img:not([loading])').forEach((img, i) => {
     if (!img.closest('.hero') && !img.closest('.page-hero')) img.loading = 'lazy';
     img.decoding = 'async';
@@ -60,6 +64,40 @@ function showSuccessModal(requestId=''){
   modal.setAttribute('aria-hidden','false');
   document.body.classList.add('modal-open');
   requestAnimationFrame(()=>modal.querySelector('.request-modal__ok')?.focus());
+}
+
+// Moyen de contact indépendant de l'API serveur. Aucun CV ni donnée privée
+// n'est placé dans l'URL : le visiteur confirme lui-même l'envoi sur WhatsApp.
+const CVM_WHATSAPP_CONTACT = '261389518788';
+function whatsappDirectUrl(form) {
+  const service = (form.dataset.service || 'un service CVMemoire').slice(0, 120);
+  const message = 'Bonjour CVMemoire, je souhaite vous contacter au sujet de : ' + service + '. Pouvez-vous me préciser comment transmettre ma demande et mes éventuelles pièces jointes ?';
+  return 'https://wa.me/' + CVM_WHATSAPP_CONTACT + '?text=' + encodeURIComponent(message);
+}
+function setupWhatsAppFloatingContact() {
+  if (document.querySelector('.cvm-whatsapp-floating')) return;
+  const anchor = document.createElement('a');
+  anchor.className = 'cvm-whatsapp-floating';
+  anchor.textContent = 'WhatsApp';
+  anchor.href = 'https://wa.me/' + CVM_WHATSAPP_CONTACT + '?text=' + encodeURIComponent('Bonjour CVMemoire, je souhaite avoir des renseignements sur vos services.');
+  anchor.target = '_blank';
+  anchor.rel = 'noopener noreferrer';
+  anchor.setAttribute('aria-label', 'Contacter CVMemoire directement sur WhatsApp au 038 95 187 88');
+  document.body.appendChild(anchor);
+}
+function setupWhatsAppDirect(form) {
+  if (form.querySelector('.cvm-whatsapp-direct')) return;
+  const panel = document.createElement('div');
+  panel.className = 'cvm-whatsapp-direct';
+  panel.innerHTML = `
+    <p><strong>Autre moyen de contact :</strong> écrivez-nous directement sur WhatsApp au 038 95 187 88, même si le formulaire automatique est indisponible.</p>
+    <a class="btn cvm-whatsapp-direct__link" href="#" target="_blank" rel="noopener noreferrer">Ouvrir WhatsApp</a>
+    <small>Dans WhatsApp, appuyez sur « Envoyer ». Vos renseignements saisis ici et vos fichiers ne sont pas transférés automatiquement par ce lien : transmettez-les dans la discussion.</small>`;
+  const anchor = panel.querySelector('a');
+  anchor.href = whatsappDirectUrl(form);
+  const status = form.querySelector('.status');
+  if (status) status.insertAdjacentElement('afterend', panel);
+  else form.append(panel);
 }
 
 const CVM_MAX_REQUEST_BYTES = 4 * 1024 * 1024;
@@ -117,13 +155,16 @@ async function submitRequest(event){
     let result={};try{result=await response.json()}catch(_){}
     if(!response.ok || !result.success){
       const suffix=result.requestId?` Référence : ${result.requestId}.`:'';
-      throw new Error((result.message||('La transmission a échoué (HTTP '+response.status+').'))+suffix);
+      const detail = (response.status===404 || response.status===405)
+        ? 'Le service de transmission automatique n’est pas disponible sur cet hébergement.'
+        : result.message || ('La transmission automatique a échoué (HTTP '+response.status+').');
+      throw new Error(detail + suffix + ' Vous pouvez nous joindre par le bouton « Ouvrir WhatsApp » ci-dessous.');
     }
     if(result.filtered){throw new Error('Votre demande n’a pas pu être enregistrée.');}
     const requestId=result.requestId||'';
     const note=`Meta WhatsApp a accepté la demande${requestId?' (référence '+requestId+')':''} et ${result.documentsSent||0} pièce(s) jointe(s). La livraison reste à confirmer.`;
     setStatus(form,'success',note);form.reset();showSuccessModal(requestId);
-  }catch(e){setStatus(form,'error',e.message||'Transmission impossible. Merci de réessayer.');}
+  }catch(e){setStatus(form,'error',(e.message||'Transmission impossible.')+' La demande et ses pièces jointes ne sont PAS confirmées comme livrées. Utilisez WhatsApp directement ci-dessous si nécessaire.');}
   finally{if(button){button.disabled=false;button.textContent=original;}}
 }
 

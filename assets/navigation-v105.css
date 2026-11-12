@@ -33,3 +33,9 @@
 }
 @media(max-width:350px){.cm-unified .cvm-brand-logo small {font-size:.52rem}}
 @media(prefers-reduced-motion:reduce){.cm-unified .cvm-site-header *{scroll-behavior:auto}}
+
+/* Nouveau menu Jeu — une seule navigation sur les pages du site */
+.cm-unified .cvm-primary-menu a.cvm-game-link{background:linear-gradient(135deg,#fff4dd,#ffe0b5);color:#8a4e21;border:1px solid #f6d39f;font-weight:850;white-space:nowrap}
+.cm-unified .cvm-primary-menu a.cvm-game-link:hover,.cm-unified .cvm-primary-menu a.cvm-game-link:focus-visible{background:linear-gradient(135deg,#ffe4aa,#ffc978);color:#743e16}
+@media(max-width:1170px){.cm-unified .cvm-header-inner{gap:12px}.cm-unified .cvm-menu-toggle{display:inline-flex}.cm-unified .cvm-primary-menu{display:none;position:absolute;top:calc(100% + 1px);left:0;right:0;width:100%;max-height:min(75vh,550px);overflow-y:auto;z-index:2;padding:12px;background:#fff;border:1px solid #e1e9f5;border-radius:0 0 16px 16px;box-shadow:0 24px 45px rgba(17,39,79,.14);grid-template-columns:repeat(2,minmax(0,1fr));gap:8px;justify-content:stretch}.cm-unified .cvm-site-header.menu-open .cvm-primary-menu{display:grid}.cm-unified .cvm-primary-menu a{width:100%;min-height:44px;white-space:normal;justify-content:flex-start;padding:11px 12px;background:#f8faff;border:1px solid #eef2fa;text-align:left}}
+@media(max-width:550px){.cm-unified .cvm-primary-menu{grid-template-columns:minmax(0,1fr)}}

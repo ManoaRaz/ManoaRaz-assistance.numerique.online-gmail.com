@@ -313,3 +313,61 @@ body.cm-unified,body{background:radial-gradient(circle at 100% 0%,rgba(114,88,25
 
 /* V11.3 : transmissions API en cours */
 .status.info{display:block;background:#eaf2ff;color:#1f4b92;border-left:4px solid #3b75d4}
+
+/* V11.23 – Alternative de contact transparente pour les hébergements statiques. */
+.cvm-whatsapp-direct{margin-top:14px;padding:16px;border:1px solid #b6dfc5;background:#f3fbf5;border-radius:15px;display:grid;gap:11px;color:#174c2a}
+.cvm-whatsapp-direct p{margin:0;line-height:1.45}
+.cvm-whatsapp-direct__link{background:#16874f!important;color:#fff!important;border:0!important;box-shadow:0 9px 20px rgba(10,114,58,.16)!important;text-align:center}
+.cvm-whatsapp-direct small{color:#3b6850;line-height:1.5}
+
+.cvm-whatsapp-floating{position:fixed;right:16px;bottom:18px;z-index:950;display:inline-flex;align-items:center;justify-content:center;min-height:46px;padding:10px 19px;background:#137f4a;color:white!important;border-radius:999px;box-shadow:0 7px 25px rgba(6,69,37,.26);text-decoration:none;font-weight:800;border:2px solid #fff}
+.cvm-whatsapp-floating:hover{background:#0e6b3d;transform:translateY(-2px)}
+.cvm-whatsapp-floating:focus-visible{outline:3px solid #1b73d1;outline-offset:3px}
+@media(max-width:640px){.cvm-whatsapp-floating{right:12px;bottom:12px;font-size:.88rem;padding:9px 14px;min-height:42px}}
+
+/* CVMemoire V11.24 — intégration Tally CV Pro_Etudiant */
+.cvm-tally-wrap{width:100%;min-width:0;max-width:1020px;margin:0 auto 32px;padding:clamp(16px,3vw,34px);background:linear-gradient(160deg,#ffffff 0%,#f5f9ff 100%);border:1px solid #dfe9f5;border-radius:26px;box-shadow:0 15px 38px rgba(19,52,112,.08)}
+.cvm-tally-header{margin:0 0 14px}.cvm-tally-header h2{color:#19365c;font-size:clamp(1.25rem,2.7vw,1.9rem);margin:6px 0 10px}.cvm-tally-header p{color:#53677e;line-height:1.65;margin:0 0 12px}
+.cvm-tally-kicker{display:inline-block;text-transform:uppercase;letter-spacing:.08em;font-size:.72rem;font-weight:800;color:#0e7a5a}
+.cvm-tally-checks{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0}.cvm-tally-checks span{display:inline-flex;border-radius:100px;background:#e4f6ec;color:#146347;font-size:.78rem;font-weight:700;padding:7px 10px}
+.cvm-tally-frame{display:block;box-sizing:border-box;max-width:100%;width:100%;border:0!important;border-radius:12px;background:transparent}
+.cvm-tally-assist{font-size:.9rem;color:#526481;line-height:1.5;margin:12px 0 8px}.cvm-tally-assist a{font-weight:700;text-decoration:underline;color:#1456b6}
+.cvm-tally-confidentiality{font-size:.79rem;color:#5f7085;line-height:1.6;margin:8px 0 0}
+.cvm-optional-builder{max-width:1180px;margin:22px auto 0;border:1px solid #d3e1f4;border-radius:20px;background:#fbfdff;padding:14px 20px}
+.cvm-optional-builder>summary{cursor:pointer;color:#184b81;font-weight:800;font-size:1rem;padding:8px 2px;list-style-position:inside}
+.cvm-optional-builder>.cv-form-layout{padding:18px 0 8px}.cvm-builder-hint{background:#eaf4ff;border-left:4px solid #2780c3;padding:13px 15px;margin:14px 0;color:#284c6f;line-height:1.55;font-size:.9rem}
+.cvm-builder-hint a{color:#1763a5;font-weight:800;text-decoration:underline}
+@media(max-width:640px){.cvm-tally-wrap{padding:14px;border-radius:18px}.cvm-tally-header h2{font-size:1.26rem}.cvm-optional-builder{padding:12px}.cvm-tally-checks span{font-size:.72rem}}
+
+
+/* V11.25 — Formulaires Tally Mémoire / PDF et page Contact */
+.cvm-tally-request{min-width:0;margin-bottom:0}
+.cvm-tally-contact{margin:14px 0 0;color:#405878;font-size:.91rem;line-height:1.6}
+.cvm-tally-contact a{font-weight:800;color:#2457d8;text-decoration:underline}
+.cvm-contact-hero{padding:clamp(62px,8vw,104px) 0 70px;background:radial-gradient(circle at 87% 11%,rgba(48,135,234,.16),transparent 29%),radial-gradient(circle at 8% 84%,rgba(43,185,147,.13),transparent 32%),linear-gradient(145deg,#fbfdff,#edf4ff)}
+.cvm-contact-hero-inner{max-width:1080px}
+.cvm-contact-eyebrow{display:inline-block;background:#e6f3ff;color:#2058b1;border-radius:100px;padding:8px 14px;font-size:.78rem;letter-spacing:.055em;text-transform:uppercase;font-weight:900}
+.cvm-contact-hero h1{font-family:Poppins,Nunito,sans-serif;font-size:clamp(2.1rem,4.7vw,4rem);line-height:1.16;letter-spacing:-.044em;max-width:1030px;margin:22px 0}
+.cvm-contact-hero h1 strong{color:#2056bf}
+.cvm-contact-lead{max-width:875px;font-size:clamp(1.04rem,1.5vw,1.2rem);line-height:1.85;color:#516582}
+.cvm-contact-lead strong{color:#25476d}
+.cvm-contact-section{background:#f5f8ff}
+.cvm-contact-cards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:24px;max-width:1060px;margin:auto}
+.cvm-contact-card{background:#fff;padding:clamp(23px,3.5vw,36px);border:1px solid #dfe8f5;border-radius:24px;box-shadow:0 15px 40px rgba(25,55,110,.07);display:flex;flex-direction:column;align-items:flex-start;min-width:0}
+.cvm-contact-icon{font-size:2.3rem;background:#f1f7ff;border-radius:17px;padding:10px 16px;line-height:1.4}
+.cvm-contact-card h3{font-family:Poppins,Nunito,sans-serif;font-size:1.4rem;color:#19355e;margin:20px 0 8px}
+.cvm-contact-card p{color:#59708b;line-height:1.74;margin:0 0 15px}
+.cvm-contact-card .cvm-contact-detail{font-size:1.18rem;font-weight:900;color:#1d416d;margin-top:auto;overflow-wrap:anywhere}
+.cvm-contact-button{display:inline-flex;align-items:center;justify-content:space-between;gap:12px;padding:14px 20px;border-radius:15px;color:white!important;text-decoration:none!important;font-weight:900;min-height:49px;transition:transform .18s ease, box-shadow .18s ease}
+.cvm-contact-button:hover{transform:translateY(-2px)}
+.cvm-contact-button-wa{background:linear-gradient(135deg,#11835b,#1ba871);box-shadow:0 9px 24px rgba(25,157,107,.2)}
+.cvm-contact-button-mail{background:linear-gradient(135deg,#285cbb,#457bea);box-shadow:0 9px 24px rgba(39,87,196,.2)}
+.cvm-contact-note{display:flex;gap:14px;align-items:flex-start;max-width:1000px;margin:32px auto 0;background:#ebf8f5;border:1px solid #c7e9dc;border-radius:19px;padding:20px 23px;color:#2e6359}
+.cvm-contact-note span{font-size:1.8rem;line-height:1.2}.cvm-contact-note p{margin:0;line-height:1.7}
+.cvm-contact-services{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.cvm-contact-services a{display:flex;flex-direction:column;align-items:flex-start;gap:9px;text-decoration:none!important;border:1px solid #dfe7f3;background:#fff;border-radius:19px;padding:20px;min-width:0;box-shadow:0 9px 25px rgba(20,43,88,.04)}
+.cvm-contact-services a:hover{border-color:#8cb5f0;transform:translateY(-2px)}
+.cvm-contact-services a>span{font-size:1.65rem}.cvm-contact-services strong{color:#1e416e;line-height:1.42}.cvm-contact-services small{color:#65809a;line-height:1.55}
+.cvm-contact-bottom{max-width:900px;text-align:center;margin:35px auto 0;color:#566c85;line-height:1.9;font-size:1.04rem}
+@media(max-width:800px){.cvm-contact-cards{grid-template-columns:1fr}.cvm-contact-services{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:480px){.cvm-contact-services{grid-template-columns:1fr}.cvm-contact-card{padding:22px}.cvm-contact-button{width:100%}.cvm-contact-hero{padding-block:50px}}
