@@ -110,9 +110,18 @@ const TREASURE_PATH_ANCHORS = [
 [930,255]
 ].map(([x,y])=>[x/1254*100,y/1254*100]);
 
-const STATE_KEY='angaya-crush-save-v1';
-function defaults(){return {nextLevel:1,mapCursorLevel:1,coins:100,best:{},music:true,sfx:true,musicVolume:42,sfxVolume:78,tutorialSeen:false,tutorialV3Seen:false,tutorialV4Seen:false,tools:{coconut:0,fishing:0,shovel:0},careerScore:0,careerGames:0,chapterScores:Array(CHAPTERS.length).fill(0),chapterGames:Array(CHAPTERS.length).fill(0)};}
-function loadState(){try{const s=JSON.parse(localStorage.getItem(STATE_KEY)||'null');if(s&&typeof s==='object')return {...defaults(),...s,mapCursorLevel:Math.max(1,Math.min(TOTAL_LEVELS,Number(s.mapCursorLevel??s.nextLevel)||1)),nextLevel:Math.max(1,Math.min(TOTAL_LEVELS+1,Number(s.nextLevel)||1)),coins:Math.max(0,Number(s.coins)||0),best:s.best&&typeof s.best==='object'?s.best:{},
+const STATE_KEY='angaya-crush-save-v12:'+String(window.ANGAYA_PLAYER?.id||'offline');
+const ANGAYA_LEGACY_KEY='angaya-crush-save-v1';
+// Migration une seule fois de l'ancien stockage partagé : les nouveaux comptes
+// possèdent désormais des sauvegardes locales séparées.
+try {
+ if(!localStorage.getItem(STATE_KEY) && !localStorage.getItem('angaya-legacy-migrated-v12')) {
+  const old=localStorage.getItem(ANGAYA_LEGACY_KEY);
+  if(old){localStorage.setItem(STATE_KEY,old);localStorage.setItem('angaya-legacy-migrated-v12','yes');}
+ }
+}catch(_e){}
+function defaults(){return {nextLevel:1,mapCursorLevel:1,coins:100,best:{},music:true,sfx:true,musicVolume:42,sfxVolume:78,tutorialSeen:false,tutorialV3Seen:false,tutorialV4Seen:false,tools:{coconut:0,fishing:0,shovel:0},careerScore:0,careerGames:0,chapterScores:Array(CHAPTERS.length).fill(0),chapterGames:Array(CHAPTERS.length).fill(0),username:"",adventureHistory:[]};}
+function loadState(){try{const s=JSON.parse(localStorage.getItem(STATE_KEY)||'null');if(s&&typeof s==='object')return {...defaults(),...s,username:typeof s.username==='string'?s.username.slice(0,24):'',adventureHistory:Array.isArray(s.adventureHistory)?s.adventureHistory.slice(-600):[],mapCursorLevel:Math.max(1,Math.min(TOTAL_LEVELS,Number(s.mapCursorLevel??s.nextLevel)||1)),nextLevel:Math.max(1,Math.min(TOTAL_LEVELS+1,Number(s.nextLevel)||1)),coins:Math.max(0,Number(s.coins)||0),best:s.best&&typeof s.best==='object'?s.best:{},
  careerScore:Math.max(0,Math.floor(Number(s.careerScore)||0)),
  careerGames:Math.max(0,Math.floor(Number(s.careerGames)||0)),
  chapterScores:Array.from({length:CHAPTERS.length},(_,i)=>Math.max(0,Math.floor(Number(s.chapterScores?.[i])||0))),
@@ -635,6 +644,7 @@ function renderHome(){
     <div class="hero-actions"><button class="primary-btn hero-play" data-action="play" aria-label="Jouer : ouvrir la carte au trésor">▶️ JOUER <span>➜</span></button></div>
    </div>
  </section>
+ <div class="angaya-home-player"><div><span>🌟 AVENTURIER</span><strong>${window.AngayaChronicles?.escape(state.username||"À découvrir")}</strong></div><button type="button" data-action="profile">👤 Mon profil →</button></div>
  <div class="home-progress"><div class="progress-head"><strong>🧩 ${c.name}</strong><span>${r}/${c.n} cases</span></div><div class="progress-track luminous"><i style="width:${percent}%"></i></div><div class="home-progress-bottom"><span>${percent}% dévoilé</span><span>📸 ${done}/${CHAPTERS.length} photos</span></div></div>
  <div class="home-map-launch"><span class="home-map-icon" aria-hidden="true">🗺️</span><div class="home-map-copy"><strong>Carte au trésor</strong><small>160 niveaux • Suis ta route</small></div><button type="button" class="secondary-btn" data-action="map">Voir la carte ➜</button></div>
  <div class="puzzle-card featured-card compact-puzzle">${puzzleHtml(c,ci,{small:true})}<div><div class="eyebrow">CHAPITRE ${ci+1}</div><h3>${c.name}</h3><p>${r}/${c.n} cases révélées</p><div class="progress-caption"><span>🧩 ${r}/${c.n}</span><span>🏝️ ${c.n-r} restantes</span></div></div></div>
@@ -655,7 +665,7 @@ function renderGallery(){
    </button>`;
   }).join('')}</div>`;
 }
-function renderSettings(){return `<div class="eyebrow">⚙️ TON ESPACE</div><h1 class="title">Réglages 😎</h1><div class="wide-card"><div class="toggle-line"><div><strong>🎶 Musique</strong><small>Accueil et musique des niveaux</small></div><button class="toggle ${state.music?'on':''}" data-action="music" aria-label="Ambiance musicale"><i></i></button></div><div class="toggle-line"><div><strong>🔊 Sons</strong><small>Casse, cascades, tambours et effets de parchemin</small></div><button class="toggle ${state.sfx?'on':''}" data-action="sfx" aria-label="Effets sonores"><i></i></button></div><div class="audio-level-settings"><label for="music-volume">Volume musique <output id="music-volume-label">${state.musicVolume??42}%</output></label><input id="music-volume" type="range" min="0" max="100" step="1" value="${state.musicVolume??42}" aria-label="Volume musique"><label for="sfx-volume">Volume bruitages <output id="sfx-volume-label">${state.sfxVolume??78}%</output></label><input id="sfx-volume" type="range" min="0" max="100" step="1" value="${state.sfxVolume??78}" aria-label="Volume bruitages"></div></div><div class="wide-card" style="margin-top:14px"><div class="toggle-line"><div><strong>✉️ Compte joueur</strong><small>Quitter cette session sans effacer la progression locale</small></div><button class="secondary-btn" type="button" data-action="logout-angaya">Déconnexion</button></div></div>`;}
+function renderSettings(){return `<div class="eyebrow">⚙️ TON ESPACE</div><h1 class="title">Réglages 😎</h1><div class="wide-card"><div class="toggle-line"><div><strong>🎶 Musique</strong><small>Accueil et musique des niveaux</small></div><button class="toggle ${state.music?'on':''}" data-action="music" aria-label="Ambiance musicale"><i></i></button></div><div class="toggle-line"><div><strong>🔊 Sons</strong><small>Casse, cascades, tambours et effets de parchemin</small></div><button class="toggle ${state.sfx?'on':''}" data-action="sfx" aria-label="Effets sonores"><i></i></button></div><div class="audio-level-settings"><label for="music-volume">Volume musique <output id="music-volume-label">${state.musicVolume??42}%</output></label><input id="music-volume" type="range" min="0" max="100" step="1" value="${state.musicVolume??42}" aria-label="Volume musique"><label for="sfx-volume">Volume bruitages <output id="sfx-volume-label">${state.sfxVolume??78}%</output></label><input id="sfx-volume" type="range" min="0" max="100" step="1" value="${state.sfxVolume??78}" aria-label="Volume bruitages"></div></div><div class="wide-card" style="margin-top:14px"><div class="toggle-line"><div><strong>👤 Profil de l’aventurier</strong><small>Votre histoire, vos scores et objets utilisés</small></div><button class="secondary-btn" type="button" data-action="profile">Voir mon profil</button></div></div><div class="wide-card" style="margin-top:14px"><div class="toggle-line"><div><strong>✉️ Compte joueur</strong><small>Quitter cette session sans effacer la progression locale</small></div><button class="secondary-btn" type="button" data-action="logout-angaya">Déconnexion</button></div></div>`;}
 function renderGame(){if(!game)return '';const ci=chapterOfLevel(game.level),ch=CHAPTERS[ci];return `<div class="game-header"><button class="back-link" data-action="exit-level" aria-label="Revenir à la carte au trésor">‹</button><div class="level-title"><strong>Niveau ${game.level} 🔥</strong><span>${ch.emoji} ${ch.name.toUpperCase()}</span></div><div class="game-head-actions"><button class="back-link help-badge" data-action="help" aria-label="Comment jouer">?</button><button class="back-link" data-action="pause" aria-label="Pause">Ⅱ</button></div><div class="ambient-flight" aria-hidden="true"><span class="wind-wisp wisp-one"></span><span class="wind-wisp wisp-two"></span><svg class="swallow bird-one" viewBox="0 0 38 24"><path d="M2 12 Q10 5 19 13 Q28 3 36 9 M18 13 l-4 7 7-5"/></svg><svg class="swallow bird-two" viewBox="0 0 38 24"><path d="M2 12 Q10 5 19 13 Q28 3 36 9 M18 13 l-4 7 7-5"/></svg></div></div><section class="game-essentials" aria-label="Progression et score de cette partie">
  <div class="mission-progress-box compact-progress"><div class="mission-track" role="progressbar" aria-label="Progression des objectifs du niveau" aria-valuemin="0" aria-valuemax="100" aria-valuenow="${goalProgress(game)}" id="mission-track"><i id="mission-fill" style="width:${goalProgress(game)}%"></i></div></div>
  <div class="game-status-compact ${game.tactical?'is-tactical':''}" id="game-status-compact">
@@ -666,7 +676,7 @@ function renderGame(){if(!game)return '';const ci=chapterOfLevel(game.level),ch=
  <div id="power-preview-bar" class="power-preview-bar compact-power-preview" hidden role="status" aria-live="polite"><div class="power-preview-top"><strong id="power-preview-title"></strong><button type="button" class="power-cancel" data-action="special-cancel" aria-label="Annuler le bonus">✕</button></div><p id="power-preview-info">Touchez une case pour viser.</p><button type="button" class="primary-btn block power-fire" id="power-launch" data-action="special-launch" disabled>Lancer ➜</button></div>
  <div class="board-with-inventory"><aside class="power-inventory" aria-label="Réserve d’objets collectés"><strong class="inventory-title">OBJETS</strong>${Object.entries(SPECIAL_TOOLS).map(([k,t])=>`<button type="button" class="tool-btn special-btn inventory-item ${game.booster===k?'active':''}" data-action="special-${k}" data-tool="${k}" aria-pressed="${game.booster===k}" aria-label="${t.name}, ${toolLeft(k)} disponibles, toucher puis viser ou glisser vers la grille" title="${t.tip}"><span class="em power-icon-wrap">${powerIcon(k)}</span><b class="power-cost">${toolCostLabel(k)}</b><small>${k==='coconut'?'Coco':k==='fishing'?'Canne':'Pelle'}</small></button>`).join('')}<button type="button" class="tool-btn compact-inventory-boost ${game.booster==='cross'?'active':''}" data-action="booster-cross" aria-label="Boum : pouvoir soleil, 80 pièces" title="Boum : 80 pièces"><span class="em">🌞</span><small>Boum</small><b>80 ✦</b></button><button type="button" class="tool-btn compact-inventory-boost" data-action="booster-shuffle" aria-label="Mélanger les symboles : 60 pièces" title="Mélanger : 60 pièces"><span class="em">🌊</span><small>Mix</small><b>60 ✦</b></button></aside><div class="play-board-wrap"><div class="board-help-top"><button type="button" class="board-help-key" data-action="hint" aria-label="AIDE : indiquer un alignement possible">💡 AIDE <span>✦</span></button></div><div id="ambient-visual-layer" class="ambient-visual-layer" aria-hidden="true"></div><div id="play-board" class="play-board" role="grid" aria-label="Grille de combinaisons de symboles tropicaux"></div><div id="fall-layer" class="fall-layer" aria-hidden="true"></div><div id="arcade-announcer" class="arcade-announcer" role="status" aria-live="polite" aria-atomic="true"></div><div id="combo-flash" class="combo-flash" aria-live="polite"></div></div></div>`;}
 
-function render(){const root=$('#screen');if(page==='home')root.innerHTML=renderHome();else if(page==='map')root.innerHTML=renderMap();else if(page==='gallery')root.innerHTML=renderGallery();else if(page==='settings')root.innerHTML=renderSettings();else if(page==='game'){root.innerHTML=renderGame();renderBoard();syncAmbientVisuals(true);}else stopAmbientVisuals();updateHeader();}
+function render(){const root=$('#screen');if(page==='home')root.innerHTML=renderHome();else if(page==='map')root.innerHTML=renderMap();else if(page==='gallery')root.innerHTML=renderGallery();else if(page==='settings')root.innerHTML=renderSettings();else if(page==='profile')root.innerHTML=window.AngayaChronicles?.profileHtml()||'';else if(page==='game'){root.innerHTML=renderGame();renderBoard();syncAmbientVisuals(true);}else stopAmbientVisuals();updateHeader();}
 // ===== Moteur Match-3 original =====
 const SIZE=7;
 const ROCK_PREFIX='rock:';
@@ -686,11 +696,11 @@ function rockCountForLevel(level){return ROCK_CHALLENGE_LEVELS.includes(level)?(
 function isTacticalLevel(level){return level>=24&&(level%9===0||level%13===0);}
 function moveBudgetForLevel(level,rockCount=rockCountForLevel(level),goals=levelObjectives(level)){
  const progress=Math.max(0,Math.min(1,(level-1)/(TOTAL_LEVELS-1)));
- const base=Math.round(26-9*progress); // 26 au début, 17 près de la fin.
+ const base=Math.round(24-9*progress); // V12 : 24 coups au début, 15 en fin de parcours.
  const objectives=goals.length===2?3:goals.length===1?1:0;
  const stones=rockCount?5+rockCount:0;
  const tactical=isTacticalLevel(level)?2:0;
- return Math.max(16,base+objectives+stones-tactical);
+ return Math.max(14,base+objectives+stones-tactical);
 }
 
 const ROCK_ART=`<svg viewBox="0 0 64 64" aria-hidden="true" class="rock-art"><path fill="#344857" d="M8 47 L15 19 32 8 52 17 59 43 44 58 19 56Z"/><path fill="#aebecb" d="M8 44 L16 19 32 9 50 19 53 38 42 52 20 53Z"/><path fill="#dbe4e9" d="M16 19 L31 10 32 28 19 33 8 44Z" opacity=".94"/><path fill="#778a9b" d="M32 28 L51 20 54 41 43 52 20 53 19 33Z"/><path fill="#edf4f3" d="M21 18L31 13 40 21" stroke-width="3" stroke-linecap="round" stroke="#edf4f3" fill="none"/><path class="rock-crack-one" d="M19 32l11 3 6 11" fill="none" stroke="#334654" stroke-width="2.6" stroke-linecap="round"/><path class="rock-crack-two" d="M44 24l-9 11-3 9-11 7" fill="none" stroke="#2f4050" stroke-width="3" stroke-linecap="round"/></svg>`;
@@ -978,6 +988,7 @@ async function launchSpecial(){
  const kind=game.booster,target=game.previewTarget,hit=toolCells(kind,target,game.board);
  if(!hit.size)return;
  if(!toolLeft(kind)){toast('Plus de bonus : ramasse-en sur le plateau.');return;}
+ game.usedTools[kind]=(game.usedTools[kind]||0)+1;
  if((game.earnedTools?.[kind]||0)>0){game.earnedTools[kind]--;}else{state.tools[kind]--;save();}
  updateHeader();
  game.busy=true;game.moves--;game.selected=null;game.booster=null;game.previewTarget=null;game.launchTicket=(game.launchTicket||0)+1;
@@ -1038,7 +1049,7 @@ function levelObjectives(level){
  const result=[];
  for(let j=0;j<count;j++){
   const color=(ci*2+ch.n+left*3+j*3)%GEMS.length;
-  const need=left===0?(ci<3?8:10):(left===1?8:6);
+  const need=left===0?(ci<3?8:11):(left===1?(ci>=6?9:8):(ci>=8?7:6));
   result.push({color,need,removed:0});
  }
  return result;
@@ -1081,7 +1092,7 @@ function startLevel(level){
  const rockInitial=rockCountForLevel(level);
  const goals=levelObjectives(level);
   const moves=moveBudgetForLevel(level,rockInitial,goals);
- game={board:buildLevelBoard(level,goals,replay),level,moves,startMoves:moves,tactical:isTacticalLevel(level),target,score:0,goals,rockInitial,selected:null,busy:true,introPending:true,introAnimating:false,booster:null,previewTarget:null,combo:0,bonus:0,comboHistory:[],earnedTools:{coconut:0,fishing:0,shovel:0},exitPromptOpen:false,pendingEndCheck:false,replayMode:replay};
+ game={board:buildLevelBoard(level,goals,replay),level,moves,startMoves:moves,tactical:isTacticalLevel(level),target,score:0,goals,rockInitial,selected:null,busy:true,introPending:true,introAnimating:false,booster:null,previewTarget:null,combo:0,bonus:0,comboHistory:[],earnedTools:{coconut:0,fishing:0,shovel:0},usedTools:{coconut:0,fishing:0,shovel:0,cross:0,shuffle:0,hint:0},exitPromptOpen:false,pendingEndCheck:false,replayMode:replay};
  page='game';moveToken++;musicDuck=1;clearTimeout(musicDuckTimer);stopAngayaFireworks();$('#modal-root').innerHTML='';render();startMusic();syncNatureAmbience();syncAmbientVisuals(true);snd('tap');if(!anyMove(game.board))refreshBoardWithWave();
  if(replay&&!isTacticalLevel(level))setTimeout(()=>toast('Niveau rejoué : objets spéciaux non garantis 🎒'),2550);
  setTimeout(()=>{if(game?.level===level&&page==='game')beginLevelIntro();},370);
@@ -1386,16 +1397,18 @@ async function trySwap(a,b){
  await resolveCascades(found);
 }
 function pickGem(i){if(!game||game.busy)return;if(isRock(game.board[i])&&!isSpecialTool(game.booster)&&game.booster!=='cross'){game.selected=null;renderBoard();toast('🪨 3 impacts : fais une combinaison à côté !');return;}if(isSpecialTool(game.booster)){aimSpecial(i);scheduleSpecialLaunch();return;}if(game.booster==='cross'){useCross(i);return;}if(game.selected===null){game.selected=i;renderBoard();snd();return;}if(game.selected===i){game.selected=null;renderBoard();return;}if(neighbor(game.selected,i)){const a=game.selected;game.selected=null;trySwap(a,i);}else{game.selected=i;renderBoard();}}
-async function useCross(i){if(!game||game.busy||game.moves<=0)return;if(state.coins<80){toast('Il faut 80 pièces pour ce bonus');game.booster=null;renderBoard();return;}state.coins-=80;save();updateHeader();game.booster=null;game.previewTarget=null;game.busy=true;game.moves--;snd('booster');const r=Math.floor(i/SIZE),c=i%SIZE;let rem=new Set();for(let j=0;j<SIZE;j++){rem.add(r*SIZE+j);rem.add(j*SIZE+c);}await resolveCascades(rem);}
+async function useCross(i){if(!game||game.busy||game.moves<=0)return;if(state.coins<80){toast('Il faut 80 pièces pour ce bonus');game.booster=null;renderBoard();return;}state.coins-=80;game.usedTools.cross++;save();updateHeader();game.booster=null;game.previewTarget=null;game.busy=true;game.moves--;snd('booster');const r=Math.floor(i/SIZE),c=i%SIZE;let rem=new Set();for(let j=0;j<SIZE;j++){rem.add(r*SIZE+j);rem.add(j*SIZE+c);}await resolveCascades(rem);}
 function shuffle(){
  if(!game||game.busy)return;
  if(!anyMove(game.board)){refreshBoardWithWave();return;}
  if(state.coins<60){toast('Pas assez de pièces !');return;}
- state.coins-=60;save();updateHeader();game.board=reshuffleWithoutLosingRocks(game.board);
+ state.coins-=60;game.usedTools.shuffle++;save();updateHeader();game.board=reshuffleWithoutLosingRocks(game.board);
  game.selected=null;renderBoard([],true);snd('shuffle');toast('La marée a mélangé les symboles 🌊');
 }
 async function giveHint(){
  if(!game||game.busy)return;
+ if((game.usedTools?.hint||0)>=2){toast('🧠 Deux indices maximum par partie. À toi de trouver la suite !');return;}
+ game.usedTools.hint++;
  snd('hint');
  let pair=anyMove(game.board);
  if(!pair){await refreshBoardWithWave();pair=anyMove(game.board);if(!pair)return;}
@@ -1418,6 +1431,22 @@ function commitEarnedTools(finishedGame){
   if(finishedGame.earnedTools)finishedGame.earnedTools[kind]=0;
  }
 }
+// V12.1 — compteurs à vie, conservés même lorsque le journal dépasse 600 parties.
+function newAdventureTotalsFromHistory(history){
+ const totals={schema:1,usedTools:{coconut:0,fishing:0,shovel:0,cross:0,shuffle:0,hint:0},alignments:0,combos:0,comboTrackedGames:0,toolsTrackedGames:0};
+ (Array.isArray(history)?history:[]).forEach(run=>{
+  if(run.usedTools && typeof run.usedTools==='object'){
+   totals.toolsTrackedGames++;
+   Object.keys(totals.usedTools).forEach(k=>{totals.usedTools[k]+=Math.max(0,Math.floor(Number(run.usedTools[k])||0));});
+  }
+  if(run.comboTracked===true){
+   totals.comboTrackedGames++;
+   totals.alignments+=Math.max(0,Math.floor(Number(run.alignments)||0));
+   totals.combos+=Math.max(0,Math.floor(Number(run.comboCount)||0));
+  }
+ });
+ return totals;
+}
 // V11.18 — registre persistant, chaque partie terminée enregistrée une seule fois.
 // Inclut les parties gagnées, les échecs et les niveaux rejoués, mais pas les abandons.
 function registerFinishedGame(finishedGame){
@@ -1432,6 +1461,31 @@ function registerFinishedGame(finishedGame){
  if(!Array.isArray(state.chapterGames)||state.chapterGames.length!==CHAPTERS.length)state.chapterGames=Array(CHAPTERS.length).fill(0);
  state.chapterScores[ci]=(Number(state.chapterScores[ci])||0)+earned;
  state.chapterGames[ci]=(Number(state.chapterGames[ci])||0)+1;
+ if(!Array.isArray(state.adventureHistory))state.adventureHistory=[];
+ if(!state.adventureTotals || state.adventureTotals.schema!==1){
+  state.adventureTotals=newAdventureTotalsFromHistory(state.adventureHistory);
+ }
+ const comboSeries=Array.isArray(finishedGame.comboHistory)?finishedGame.comboHistory:[];
+ const comboCount=comboSeries.filter(c=>c.chain>=2||c.removed>=5).length;
+ const toolsUsed={...finishedGame.usedTools};
+ const totals=state.adventureTotals;
+ totals.alignments+=comboSeries.length;
+ totals.combos+=comboCount;
+ totals.comboTrackedGames++;
+ totals.toolsTrackedGames++;
+ Object.keys(totals.usedTools).forEach(k=>{
+  totals.usedTools[k]+=Math.max(0,Math.floor(Number(toolsUsed[k])||0));
+ });
+ state.adventureHistory.push({
+  at:new Date().toISOString(),level:finishedGame.level,chapter:ci,
+  won:!!finishedGame.victoryStarted,score:earned,
+  bonus:Math.max(0,Math.floor(Number(finishedGame.bonus)||0)),
+  movesUsed:Math.max(0,(finishedGame.startMoves||0)-(finishedGame.moves||0)),
+  stars:finishedGame.victoryStarted?calcStars():0,
+  replay:!!finishedGame.replayMode,
+  usedTools:toolsUsed,comboTracked:true,alignments:comboSeries.length,comboCount
+ });
+ if(state.adventureHistory.length>600)state.adventureHistory=state.adventureHistory.slice(-600);
  save();
 }
 function scoreFormat(n){return Math.max(0,Math.floor(Number(n)||0)).toLocaleString('fr-FR');}
@@ -1504,6 +1558,16 @@ async function winLevel(){
  const lastPlayable=level>=TOTAL_LEVELS;
  const nextLabel=lastPlayable?'📸 VOIR LA GALERIE':chapterFinal?`SUIVANT ➜ PALIER ${ci+2}`:`SUIVANT ➜ NIVEAU ${nextDestination}`;
  const nextAction=lastPlayable?'gallery':chapterFinal?'chapter-next':'open-level';
+ if(chapterFinal){
+   if(finished){
+    // 160e niveau : d’abord le score de CE niveau, puis le bilan des 160 niveaux,
+    // puis le générique sur deux clics Next distincts.
+    window.AngayaChronicles?.showLastLevelScore(finishedGame,{level,stars,reward,chapter:ci});
+   }else{
+    window.AngayaChronicles?.showPalierSummary(ci,{level,stars,reward,nextLevel:nextDestination,final:false});
+   }
+   return;
+ }
  const lootText=Object.values(foundBonus).some(Boolean)?`<div class="milestone">🎒 Bonus sauvés : ${Object.entries(foundBonus).filter(([,n])=>n).map(([key,n])=>SPECIAL_TOOLS[key].emoji+' ×'+n).join(' · ')}</div>`:'';
  showModal(`<div class="reveal-scroll">
    <div class="confetti"></div><div class="modal-big">${firstReveal?'🏆':'🎉'}</div>
@@ -1519,7 +1583,7 @@ async function winLevel(){
    ${firstReveal?'<p class="firework-caption">🎆 Bravo ! Les feux d’artifice continuent jusqu’à « Suivant ».</p>':''}
    ${firstReveal&&!finished?`<div class="milestone">🌟 Nouvelle mission débloquée !</div>`:''}
   </div>
-  <div class="reveal-actions victory-choice-actions" aria-label="Choisir après la victoire"><button type="button" class="primary-btn victory-next-btn next-mission-btn" data-action="${nextAction}" ${!lastPlayable?`data-level="${nextDestination}"`:''} aria-label="${lastPlayable?'Voir la galerie':chapterFinal?'Commencer le palier '+(ci+2):'Jouer le niveau '+nextDestination}">${nextLabel}</button><button type="button" class="victory-map-btn" data-action="map" aria-label="Quitter le niveau terminé et revenir à la carte au trésor">🗺️ CARTE AU TRÉSOR</button></div>`, 'reveal-modal');
+  <div class="reveal-actions victory-choice-actions" aria-label="Choisir après la victoire"><button type="button" class="primary-btn victory-next-btn next-mission-btn" data-action="${nextAction}" ${!lastPlayable?`data-level="${nextDestination}"`:''} aria-label="${lastPlayable?'Voir la galerie':chapterFinal?'Commencer le palier '+(ci+2):'Jouer le niveau '+nextDestination}">${nextLabel}</button></div>`, 'reveal-modal');
  if(firstReveal)startAngayaFireworks();
 }
 function showNextChapter(level){
@@ -1617,7 +1681,7 @@ document.addEventListener('keydown',event=>{
  if(currentParchment!==null&&event.key==='Escape'){event.preventDefault();event.stopPropagation();closeParchment('gallery');}
 });
 // Événements délégués (souris + tactile)
-document.addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;const action=btn.dataset.action;if(!action){if(btn.classList.contains('gem')&&Date.now()>suppressClickUntil)pickGem(Number(btn.dataset.index));return;}if(action==='ads-accept'){setAngayaAdsChoice(true);return;}if(action==='ads-refuse'){setAngayaAdsChoice(false);return;}if(action==='map-previous-level'){moveMapCursor(mapCursor()-1);return;}if(action==='map-next-level'){moveMapCursor(mapCursor()+1);return;}if(action==='select-map-level'){moveMapCursor(Number(btn.dataset.level));return;}if(action==='map-play-selected'){startLevel(mapCursor());return;}if(action==='chapter-next'){const target=Number(btn.dataset.level);showNextChapter(target);return;}if(action==='tutorial-next'){showTutorial(Number(document.querySelector('.tutorial-pagination .on')?.dataset.step||0)+1);return;}if(action==='tutorial-done'){state.tutorialV3Seen=true;state.tutorialV4Seen=true;state.tutorialSeen=true;save();closeModal();return;}if(action==='exit-level'){confirmExitLevel('map');return;}if(action==='confirm-exit-level'){confirmAbandonLevel();return;}if(action==='cancel-exit-level'){cancelAbandonLevel();return;}if(action==='home'||action==='map'||action==='gallery'||action==='settings'){setPage(action);return;}if(action==='play'){setPage('map');return;}if(action==='open-level'){startLevel(Number(btn.dataset.level));return;}if(action==='gallery-open'){showPlace(Number(btn.dataset.ci));return;}if(action==='parchment-return'){closeParchment('gallery');return;}if(action==='parchment-menu'){closeParchment('home');return;}if(action==='close-modal'){closeModal();return;}if(action==='pause'){showPause();return;}if(action==='retry'){startLevel(game.level);return;}if(action==='continue'||action==='next-mission'){if(isFinished())setPage('gallery');else startLevel(state.nextLevel);return;}if(action==='booster-shuffle'){shuffle();return;}if(action==='special-cancel'){cancelSpecial();return;}if(action==='special-launch'){launchSpecial();return;}if(action.startsWith('special-')){if(Date.now()<suppressToolbarClickUntil)return;toggleSpecial(action.slice(8));return;}if(action==='booster-cross'){if(!game||game.busy)return;game.booster=game.booster==='cross'?null:'cross';game.previewTarget=null;game.selected=null;renderBoard();toast(game.booster?'Choisis une case à faire exploser ☀️':'Bonus annulé');document.querySelector('[data-action=booster-cross]')?.classList.toggle('active',game.booster==='cross');return;}if(action==='hint'){giveHint();return;}if(action==='help'){showTutorial();return;}if(action==='credits'){showCredits();return;}if(action==='music'){state.music=!state.music;save();if(state.music)unlockSound();else stopMusic();render();toast(state.music?'Ambiance musicale activée 🎶':'Musique désactivée');return;}if(action==='sfx'){state.sfx=!state.sfx;save();render();syncNatureAmbience();if(state.sfx){primeEffects();snd('tap');}else stopArcadeSound();return;}if(action==='reset'){showModal(`<div class="modal-big">⚠️</div><h2>Recommencer à zéro ?</h2><p>Tous tes niveaux, tes puzzles révélés et tes pièces seront effacés sur cet appareil.</p><button class="primary-btn block" data-action="confirm-reset">Oui, recommencer</button><button class="secondary-btn" data-action="close-modal" style="margin-top:15px">Annuler</button>`);return;}if(action==='confirm-reset'){state=defaults();save();setPage('home');toast('Aventure réinitialisée');return;}});
+document.addEventListener('click',e=>{const btn=e.target.closest('button');if(!btn)return;const action=btn.dataset.action;if(!action){if(btn.classList.contains('gem')&&Date.now()>suppressClickUntil)pickGem(Number(btn.dataset.index));return;}if(action==='ads-accept'){setAngayaAdsChoice(true);return;}if(action==='ads-refuse'){setAngayaAdsChoice(false);return;}if(action==='map-previous-level'){moveMapCursor(mapCursor()-1);return;}if(action==='map-next-level'){moveMapCursor(mapCursor()+1);return;}if(action==='select-map-level'){moveMapCursor(Number(btn.dataset.level));return;}if(action==='map-play-selected'){startLevel(mapCursor());return;}if(action==='chapter-next'){const target=Number(btn.dataset.level);showNextChapter(target);return;}if(action==='tutorial-next'){showTutorial(Number(document.querySelector('.tutorial-pagination .on')?.dataset.step||0)+1);return;}if(action==='tutorial-done'){state.tutorialV3Seen=true;state.tutorialV4Seen=true;state.tutorialSeen=true;save();closeModal();return;}if(action==='exit-level'){confirmExitLevel('map');return;}if(action==='confirm-exit-level'){confirmAbandonLevel();return;}if(action==='cancel-exit-level'){cancelAbandonLevel();return;}if(action==='home'||action==='map'||action==='gallery'||action==='settings'||action==='profile'){setPage(action);return;}if(action==='play'){setPage('map');return;}if(action==='open-level'){startLevel(Number(btn.dataset.level));return;}if(action==='gallery-open'){showPlace(Number(btn.dataset.ci));return;}if(action==='parchment-return'){closeParchment('gallery');return;}if(action==='parchment-menu'){closeParchment('home');return;}if(action==='close-modal'){closeModal();return;}if(action==='pause'){showPause();return;}if(action==='retry'){startLevel(game.level);return;}if(action==='continue'||action==='next-mission'){if(isFinished())setPage('gallery');else startLevel(state.nextLevel);return;}if(action==='booster-shuffle'){shuffle();return;}if(action==='special-cancel'){cancelSpecial();return;}if(action==='special-launch'){launchSpecial();return;}if(action.startsWith('special-')){if(Date.now()<suppressToolbarClickUntil)return;toggleSpecial(action.slice(8));return;}if(action==='booster-cross'){if(!game||game.busy)return;game.booster=game.booster==='cross'?null:'cross';game.previewTarget=null;game.selected=null;renderBoard();toast(game.booster?'Choisis une case à faire exploser ☀️':'Bonus annulé');document.querySelector('[data-action=booster-cross]')?.classList.toggle('active',game.booster==='cross');return;}if(action==='hint'){giveHint();return;}if(action==='help'){showTutorial();return;}if(action==='credits'){showCredits();return;}if(action==='music'){state.music=!state.music;save();if(state.music)unlockSound();else stopMusic();render();toast(state.music?'Ambiance musicale activée 🎶':'Musique désactivée');return;}if(action==='sfx'){state.sfx=!state.sfx;save();render();syncNatureAmbience();if(state.sfx){primeEffects();snd('tap');}else stopArcadeSound();return;}if(action==='reset'){showModal(`<div class="modal-big">⚠️</div><h2>Recommencer à zéro ?</h2><p>Tous tes niveaux, tes puzzles révélés et tes pièces seront effacés sur cet appareil.</p><button class="primary-btn block" data-action="confirm-reset">Oui, recommencer</button><button class="secondary-btn" data-action="close-modal" style="margin-top:15px">Annuler</button>`);return;}if(action==='confirm-reset'){const playerName=state.username;state=defaults();state.username=playerName;save();setPage('home');toast('Aventure réinitialisée');return;}});
 
 // The yellow map trail itself is tappable, without visible grey/white button circles.
 document.addEventListener('click',event=>{

@@ -27,14 +27,21 @@
     return;
   }
 
-  auth.account.get().then(() => {
+  auth.account.get().then((user) => {
+    window.ANGAYA_PLAYER = {id: String(user.$id || ''), email: String(user.email || ''), name: String(user.name || '')};
     message.textContent = 'Bienvenue ! Chargement de votre aventure…';
     // Le moteur (et donc la musique / le brouillard) ne démarre pas avant l'authentification.
     const core = document.createElement('script');
     core.src = './angaya-game-core.js';
     core.onload = () => {
-      document.body.classList.remove('angaya-auth-loading');
-      gate.remove();
+      const extension = document.createElement('script');
+      extension.src = './angaya-chronicles.js';
+      extension.onload = () => {
+        document.body.classList.remove('angaya-auth-loading');
+        gate.remove();
+      };
+      extension.onerror = () => showFailure('Impossible de charger les chroniques du jeu. Rechargez la page.');
+      document.body.appendChild(extension);
       // Le jeu peut être lancé après DOMContentLoaded ; son écouteur window.load
       // d'origine peut avoir été installé trop tard, d'où cet enregistrement explicite.
       if ('serviceWorker' in navigator && location.protocol.startsWith('http')) {

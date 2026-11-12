@@ -1,0 +1,42 @@
+import threading, functools, http.server, time
+from pathlib import Path
+from playwright.sync_api import sync_playwright
+base=Path('/mnt/data/angaya_edit/jeu'); port=8765
+handler=functools.partial(http.server.SimpleHTTPRequestHandler,directory=str(base))
+server=http.server.ThreadingHTTPServer(('127.0.0.1',port),handler)
+threading.Thread(target=server.serve_forever,daemon=True).start()
+with sync_playwright() as p:
+ browser=p.chromium.launch(headless=True,executable_path='/usr/bin/chromium',args=['--no-sandbox','--disable-web-security','--autoplay-policy=no-user-gesture-required','--allow-file-access-from-files','--disable-features=BlockInsecurePrivateNetworkRequests'])
+ page=browser.new_page(viewport={'width':390,'height':844},device_scale_factor=1)
+ errors=[]
+ page.on('pageerror',lambda e:errors.append(str(e)))
+ page.goto('file:///mnt/data/angaya_edit/jeu/__test-fixture.html',wait_until='domcontentloaded',timeout=120000)
+ page.wait_for_function('window.AngayaChronicles !== undefined',timeout=30000)
+ print('Loaded, state',page.evaluate('({username:state.username,nextLevel:state.nextLevel,chapters:CHAPTERS.length, total:TOTAL_LEVELS})'))
+ # Fog intro controlled by audio and cloud, force finish for tests
+ page.evaluate("document.getElementById('angaya-fog-intro')?.remove()")
+ page.wait_for_timeout(100)
+ print('Name prompt:',page.locator('#angaya-name-prompt').count())
+ page.locator('#angaya-name-field').fill('Manoa Test')
+ page.locator('.angaya-name-start').click()
+ print('After name:',page.evaluate('state.username'))
+ page.locator('[data-action="profile"]').first.click()
+ print('Profile visible:',page.locator('.angaya-profile-hero').count(),page.locator('.angaya-profile-chapter').count())
+ page.screenshot(path='/mnt/data/angaya_edit/profile_test.png')
+ page.evaluate('''() => {state.nextLevel=5;state.chapterScores[0]=1280;state.chapterGames[0]=5;state.careerScore=1280;state.careerGames=5;state.adventureHistory=[{at:new Date().toISOString(),level:4,chapter:0,won:true,score:340,bonus:55,movesUsed:20,stars:3,replay:false,usedTools:{coconut:1,hint:1}}];save();setPage('home',true);window.AngayaChronicles.showPalierSummary(0,{level:4,stars:3,reward:70,nextLevel:5,final:false});}''')
+ print('Summary next buttons:',page.locator('.angaya-palier-summary button').count(), 'shown',page.locator('.angaya-sum-cover').count())
+ page.screenshot(path='/mnt/data/angaya_edit/summary_test.png')
+ page.locator('[data-action="angaya-next-chapter"]').click()
+ print('Next level',page.evaluate('game&&game.level'))
+ page.evaluate('''() => {state.nextLevel=TOTAL_LEVELS+1;state.careerScore=206300;state.careerGames=225;state.username='Manoa Test';window.AngayaChronicles.launchFinale();}''')
+ print('Cinema started?',page.locator('#angaya-cinema').count(),page.locator('.angaya-story-chapter').count())
+ page.screenshot(path='/mnt/data/angaya_edit/story_open_test.png')
+ page.locator('#angaya-cinema').click(position={'x':180,'y':420})
+ print('Cinema skip?',page.locator('.angaya-story-complete').count())
+ page.wait_for_timeout(3900)
+ print('Home visible?',page.locator('#angaya-cinema-home').is_visible())
+ page.screenshot(path='/mnt/data/angaya_edit/story_end_test.png')
+ page.locator('#angaya-cinema-home').click()
+ print('Cinema closed?',page.locator('#angaya-cinema').count(),'home',page.locator('.new-hero').count())
+ print('Console errors:',errors[:10]);browser.close()
+server.shutdown()
