@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<title>Connexion magique | ANGAYA CRUSH</title>
+<meta name="description" content="Connectez-vous à ANGAYA CRUSH par un lien magique envoyé par e-mail, sans mot de passe.">
+<style>
+:root{font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;color:#243a5e}
+*{box-sizing:border-box}
+body{margin:0;min-height:100svh;display:grid;place-items:center;overflow-x:hidden;
+ background:radial-gradient(ellipse at 49% 16%,#fff3be 0%,#d2e9ef 26%,#8fb8d7 52%,#5a80b2 82%,#354279 100%);padding:32px 15px}
+.angaya-fairy-sky{position:fixed;inset:0;pointer-events:none;overflow:hidden;z-index:0}
+.angaya-fairy-sky::before,.angaya-fairy-sky::after{content:"";position:absolute;inset:-12%;background-size:cover;background-repeat:no-repeat;opacity:.55}
+.angaya-fairy-sky::before{background-image:url('./assets/brouillard_nuages_1.webp');animation:driftLeft 26s ease-in-out infinite alternate}
+.angaya-fairy-sky::after{background-image:url('./assets/brouillard_nuages_2.webp');animation:driftRight 22s ease-in-out infinite alternate}
+@keyframes driftLeft{to{transform:translate(-8%,1%) scale(1.05)}}
+@keyframes driftRight{to{transform:translate(7%,-2%) scale(1.04)}}
+.angaya-spark{position:absolute;font-size:clamp(14px,2.5vw,26px);color:#fff8db;text-shadow:0 0 12px white,0 0 30px #ffdc90;animation:twinkle 3.2s ease-in-out infinite alternate}
+@keyframes twinkle{from{transform:translateY(8px) scale(.7);opacity:.25}to{transform:translateY(-10px) scale(1.1);opacity:.95}}
+.shell{position:relative;z-index:2;width:min(100%,430px)}
+.panel{padding:34px clamp(22px,5vw,38px) 27px;border-radius:27px;background:rgba(255,255,255,.90);
+ box-shadow:0 20px 70px rgba(23,43,83,.27);border:1px solid rgba(255,255,255,.8);text-align:center;backdrop-filter:blur(18px)}
+.emblem{font-size:42px;filter:drop-shadow(0 5px 8px #c4b2dd);margin-bottom:8px}
+h1{margin:0;color:#374c90;font-size:clamp(26px,6vw,34px);letter-spacing:.02em;line-height:1.1}
+.subtitle{margin:10px 0 23px;font-weight:650;color:#536b8c;font-size:13px;letter-spacing:.085em}
+.lead{line-height:1.63;font-size:15px;margin:12px 0 25px;color:#38506a}
+label{display:block;font-size:13px;font-weight:700;text-align:left;margin-bottom:8px}
+input{width:100%;border:1px solid #b7c8dc;border-radius:13px;padding:15px 14px;font-size:16px;outline:none;color:#26384f;background:#fff}
+input:focus{border-color:#7e69bc;box-shadow:0 0 0 3px rgba(126,105,188,.15)}
+button[type=submit]{width:100%;margin-top:14px;border:0;border-radius:13px;background:linear-gradient(135deg,#7357b4,#4b61bb);
+ color:#fff;padding:15px 13px;font-weight:750;font-size:15px;cursor:pointer;box-shadow:0 8px 20px #4c56a843}
+button[type=submit]:hover{filter:brightness(1.07)}button:disabled{opacity:.7;cursor:wait}
+.notice{font-size:13px;line-height:1.55;margin:16px 0 0;min-height:21px;color:#4b6282;overflow-wrap:anywhere}
+.notice[data-kind=error]{color:#a83c47}.notice[data-kind=success]{color:#196855;font-weight:600}
+.hint{margin:21px 0 0;color:#61718a;line-height:1.55;font-size:12px}
+.back{display:inline-block;margin:17px auto 0;padding:10px 14px;border-radius:12px;border:1px solid #cdd5e4;
+ color:#435782;background:rgba(255,255,255,.7);text-decoration:none;font-weight:700;font-size:13px}
+#angaya-retry{border:0;border-radius:11px;padding:9px 14px;background:#edf0fa;color:#495687;cursor:pointer}
+.spinner{margin:25px auto;height:32px;width:32px;border:3px solid #dae2ef;border-top-color:#8768b9;border-radius:50%;animation:spin .75s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+[hidden]{display:none!important}
+@media(prefers-reduced-motion:reduce){.angaya-fairy-sky::before,.angaya-fairy-sky::after,.angaya-spark{animation:none!important}}
+</style>
+<script src="https://cdn.jsdelivr.net/npm/appwrite@29.0.0" defer></script>
+<script src="./angaya-appwrite.js" defer></script>
+<script src="./angaya-login.js" defer></script>
+</head>
+<body>
+<div class="angaya-fairy-sky" aria-hidden="true">
+ <span class="angaya-spark" style="top:16%;left:16%;animation-delay:.2s">✦</span>
+ <span class="angaya-spark" style="top:28%;left:79%;animation-delay:1.4s">✧</span>
+ <span class="angaya-spark" style="top:69%;left:13%;animation-delay:2.5s">✧</span>
+ <span class="angaya-spark" style="top:83%;left:84%;animation-delay:.7s">✦</span>
+</div>
+<main class="shell">
+ <div class="panel">
+  <div class="emblem" aria-hidden="true">☀️✨</div>
+  <h1>ANGAYA CRUSH</h1>
+  <p class="subtitle">LES TRÉSORS DE MAHAJANGA</p>
+  <div id="angaya-checking" role="status" aria-live="polite">
+   <div class="spinner" aria-hidden="true"></div>
+   <p>Vérification de votre aventure…</p>
+  </div>
+  <div id="angaya-login-fields" hidden>
+   <p class="lead">Prêt à découvrir les trésors cachés de Mahajanga ? Entrez votre e-mail pour recevoir votre lien magique et commencer l’aventure, sans mot de passe.</p>
+   <form id="angaya-login-form">
+    <label for="angaya-email">Votre adresse e-mail</label>
+    <input id="angaya-email" type="email" placeholder="exemple@gmail.com" autocomplete="email" inputmode="email" required maxlength="254">
+    <button id="angaya-send" type="submit">✉️ Recevoir mon lien magique</button>
+   </form>
+   <p class="hint">Ouvrez le lien reçu dans votre e-mail. Il vous ramènera ici pour lancer ANGAYA CRUSH. Vérifiez aussi vos courriers indésirables.</p>
+  </div>
+  <p id="angaya-login-message" class="notice" role="status" aria-live="polite"></p>
+  <button id="angaya-retry" hidden type="button" onclick="location.reload()">Actualiser</button>
+ </div>
+ <div style="text-align:center"><a class="back" href="../index.html">← Retour à CVMemoire</a></div>
+</main>
+</body>
+</html>
